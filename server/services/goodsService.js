@@ -1,9 +1,14 @@
 import GoodsSchema from "../models/goods.js";
+import fileService from "../fileService/fileService.js";
 
 class GoodsService {
   // post
-  async postGoods(goods) {
-    const createdGoods = await GoodsSchema.create(goods);
+  async postGoods(goods, picture) {
+    const fileName = fileService.saveFile(picture);
+    const createdGoods = await GoodsSchema.create({
+      ...goods,
+      picture: fileName,
+    });
     return createdGoods;
   }
 
@@ -38,10 +43,11 @@ class GoodsService {
   }
 
   // delete
-  async deleteGoods(id) {
+  async deleteGoods(id, picture) {
     if (!id) {
       throw new Error("ID not found");
     }
+    // fileService.deleteFile(picture);
     const element = await GoodsSchema.findByIdAndDelete(id);
     return element;
   }

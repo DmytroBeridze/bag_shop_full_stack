@@ -1,13 +1,17 @@
 import GoodsSchema from "../models/goods.js";
+import AdminSchema from "../models/admin.js";
 import GoodsService from "../services/goodsService.js";
+import AdminService from "../services/adminService.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // post
 export const postGoods = async (req, res) => {
   try {
-    const goods = await GoodsService.postGoods(req.body);
+    const goods = await GoodsService.postGoods(req.body, req.files.picture);
     res.status(200).json(goods);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.massage);
   }
 };
 // export const postGoods = async (req, res) => {
@@ -30,7 +34,7 @@ export const getAllGoods = async (req, res) => {
     const allGoods = await GoodsService.getAllGoods();
     return res.json(allGoods);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.massage);
   }
 };
 // export const getAllGoods = async (req, res) => {
@@ -49,7 +53,7 @@ export const getGoodsId = async (req, res) => {
     const goodsId = await GoodsService.getGoodsId(id);
     return res.json(goodsId);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.massage);
   }
 };
 // export const getGoodsId = async (req, res) => {
@@ -73,7 +77,7 @@ export const putGoods = async (req, res) => {
     const updatedGoods = await GoodsService.putGoods(element);
     return res.json(updatedGoods);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 };
 
@@ -99,10 +103,11 @@ export const putGoods = async (req, res) => {
 export const deleteGoods = async (req, res) => {
   try {
     const { id } = req.params;
+
     const element = await GoodsService.deleteGoods(id);
     return res.json(element);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.massage);
   }
 };
 // export const deleteGoods = async (req, res) => {
@@ -117,3 +122,119 @@ export const deleteGoods = async (req, res) => {
 //     res.status(500).json(error);
 //   }
 // };
+
+// ADMIN
+// register
+export const adminRegister = async (req, res) => {
+  try {
+    const { name, password } = req.body;
+
+    // AdminService.adminRegister(name, password);
+    const user = await AdminService.adminRegister(name, password);
+    return res.json(user);
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+// export const adminRegister = async (req, res) => {
+//   try {
+//     const { name, password } = req.body;
+
+//     const isUsed = await AdminSchema.findOne({ name });
+
+//     if (isUsed) {
+//       return res.json({ message: "Username is taken" });
+//     }
+
+//     const salt = bcrypt.genSaltSync(10);
+//     const hash = bcrypt.hashSync(password, salt);
+//     const newUser = new AdminSchema({
+//       name,
+//       password: hash,
+//     });
+
+//     await newUser.save();
+//     res.json({
+//       newUser,
+//       message: "Registration successful",
+//     });
+//   } catch (error) {
+//     res.status(500).json("Error Registration");
+//   }
+// };
+
+//! ----------------------
+// login
+export const adminLogin = async (req, res) => {
+  try {
+    const { name, password } = req.body;
+
+    const user = await AdminService.adminLogin(name, password);
+    // console.log(user);
+
+    res.json({
+      ...user,
+    });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+//! ----------------------
+// export const adminLogin = async (req, res) => {
+//   try {
+//     const { username, password } = req.body;
+//     const user = await AdminSchema.findOne({ username });
+//     console.log(user);
+
+//     if (!user) {
+//       return res.json({ message: "User does non exist" });
+//     }
+
+//     const isPasswordCorrect = await bcrypt.compare(password, user.password);
+//     if (!isPasswordCorrect) {
+//       return res.json({
+//         message: "Wrong password",
+//       });
+//     }
+//     const token = jwt.sign(
+//       {
+//         id: user._id,
+//       },
+//       process.env.JWT_SECRET
+//       // {expiresIn:"30d"}
+//     );
+//     res.json({
+//       token,
+//       user,
+//       message: "You are logged in",
+//     });
+//   } catch (error) {
+//     res.status(500).json("Error login");
+//   }
+// };
+
+// get me
+export const getMe = async (req, res) => {
+  try {
+    const user = await AdminService.findById(req.userId);
+    if (!user) {
+      return res.json({
+        message: "User not found",
+      });
+    }
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.JWT_SECRET
+      // {expiresIn:"30d"}
+    );
+
+    res.json({
+      user,
+      token,
+    });
+  } catch (error) {
+    res.status(500).json("No access");
+  }
+};
