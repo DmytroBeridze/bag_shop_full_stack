@@ -165,63 +165,46 @@ export const adminRegister = async (req, res) => {
 
 //! ----------------------
 // login
-export const adminLogin = async (req, res) => {
-  try {
-    const { name, password } = req.body;
-
-    const user = await AdminService.adminLogin(name, password);
-    // console.log(user);
-
-    res.json({
-      ...user,
-    });
-  } catch (error) {
-    res.status(500).json(error.message);
-  }
-};
-//! ----------------------
 // export const adminLogin = async (req, res) => {
 //   try {
-//     const { username, password } = req.body;
-//     const user = await AdminSchema.findOne({ username });
-//     console.log(user);
+//     const { name, password } = req.body;
 
-//     if (!user) {
+//     const data = await AdminService.adminLogin(name, password);
+
+//     if (!data.user) {
 //       return res.json({ message: "User does non exist" });
 //     }
 
-//     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-//     if (!isPasswordCorrect) {
+//     if (!data.isPasswordCorrect) {
 //       return res.json({
 //         message: "Wrong password",
 //       });
 //     }
-//     const token = jwt.sign(
-//       {
-//         id: user._id,
-//       },
-//       process.env.JWT_SECRET
-//       // {expiresIn:"30d"}
-//     );
+
 //     res.json({
-//       token,
-//       user,
-//       message: "You are logged in",
+//       ...data,
 //     });
 //   } catch (error) {
-//     res.status(500).json("Error login");
+//     res.status(500).json({ message: "Error login" });
 //   }
 // };
-
-// get me
-export const getMe = async (req, res) => {
+//! ----------------------
+export const adminLogin = async (req, res) => {
   try {
-    const user = await AdminService.findById(req.userId);
+    const { name, password } = req.body;
+    const user = await AdminSchema.findOne({ name });
+
     if (!user) {
+      return res.json({ message: "User does not exist" });
+    }
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
       return res.json({
-        message: "User not found",
+        message: "Wrong password",
       });
     }
+
     const token = jwt.sign(
       {
         id: user._id,
@@ -229,7 +212,34 @@ export const getMe = async (req, res) => {
       process.env.JWT_SECRET
       // {expiresIn:"30d"}
     );
+    res.json({
+      token,
+      user,
+      message: "You are logged in",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error login" });
+  }
+};
 
+// get me
+export const getMe = async (req, res) => {
+  try {
+    const user = await AdminSchema.findById(req.userId);
+    // const user = await AdminService.findById(req.userId);
+    if (!user) {
+      return res.json({
+        message: "User not found",
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.JWT_SECRET
+      // {expiresIn:"30d"}
+    );
     res.json({
       user,
       token,

@@ -10,6 +10,14 @@ const GoodsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  picture: { type: String },
+  imgUrl: { type: String, default: "" },
+  mainType: { type: String, required: true },
+  type: { type: String, required: true },
+  sale: { type: String },
+  featured: { type: String },
+  new: { type: String },
+  promo: { type: String },
+  matherial: { type: String },
+  views: { type: Number, default: 0 },
 });
 export default mongoose.model("Goods", GoodsSchema);

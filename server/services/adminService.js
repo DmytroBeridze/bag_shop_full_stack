@@ -21,17 +21,20 @@ class AdminService {
     await newUser.save();
     return newUser;
   }
-
+  // !------------------------------
   async adminLogin(name, password) {
     const user = await AdminSchema.findOne({ name });
-    if (!user) {
-      throw new Error("User does not exist");
-    }
+
+    // if (!user) {
+    //   throw new Error("User does not exist");
+    // }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if (!isPasswordCorrect) {
-      throw new Error("Wrong password");
-    }
+
+    // if (!isPasswordCorrect) {
+    //   throw new Error("Wrong password");
+    // }
+
     const token = jwt.sign(
       {
         id: user._id,
@@ -40,7 +43,8 @@ class AdminService {
       // {expiresIn:"30d"}
     );
 
-    return { token, user, message: "You are logged in" };
+    return { token, user, isPasswordCorrect, message: "You are logged in" };
   }
+  // !--------------------------
 }
 export default new AdminService();
