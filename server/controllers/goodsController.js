@@ -223,6 +223,19 @@ export const adminLogin = async (req, res) => {
 };
 
 // get me
+// export const getMe = async (req, res) => {
+//   try {
+//     const user = await AdminSchema.findById(req.userId);
+//     // const user = await AdminService.findById(req.userId);
+
+//     res.json({
+//       user: "test",
+//     });
+//   } catch (error) {
+//     res.status(500).json("No access");
+//   }
+// };
+
 export const getMe = async (req, res) => {
   try {
     const user = await AdminSchema.findById(req.userId);
