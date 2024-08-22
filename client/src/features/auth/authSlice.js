@@ -8,6 +8,7 @@ const initialState = {
   status: null,
 };
 
+// login
 export const loginFetch = createAsyncThunk("auth/loginFetch", async (value) => {
   const { adminRequest } = useHttp();
   const { data } = await adminRequest(
@@ -32,6 +33,7 @@ export const loginFetch = createAsyncThunk("auth/loginFetch", async (value) => {
 // getMe
 export const getMe = createAsyncThunk("auth/getMe", async () => {
   const { adminRequest } = useHttp();
+
   const { data } = await adminRequest(
     "http://localhost:3002/api/auth/admin/me",
     "get"

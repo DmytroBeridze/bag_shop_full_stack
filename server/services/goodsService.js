@@ -4,7 +4,16 @@ import fileService from "../fileService/fileService.js";
 class GoodsService {
   // post
   async postGoods(goods, picture) {
-    const fileName = fileService.saveFile(picture);
+    const modifiedPicture = Array.isArray(picture) ? picture : [picture];
+
+    const { name } = goods;
+    const isUsed = await GoodsSchema.findOne({ name });
+    if (isUsed) {
+      throw new Error("This name already exists");
+    }
+
+    const fileName = fileService.saveFile(modifiedPicture);
+    // const fileName = fileService.saveFile(picture);
     const createdGoods = await GoodsSchema.create({
       ...goods,
       picture: fileName,

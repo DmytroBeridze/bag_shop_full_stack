@@ -6,12 +6,11 @@ const useHttp = () => {
     method = "get",
     body = null,
     headers = {
+      // "Content-type": "multipart/form-data",
       "Content-Type": "application/json",
       Authorization: `Bearer ${window.localStorage.getItem("token")}`,
     }
   ) => {
-    // console.log(body);
-
     try {
       const adminResponse = await axios({
         method,

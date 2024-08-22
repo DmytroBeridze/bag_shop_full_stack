@@ -4,16 +4,44 @@ import GoodsService from "../services/goodsService.js";
 import AdminService from "../services/adminService.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import fileService from "../fileService/fileService.js";
 
 // post
 export const postGoods = async (req, res) => {
+  //  const user = await AdminSchema.findById(req.userId);
+  console.log("qqqqq", req.files);
+
   try {
-    const goods = await GoodsService.postGoods(req.body, req.files.picture);
-    res.status(200).json(goods);
+    const goods = await GoodsService.postGoods(req.body, req.files?.picture);
+    console.log("!!!", goods);
+
+    res.status(200).json({ message: "Goods created", goods });
   } catch (error) {
-    res.status(500).json(error.massage);
+    res.json({ message: error.message });
   }
 };
+
+// export const postGoods = async (req, res) => {
+//   try {
+//     const { name, description, mainType, type } = req.body;
+//     const isUsed = await GoodsSchema.findOne({ name });
+//     if (isUsed) {
+//       return res.json({ message: "This name already exists" });
+//     }
+
+//     const fileName = fileService.saveFile(req.files?.picture);
+
+//     const goods = await GoodsSchema.create({
+//       ...req.body,
+//       picture: fileName,
+//     });
+
+//     res.status(200).json({ message: "Goods created", goods });
+//   } catch (error) {
+//     res.status(500).json(error.message);
+//   }
+// };
+
 // export const postGoods = async (req, res) => {
 //   try {
 //     const { name } = req.body;

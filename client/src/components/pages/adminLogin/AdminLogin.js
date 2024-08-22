@@ -5,12 +5,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { Link, useNavigate } from "react-router-dom";
-import useHttp from "../../../hooks/http.hooks";
 import { loginFetch } from "../../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import toastPopupService from "../../../services/toastPopupService";
 
 const AdminLogin = () => {
   const [validated, setValidated] = useState(false);
@@ -18,11 +18,6 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const data = {
-  //   name,
-  //   password,
-  // };
 
   const { token, status } = useSelector((state) => state.authReducer);
 
@@ -43,7 +38,8 @@ const AdminLogin = () => {
 
   useEffect(() => {
     if (status) {
-      toastPopup();
+      toastPopupService(status);
+      // toastPopup();
     }
     if (token) {
       navigate("/admin/panel");
