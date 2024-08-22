@@ -4,7 +4,12 @@ import fileService from "../fileService/fileService.js";
 class GoodsService {
   // post
   async postGoods(goods, picture) {
-    const modifiedPicture = Array.isArray(picture) ? picture : [picture];
+    const modifiedPicture = picture
+      ? Array.isArray(picture)
+        ? picture
+        : [picture]
+      : null;
+    // const modifiedPicture = Array.isArray(picture) ? picture : [picture];
 
     const { name } = goods;
     const isUsed = await GoodsSchema.findOne({ name });

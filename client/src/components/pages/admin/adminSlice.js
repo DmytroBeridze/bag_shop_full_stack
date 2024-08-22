@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const addGoods = createAsyncThunk("admin/addGoods", async (body) => {
-  console.log("O", Object.fromEntries(body));
+  console.log(Object.fromEntries(body));
 
   const { adminRequest } = useHttp();
   const { data } = await adminRequest(
@@ -45,8 +45,6 @@ const adminSlice = createSlice({
         };
       })
       .addCase(addGoods.fulfilled, (state, action) => {
-        console.log(action);
-
         return {
           ...state,
           isLoading: false,

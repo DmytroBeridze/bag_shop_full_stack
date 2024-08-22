@@ -9,11 +9,10 @@ import fileService from "../fileService/fileService.js";
 // post
 export const postGoods = async (req, res) => {
   //  const user = await AdminSchema.findById(req.userId);
-  console.log("qqqqq", req.files);
 
   try {
     const goods = await GoodsService.postGoods(req.body, req.files?.picture);
-    console.log("!!!", goods);
+    // console.log("!!!", goods);
 
     res.status(200).json({ message: "Goods created", goods });
   } catch (error) {

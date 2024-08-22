@@ -19,7 +19,18 @@ const GoodsSchema = new mongoose.Schema(
     featured: { type: String },
     new: { type: String },
     promo: { type: String },
-    matherial: { type: String },
+    // matherial: { type: String },
+
+    parameters: {
+      type: Object,
+      color: { type: String },
+      height: { type: String },
+      width: { type: String },
+      length: { type: String },
+      weight: { type: String },
+      price: { type: String, required: true },
+    },
+
     views: { type: Number, default: 0 },
   },
   { timestamps: true }

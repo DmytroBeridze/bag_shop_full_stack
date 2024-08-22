@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from "uuid";
 import * as path from "path";
 class FileService {
   saveFile(file) {
-    // console.log(file);
     try {
       if (file) {
         // !------many-pictures---------
