@@ -5,14 +5,9 @@ const initialState = {
   name: null,
   isLoading: false,
   status: null,
-  //   description: null,
-  //   mainType: null,
-  //   type: null,
 };
 
 export const addGoods = createAsyncThunk("admin/addGoods", async (body) => {
-  console.log(Object.fromEntries(body));
-
   const { adminRequest } = useHttp();
   const { data } = await adminRequest(
     "http://localhost:3002/api/goods",

@@ -1,0 +1,12 @@
+.display-goods {
+  &__id {
+    width: 10%;
+  }
+  &__name {
+    width: 15%;
+  }
+  &__description,
+  &__pictures {
+    width: 30%;
+  }
+}
