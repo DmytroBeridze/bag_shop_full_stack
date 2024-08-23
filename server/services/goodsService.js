@@ -23,6 +23,7 @@ class GoodsService {
       ...goods,
       picture: fileName,
     });
+
     return createdGoods;
   }
 

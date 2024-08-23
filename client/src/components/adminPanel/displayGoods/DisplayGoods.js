@@ -2,8 +2,13 @@ import "./displayGoods.scss";
 
 import React from "react";
 import Table from "react-bootstrap/Table";
+import { useSelector } from "react-redux";
+import { json } from "react-router-dom";
+import NoImage from "../noImage/NoImage";
 
 const DisplayGoods = () => {
+  const { goods } = useSelector((state) => state.adminReducer);
+
   return (
     <section className="w-100  display-goods ">
       <h2 className="mb-3">Added goods</h2>
@@ -20,7 +25,46 @@ const DisplayGoods = () => {
         </thead>
 
         <tbody>
-          {/* <tr>
+          {goods.map(({ name, ...args }) => {
+            return <View key={name} name={name} {...args} />;
+          })}
+        </tbody>
+      </Table>
+    </section>
+  );
+};
+
+const View = ({ name, ...args }) => {
+  const { description, picture, parameters, _id } = args;
+  const { price } = JSON.parse(parameters);
+  return (
+    <tr>
+      <td className="table__id-wrapper">
+        <div className="table__id">{_id}</div>
+      </td>
+      <td className="table__id-name">{name}</td>
+      <td>
+        <div className="table__id-description">{description}</div>
+      </td>
+
+      <td>
+        {picture ? (
+          picture.map((elem, i) => <img src={elem} alt={name} key={i} />)
+        ) : (
+          <NoImage />
+        )}
+      </td>
+
+      <td>{price}</td>
+      <td>@mdo</td>
+    </tr>
+  );
+};
+
+export default DisplayGoods;
+
+{
+  /* <tr>
             <td>1</td>
             <td>Mark</td>
             <td>Otto</td>
@@ -36,11 +80,5 @@ const DisplayGoods = () => {
             <td>3</td>
             <td colSpan={2}>Larry the Bird</td>
             <td>@twitter</td>
-          </tr> */}
-        </tbody>
-      </Table>
-    </section>
-  );
-};
-
-export default DisplayGoods;
+          </tr> */
+}

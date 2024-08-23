@@ -2,11 +2,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import useHttp from "../../../hooks/http.hooks";
 
 const initialState = {
-  name: null,
+  goods: [],
   isLoading: false,
   status: null,
 };
 
+// add goods
 export const addGoods = createAsyncThunk("admin/addGoods", async (body) => {
   const { adminRequest } = useHttp();
   const { data } = await adminRequest(
@@ -16,6 +17,13 @@ export const addGoods = createAsyncThunk("admin/addGoods", async (body) => {
     { "Content-type": "multipart/form-data" }
   );
 
+  return data;
+});
+
+// get goods
+export const getGoods = createAsyncThunk("admin/getGoods", async () => {
+  const { adminRequest } = useHttp();
+  const { data } = await adminRequest("http://localhost:3002/api/goods");
   return data;
 });
 
@@ -31,6 +39,7 @@ const adminSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // add goods
     builder
       .addCase(addGoods.pending, (state) => {
         return {
@@ -52,6 +61,31 @@ const adminSlice = createSlice({
           ...state,
           isLoading: false,
           status: action.error.message,
+        };
+      });
+
+    // get goods
+    builder
+      .addCase(getGoods.pending, (state) => {
+        return {
+          ...state,
+          isLoading: true,
+          status: null,
+        };
+      })
+      .addCase(getGoods.fulfilled, (state, action) => {
+        return {
+          ...state,
+          isLoading: false,
+          goods: action.payload,
+          status: null,
+        };
+      })
+      .addCase(getGoods.rejected, (state, action) => {
+        return {
+          ...state,
+          isLoading: false,
+          status: action.payload,
         };
       });
   },

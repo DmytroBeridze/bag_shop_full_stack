@@ -1,12 +1,33 @@
 .display-goods {
   &__id {
-    width: 10%;
+    // max-width: 50px;
+    // border: 1px solid red;
   }
   &__name {
-    width: 15%;
+    // width: 15%;
   }
   &__description,
   &__pictures {
     width: 30%;
+  }
+}
+.table {
+  &__id-wrapper {
+    width: 80px;
+    padding-bottom: 0 !important;
+  }
+  &__id {
+    // padding: 10px;
+    overflow-x: auto;
+    max-width: 80px;
+    height: 158px;
+  }
+  &__id-name {
+    overflow-x: auto;
+    max-width: 100px;
+  }
+  &__id-description {
+    overflow-y: auto;
+    max-height: 150px;
   }
 }

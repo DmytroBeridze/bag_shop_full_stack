@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import toastPopupService from "../../../services/toastPopupService";
 import { checkIsAuth, getMe, logout } from "../../../features/auth/authSlice";
-import { clearStatus } from "../../pages/admin/adminSlice";
+import { clearStatus, getGoods } from "../../pages/admin/adminSlice";
 
 import AddGoodsForm from "../../adminPanel/addGoodsForm/AddGoodsForm";
 import DisplayGoods from "../../adminPanel/displayGoods/DisplayGoods";
@@ -18,7 +18,9 @@ const Admin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuth = useSelector(checkIsAuth);
-  const { status, isLoading } = useSelector((state) => state.adminReducer);
+  const { status, goods, isLoading } = useSelector(
+    (state) => state.adminReducer
+  );
 
   useEffect(() => {
     dispatch(getMe());
@@ -33,6 +35,13 @@ const Admin = () => {
   useEffect(() => {
     toastPopupService(status);
   }, [status]);
+
+  useEffect(() => {
+    dispatch(getGoods());
+  }, []);
+  useEffect(() => {
+    dispatch(getGoods());
+  }, [goods]);
 
   const logoutHandler = () => {
     dispatch(logout());
