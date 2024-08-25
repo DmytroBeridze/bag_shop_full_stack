@@ -1,12 +1,27 @@
 .goods {
+  position: fixed;
+  top: 135px;
+  right: 40px;
+  bottom: 0;
+  width: 600px;
+  max-width: clamp(12.5rem, 7.5rem + 25vw, 37.5rem);
+  overflow-x: scroll;
+  padding: 20px;
+  @media (max-width: 1000px) {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+  }
   &__params {
-    max-width: 90px;
+    max-width: 80px;
   }
   &__buttons_submit {
     margin-right: 5px;
   }
   &__params_feedback {
-    max-width: 90px;
-    // line-height: 15px;
+    max-width: 80px;
   }
 }
+// .test {
+//   max-width: 80px;
+// }

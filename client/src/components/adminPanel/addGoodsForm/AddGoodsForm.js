@@ -87,8 +87,15 @@ const AddGoodsForm = () => {
         ? picture.map((elem) => formData.append("picture", elem))
         : formData.append("picture", null);
 
+      // !----------Promis?----------------------------------
       dispatch(addGoods(formData));
 
+      // new Promise((resolve, reject) => {
+      //   resolve(dispatch(addGoods(formData)));
+      //   reject((e) => console.log(e.message));
+      // }).then(() => dispatch(getGoods()));
+
+      // !--------------------------------------------
       // clear form after submit
       setName("");
       photoInput.current.value = "";
@@ -103,7 +110,8 @@ const AddGoodsForm = () => {
   };
 
   return (
-    <section className="d-flex flex-column col-4">
+    <section className="d-flex flex-column  goods">
+      <div className=""></div>
       <h2 className="mb-3">Add goods</h2>
       <Form
         noValidate

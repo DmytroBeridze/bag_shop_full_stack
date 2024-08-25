@@ -23,6 +23,7 @@ export const addGoods = createAsyncThunk("admin/addGoods", async (body) => {
 // get goods
 export const getGoods = createAsyncThunk("admin/getGoods", async () => {
   const { adminRequest } = useHttp();
+  // TODO----Якщо не деструктурувати респонс, а повертати adminRequest, то помилка "A non-serializeble value was detected in action "
   const { data } = await adminRequest("http://localhost:3002/api/goods");
   return data;
 });

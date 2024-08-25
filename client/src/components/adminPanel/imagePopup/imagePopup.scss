@@ -1,0 +1,42 @@
+.imgPopup {
+  width: 300px;
+  height: 325px;
+  background-color: rgb(103, 103, 101);
+  position: fixed;
+  top: 35%;
+  right: -295px;
+  bottom: 0;
+  border-radius: 8px;
+  transition: right 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  @media (max-width: 1000px) {
+    top: 5%;
+  }
+  @media (max-width: 645px) {
+    display: none;
+  }
+
+  &.open {
+    right: -10px;
+  }
+  &__wrapper {
+    width: 290px;
+    height: 290px;
+    margin-left: 5px;
+  }
+  &__close {
+    font-size: 20px;
+    color: rgb(207, 221, 234);
+    margin: 5px;
+    cursor: pointer;
+    &:hover {
+      color: rgb(252, 254, 255);
+    }
+  }
+}

@@ -22,19 +22,19 @@ const AdminLogin = () => {
   const { token, status } = useSelector((state) => state.authReducer);
 
   // popup style
-  let toastPopup = null;
-  switch (status) {
-    case "Wrong password":
-    case "User does not exist":
-      toastPopup = () => toast.error(status, { position: "bottom-right" });
-      break;
-    case "You are logged in":
-      toastPopup = () => toast.success(status, { position: "bottom-right" });
-      break;
-    default:
-      toastPopup = () => toast.info(status, { position: "bottom-right" });
-      break;
-  }
+  // let toastPopup = null;
+  // switch (status) {
+  //   case "Wrong password":
+  //   case "User does not exist":
+  //     toastPopup = () => toast.error(status, { position: "bottom-right" });
+  //     break;
+  //   case "You are logged in":
+  //     toastPopup = () => toast.success(status, { position: "bottom-right" });
+  //     break;
+  //   default:
+  //     toastPopup = () => toast.info(status, { position: "bottom-right" });
+  //     break;
+  // }
 
   useEffect(() => {
     if (status) {

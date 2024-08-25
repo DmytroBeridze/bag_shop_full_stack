@@ -17,13 +17,15 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/admin/panel" element={<Admin />} />
-        <Route path="/admin" element={<AdminLogin />} />
-      </Routes>
-      <ToastContainer autoClose={5000} />
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/admin/panel" element={<Admin />} />
+          <Route path="/admin" element={<AdminLogin />} />
+        </Routes>
+        <ToastContainer autoClose={5000} />
+      </div>
     </>
   );
 }
