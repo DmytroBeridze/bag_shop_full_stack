@@ -39,7 +39,6 @@ const AdminLogin = () => {
   useEffect(() => {
     if (status) {
       toastPopupService(status);
-      // toastPopup();
     }
     if (token) {
       navigate("/admin/panel");

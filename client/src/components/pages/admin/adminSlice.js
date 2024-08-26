@@ -28,6 +28,24 @@ export const getGoods = createAsyncThunk("admin/getGoods", async () => {
   return data;
 });
 
+// delete goods
+export const deleteGoods = createAsyncThunk(
+  "admin/deleteGoods",
+  async (body) => {
+    const { id } = Object.fromEntries(body);
+
+    const { adminRequest } = useHttp();
+    const { data } = await adminRequest(
+      `http://localhost:3002/api/goods/${id}`,
+      "delete",
+      body
+      // TODO---Чому не передається body, якщо "Content-type": "multipart/form-data", хоча з DisplayGoods.js я формую formdata
+      // { "Content-type": "multipart/form-data" }
+    );
+    return data;
+  }
+);
+
 const adminSlice = createSlice({
   name: "admin",
   initialState,
@@ -39,6 +57,7 @@ const adminSlice = createSlice({
       };
     },
   },
+
   extraReducers: (builder) => {
     // add goods
     builder
@@ -83,6 +102,30 @@ const adminSlice = createSlice({
         };
       })
       .addCase(getGoods.rejected, (state, action) => {
+        return {
+          ...state,
+          isLoading: false,
+          status: action.payload,
+        };
+      })
+
+      // delete goods
+      .addCase(deleteGoods.pending, (state) => {
+        return {
+          ...state,
+          isLoading: false,
+          status: null,
+        };
+      })
+      .addCase(deleteGoods.fulfilled, (state, action) => {
+        return {
+          ...state,
+          // goods: action.payload.goods,
+          isLoading: false,
+          status: action.payload.message,
+        };
+      })
+      .addCase(deleteGoods.rejected, (state, action) => {
         return {
           ...state,
           isLoading: false,

@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 
-import { addGoods, getGoods } from "../../pages/admin/adminSlice";
+import { addGoods } from "../../pages/admin/adminSlice";
 
 const AddGoodsForm = () => {
   const [validated, setValidated] = useState(false);

@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 import * as path from "path";
+import fs from "fs";
+
 class FileService {
   saveFile(file) {
     try {
@@ -38,13 +40,26 @@ class FileService {
   // }
 
   deleteFile(fileName) {
+    const arrFilenames = JSON.parse(fileName);
+    console.log();
+
     try {
-      const filePath = path.resolve("static", fileName);
-      file.rm(filePath);
+      arrFilenames &&
+        arrFilenames.map((elem) => fs.unlinkSync(`static/${elem}`));
+      // fs.unlinkSync("static/f3e61777-fb45-46d9-a04b-11a8b5b7b886.jpg");
     } catch (error) {
       console.log(error);
     }
   }
+
+  // deleteFile(fileName) {
+  //   try {
+  //     const filePath = path.resolve("static", fileName);
+  //     file.rm(filePath);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 }
 
 export default new FileService();

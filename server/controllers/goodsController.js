@@ -127,13 +127,20 @@ export const putGoods = async (req, res) => {
 
 // delete
 export const deleteGoods = async (req, res) => {
+  // console.log(req.body);
+
   try {
     const { id } = req.params;
-
-    const element = await GoodsService.deleteGoods(id);
-    return res.json(element);
+    const { picture } = req.body;
+    // await GoodsService.deleteGoods(id);
+    const element = await GoodsService.deleteGoods(id, picture);
+    return res.json({
+      goods: element,
+      message: `Goods id: ${id} deleted`,
+    });
   } catch (error) {
-    res.status(500).json(error.massage);
+    // res.status(500).json(error.massage);
+    res.json(error.massage);
   }
 };
 // export const deleteGoods = async (req, res) => {

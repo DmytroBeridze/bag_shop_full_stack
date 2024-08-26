@@ -60,9 +60,9 @@ class GoodsService {
   // delete
   async deleteGoods(id, picture) {
     if (!id) {
-      throw new Error("ID not found");
+      throw new Error("Such product does not exist");
     }
-    // fileService.deleteFile(picture);
+    fileService.deleteFile(picture);
     const element = await GoodsSchema.findByIdAndDelete(id);
     return element;
   }
