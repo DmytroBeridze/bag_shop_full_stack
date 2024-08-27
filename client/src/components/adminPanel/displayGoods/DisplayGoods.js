@@ -116,7 +116,7 @@ const View = ({
           >
             <FiTrash2 size={"23px"} />
           </div>
-          <div className="table__edit ">
+          <div className="table__edit">
             <GrEdit size={"20px"} />
           </div>
         </div>

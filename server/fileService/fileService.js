@@ -41,7 +41,6 @@ class FileService {
 
   deleteFile(fileName) {
     // const arrFilenames = JSON.parse(fileName);
-    console.log();
 
     try {
       fileName && fileName.map((elem) => fs.unlinkSync(`static/${elem}`));

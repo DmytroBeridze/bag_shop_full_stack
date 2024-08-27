@@ -9,7 +9,6 @@ import fileService from "../fileService/fileService.js";
 // post
 export const postGoods = async (req, res) => {
   //  const user = await AdminSchema.findById(req.userId);
-  console.log("!!!", req.body);
   try {
     const goods = await GoodsService.postGoods(req.body, req.files?.picture);
 
@@ -127,12 +126,8 @@ export const putGoods = async (req, res) => {
 
 // delete
 export const deleteGoods = async (req, res) => {
-  console.log(req);
-
   try {
     const { id } = req.params;
-    console.log(id);
-
     const { picture } = req.body;
     // await GoodsService.deleteGoods(id);
     const element = await GoodsService.deleteGoods(id, picture);
