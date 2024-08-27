@@ -23,6 +23,7 @@ const Admin = () => {
   // img popup
   const [imgSrc, setImgSrc] = useState("");
   const [activeClass, setActiveClass] = useState(false);
+  const [openCoef, setOpenCoef] = useState(true);
 
   const { status } = useSelector((state) => state.adminReducer);
 
@@ -54,11 +55,24 @@ const Admin = () => {
 
   // popup modal
   const imageModal = (e) => {
-    setImgSrc(e.src);
-    setActiveClass(true);
+    // при першому натисканні без затримки
+    if (openCoef) {
+      setActiveClass(true);
+      setImgSrc(e.src);
+      setOpenCoef(false);
+    } else {
+      // при не перших натисканнях з затримкою
+      setActiveClass(false);
+      setTimeout(() => {
+        setActiveClass(true);
+        setImgSrc(e.src);
+      }, 300);
+    }
   };
+
   const closeModal = () => {
     setActiveClass(false);
+    setOpenCoef(true);
   };
 
   return (
