@@ -40,13 +40,13 @@ class FileService {
   // }
 
   deleteFile(fileName) {
-    const arrFilenames = JSON.parse(fileName);
+    // const arrFilenames = JSON.parse(fileName);
     console.log();
 
     try {
-      arrFilenames &&
-        arrFilenames.map((elem) => fs.unlinkSync(`static/${elem}`));
-      // fs.unlinkSync("static/f3e61777-fb45-46d9-a04b-11a8b5b7b886.jpg");
+      fileName && fileName.map((elem) => fs.unlinkSync(`static/${elem}`));
+      // arrFilenames &&
+      //   arrFilenames.map((elem) => fs.unlinkSync(`static/${elem}`));
     } catch (error) {
       console.log(error);
     }

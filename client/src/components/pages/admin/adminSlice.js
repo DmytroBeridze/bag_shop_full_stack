@@ -32,7 +32,8 @@ export const getGoods = createAsyncThunk("admin/getGoods", async () => {
 export const deleteGoods = createAsyncThunk(
   "admin/deleteGoods",
   async (body) => {
-    const { id } = Object.fromEntries(body);
+    // const { id } = Object.fromEntries(body);
+    const { id } = body;
 
     const { adminRequest } = useHttp();
     const { data } = await adminRequest(

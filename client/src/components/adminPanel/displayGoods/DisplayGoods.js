@@ -66,9 +66,14 @@ const View = ({
   const { description, picture, parameters, _id } = args;
   const { price } = JSON.parse(parameters);
 
-  const formData = new FormData();
-  formData.append("id", _id);
-  formData.append("picture", JSON.stringify(picture));
+  // const formData = new FormData();
+  // formData.append("id", _id);
+  // formData.append("picture", JSON.stringify(picture));
+
+  const deleteData = {
+    id: _id,
+    picture,
+  };
 
   return (
     <tr>
@@ -106,7 +111,8 @@ const View = ({
         <div className=" d-flex flex-column  align-items-center gap-2">
           <div
             className="table__delete "
-            onClick={() => dispatch(deleteGoods(formData))}
+            onClick={() => dispatch(deleteGoods(deleteData))}
+            // onClick={() => dispatch(deleteGoods(formData))}
           >
             <FiTrash2 size={"23px"} />
           </div>
