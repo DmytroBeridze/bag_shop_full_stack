@@ -2,8 +2,9 @@ import express, { json } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import GoodsSchema from "./models/goods.js";
 import router from "./routs/goodsRout.js";
+import fileUpload from "express-fileupload";
+import GoodsSchema from "./models/goods.js";
 
 const app = express();
 dotenv.config();
@@ -17,9 +18,12 @@ const DB_NAME = process.env.DB_NAME;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static("static"));
+app.use(fileUpload({}));
 
 // routes
 app.use("/api", router);
+app.use("/api/auth", router);
 
 // Endpoints
 // app.get("/api/goods", async (req, res) => {

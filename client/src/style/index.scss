@@ -1,0 +1,15 @@
+@import "~bootstrap/scss/bootstrap";
+
+.app {
+  max-width: 1920px;
+  min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+}
+.container {
+  max-width: 1170px;
+  height: 100%;
+  margin: 0 auto;
+  // padding: 0 30px;
+  border: 1px solid red;
+}
