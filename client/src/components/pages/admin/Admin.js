@@ -13,6 +13,10 @@ import { clearStatus, getGoods } from "../../pages/admin/adminSlice";
 import AddGoodsForm from "../../adminPanel/addGoodsForm/AddGoodsForm";
 import DisplayGoods from "../../adminPanel/displayGoods/DisplayGoods";
 import ImagePopup from "../../adminPanel/imagePopup/ImagePopup";
+import { AdminContext } from "../../adminPanel/adminContext";
+
+// import ModalPopup from "../../modal/Modal";
+// import EditeForm from "../../adminPanel/editeForm/EditeForm";
 
 const Admin = () => {
   const token = window.localStorage.getItem("token");
@@ -24,6 +28,13 @@ const Admin = () => {
   const [imgSrc, setImgSrc] = useState("");
   const [activeClass, setActiveClass] = useState(false);
   const [openCoef, setOpenCoef] = useState(true);
+  const [targetId, setTargetId] = useState();
+
+  const getTargetId = (id) => {
+    setTargetId(id);
+  };
+
+  // const [modalShow, setModalShow] = React.useState(false);
 
   const { status } = useSelector((state) => state.adminReducer);
 
@@ -86,19 +97,18 @@ const Admin = () => {
         </header>
 
         {isAuth ? (
-          // <div className="position-relative">
-          // <div className="admin__wrapper d-flex  align-items-start justify-content-between gap-5 position-relative">
           <>
-            <AddGoodsForm />
-            <DisplayGoods imageModal={imageModal} />
-            <ImagePopup
-              imgSrc={imgSrc}
-              activeClass={activeClass}
-              closeModal={closeModal}
-            />
+            <AdminContext.Provider value={targetId}>
+              <AddGoodsForm />
+              <DisplayGoods imageModal={imageModal} getTargetId={getTargetId} />
+              <ImagePopup
+                imgSrc={imgSrc}
+                activeClass={activeClass}
+                closeModal={closeModal}
+              />
+            </AdminContext.Provider>
           </>
-        ) : // </div>
-        null}
+        ) : null}
       </div>
     </section>
   );

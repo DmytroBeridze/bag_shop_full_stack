@@ -47,6 +47,23 @@ export const deleteGoods = createAsyncThunk(
   }
 );
 
+// edit goods
+export const editGoods = createAsyncThunk(
+  "admin/editGoods",
+  async (formData) => {
+    const { _id } = Object.fromEntries(formData);
+
+    const { adminRequest } = useHttp();
+    const { data } = await adminRequest(
+      `http://localhost:3002/api/goods/${_id}`,
+      "put",
+      formData,
+      { "Content-type": "multipart/form-data" }
+    );
+    return data;
+  }
+);
+
 const adminSlice = createSlice({
   name: "admin",
   initialState,

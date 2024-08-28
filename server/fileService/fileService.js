@@ -23,7 +23,7 @@ class FileService {
         // const filePath = path.resolve("static", fileName);
         // file.mv(filePath);
         // return fileName;
-      } else return null;
+      } else return [];
     } catch (error) {
       console.log(error);
     }
@@ -40,8 +40,6 @@ class FileService {
   // }
 
   deleteFile(fileName) {
-    // const arrFilenames = JSON.parse(fileName);
-
     try {
       fileName && fileName.map((elem) => fs.unlinkSync(`static/${elem}`));
       // arrFilenames &&

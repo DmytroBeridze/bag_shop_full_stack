@@ -10,7 +10,6 @@ class GoodsService {
         : [picture]
       : null;
     // const modifiedPicture = Array.isArray(picture) ? picture : [picture];
-
     const { name } = goods;
     const isUsed = await GoodsSchema.findOne({ name });
     if (isUsed) {
@@ -43,17 +42,28 @@ class GoodsService {
   }
 
   // put
-  async putGoods(element) {
+  async putGoods(element, newPicture) {
     if (!element._id) {
       throw new Error("ID not found");
     }
-    const updatedGoods = await GoodsSchema.findByIdAndUpdate(
-      element._id,
-      element,
-      {
-        new: true,
-      }
-    );
+    const notDeleted = JSON.parse(element.notDeletedPicture);
+
+    const modifiedPicture = newPicture
+      ? Array.isArray(newPicture)
+        ? newPicture
+        : [newPicture]
+      : null;
+
+    fileService.deleteFile(JSON.parse(element.deletedPicture));
+    const fileName = fileService.saveFile(modifiedPicture);
+
+    const updatedGoods = await GoodsSchema.findByIdAndUpdate(element._id, {
+      ...element,
+      // newPicture: fileName,
+      picture: [...fileName, ...notDeleted],
+
+      new: true,
+    });
     return updatedGoods;
   }
 

@@ -12,7 +12,7 @@ const GoodsSchema = new mongoose.Schema(
       required: true,
     },
     picture: { type: Array, default: "" },
-    // picture: { type: String, default: "" },
+    // newPicture: { type: Array, default: "" },
     mainType: { type: String, required: true },
     type: { type: String, required: true },
     sale: { type: String },

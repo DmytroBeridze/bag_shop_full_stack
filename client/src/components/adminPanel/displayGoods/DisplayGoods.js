@@ -10,9 +10,15 @@ import { deleteGoods } from "../../pages/admin/adminSlice";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
-const DisplayGoods = ({ imageModal }) => {
+import ModalPopup from "../../modal/Modal";
+import EditeForm from "../../adminPanel/editeForm/EditeForm";
+import { useState } from "react";
+
+const DisplayGoods = ({ imageModal, getTargetId }) => {
   const { goods } = useSelector((state) => state.adminReducer);
   const dispatch = useDispatch();
+  const [modalShow, setModalShow] = useState(false);
+  // const [oneGoodsId, setOneGoodsId] = useState("");
 
   return (
     <section className="display-goods ">
@@ -38,6 +44,9 @@ const DisplayGoods = ({ imageModal }) => {
                   {...args}
                   imageModal={imageModal}
                   dispatch={dispatch}
+                  setModalShow={setModalShow}
+                  getTargetId={getTargetId}
+                  // setOneGoodsId={setOneGoodsId}
                 />
               );
             })
@@ -50,6 +59,15 @@ const DisplayGoods = ({ imageModal }) => {
           )}
         </tbody>
       </Table>
+
+      {/* modal */}
+      <ModalPopup
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        // id={oneGoodsId}
+      >
+        <EditeForm />
+      </ModalPopup>
     </section>
   );
 };
@@ -61,6 +79,9 @@ const View = ({
   imageModal,
   name,
   dispatch,
+  setModalShow,
+  getTargetId,
+  // setOneGoodsId,
   ...args
 }) => {
   const { description, picture, parameters, _id } = args;
@@ -87,7 +108,7 @@ const View = ({
 
       <td className="table__img-wrapper">
         <div className="table__img-container">
-          {picture ? (
+          {picture && picture.length > 0 ? (
             picture.map((elem) => {
               return (
                 <div className="table__img" key={elem}>
@@ -110,13 +131,20 @@ const View = ({
       <td>
         <div className=" d-flex flex-column  align-items-center gap-2">
           <div
-            className="table__delete "
+            className="table__delete"
             onClick={() => dispatch(deleteGoods(deleteData))}
             // onClick={() => dispatch(deleteGoods(formData))}
           >
             <FiTrash2 size={"23px"} />
           </div>
-          <div className="table__edit">
+          <div
+            className="table__edit"
+            onClick={() => {
+              setModalShow(true);
+              getTargetId(_id);
+              // setOneGoodsId(_id);
+            }}
+          >
             <GrEdit size={"20px"} />
           </div>
         </div>

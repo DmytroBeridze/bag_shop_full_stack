@@ -97,9 +97,12 @@ export const getGoodsId = async (req, res) => {
 // put
 export const putGoods = async (req, res) => {
   try {
-    const element = req.body;
+    // const element = req.body;
 
-    const updatedGoods = await GoodsService.putGoods(element);
+    const updatedGoods = await GoodsService.putGoods(
+      req.body,
+      req.files?.newPicture
+    );
     return res.json(updatedGoods);
   } catch (error) {
     res.status(500).json(error.message);

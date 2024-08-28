@@ -1,0 +1,27 @@
+.photo-prev {
+  &__cont {
+    width: 80px;
+    height: 80px;
+    position: relative;
+  }
+  &__ico {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    opacity: 0.7;
+    display: block;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+.deleted {
+  opacity: 0.2;
+}

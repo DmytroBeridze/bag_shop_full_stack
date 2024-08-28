@@ -15,7 +15,7 @@ import { checkAuth } from "../utils/checkAuth.js";
 router.post("/goods", postGoods);
 router.get("/goods", getAllGoods);
 router.get("/goods/:id", getGoodsId);
-router.put("/goods/", putGoods);
+router.put("/goods/:id", putGoods);
 router.delete("/goods/:id", deleteGoods);
 
 // register
