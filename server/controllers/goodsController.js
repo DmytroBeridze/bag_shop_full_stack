@@ -103,7 +103,8 @@ export const putGoods = async (req, res) => {
       req.body,
       req.files?.newPicture
     );
-    return res.json(updatedGoods);
+    // return res.json(updatedGoods);
+    res.status(200).json({ message: "Goods edited", updatedGoods });
   } catch (error) {
     res.status(500).json(error.message);
   }

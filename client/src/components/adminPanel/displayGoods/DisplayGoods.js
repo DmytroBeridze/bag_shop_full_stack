@@ -5,21 +5,20 @@ import { FiTrash2 } from "react-icons/fi";
 
 import Table from "react-bootstrap/Table";
 import NoImage from "../noImage/NoImage";
-import { deleteGoods } from "../../pages/admin/adminSlice";
+import { deleteGoods, getGoods } from "../../pages/admin/adminSlice";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import ModalPopup from "../../modal/Modal";
 import EditeForm from "../../adminPanel/editeForm/EditeForm";
-import { useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
 const DisplayGoods = ({ imageModal, getTargetId }) => {
   const { goods } = useSelector((state) => state.adminReducer);
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
   // const [oneGoodsId, setOneGoodsId] = useState("");
-
   return (
     <section className="display-goods ">
       <h2 className="mb-3">Added goods</h2>
@@ -72,85 +71,87 @@ const DisplayGoods = ({ imageModal, getTargetId }) => {
   );
 };
 
-const View = ({
-  // photoZoom,
-  imageRef,
-  cancellPhotoZoom,
-  imageModal,
-  name,
-  dispatch,
-  setModalShow,
-  getTargetId,
-  // setOneGoodsId,
-  ...args
-}) => {
-  const { description, picture, parameters, _id } = args;
-  const { price } = JSON.parse(parameters);
+const View = memo(
+  ({
+    // photoZoom,
+    imageRef,
+    cancellPhotoZoom,
+    imageModal,
+    name,
+    dispatch,
+    setModalShow,
+    getTargetId,
+    // setOneGoodsId,
+    ...args
+  }) => {
+    const { description, picture, parameters, _id } = args;
+    const { price } = JSON.parse(parameters);
 
-  // const formData = new FormData();
-  // formData.append("id", _id);
-  // formData.append("picture", JSON.stringify(picture));
+    // const formData = new FormData();
+    // formData.append("id", _id);
+    // formData.append("picture", JSON.stringify(picture));
 
-  const deleteData = {
-    id: _id,
-    picture,
-  };
+    const deleteData = {
+      id: _id,
+      picture,
+    };
 
-  return (
-    <tr>
-      <td className="table__id-wrapper">
-        <div className="table__id">{_id}</div>
-      </td>
-      <td className="table__name">{name}</td>
-      <td className="table__description-wrapper">
-        <div className="table__description">{description}</div>
-      </td>
+    return (
+      <tr>
+        <td className="table__id-wrapper">
+          <div className="table__id">{_id}</div>
+        </td>
+        <td className="table__name">{name}</td>
+        <td className="table__description-wrapper">
+          <div className="table__description">{description}</div>
+        </td>
 
-      <td className="table__img-wrapper">
-        <div className="table__img-container">
-          {picture && picture.length > 0 ? (
-            picture.map((elem) => {
-              return (
-                <div className="table__img" key={elem}>
-                  <img
-                    src={`http://localhost:3002/${elem}`}
-                    alt={name}
-                    className="w-100 h-100 object-fit-cover rounded"
-                    onClick={(e) => imageModal(e.target)}
-                  />
-                </div>
-              );
-            })
-          ) : (
-            <NoImage />
-          )}
-        </div>
-      </td>
-
-      <td>{price}</td>
-      <td>
-        <div className=" d-flex flex-column  align-items-center gap-2">
-          <div
-            className="table__delete"
-            onClick={() => dispatch(deleteGoods(deleteData))}
-            // onClick={() => dispatch(deleteGoods(formData))}
-          >
-            <FiTrash2 size={"23px"} />
+        <td className="table__img-wrapper">
+          <div className="table__img-container">
+            {picture && picture.length > 0 ? (
+              picture.map((elem) => {
+                return (
+                  <div className="table__img" key={elem}>
+                    <img
+                      src={`http://localhost:3002/${elem}`}
+                      alt={name}
+                      className="w-100 h-100 object-fit-cover rounded"
+                      onClick={(e) => imageModal(e.target)}
+                    />
+                  </div>
+                );
+              })
+            ) : (
+              <NoImage />
+            )}
           </div>
-          <div
-            className="table__edit"
-            onClick={() => {
-              setModalShow(true);
-              getTargetId(_id);
-              // setOneGoodsId(_id);
-            }}
-          >
-            <GrEdit size={"20px"} />
+        </td>
+
+        <td>{price}</td>
+        <td>
+          <div className=" d-flex flex-column  align-items-center gap-2">
+            <div
+              className="table__delete"
+              onClick={() => dispatch(deleteGoods(deleteData))}
+              // onClick={() => dispatch(deleteGoods(formData))}
+            >
+              <FiTrash2 size={"23px"} />
+            </div>
+            <div
+              className="table__edit"
+              onClick={() => {
+                setModalShow(true);
+                getTargetId(_id);
+                // setOneGoodsId(_id);
+              }}
+            >
+              <GrEdit size={"20px"} />
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>
-  );
-};
+        </td>
+      </tr>
+    );
+  }
+);
 
 export default DisplayGoods;

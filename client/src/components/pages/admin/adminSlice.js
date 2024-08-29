@@ -5,6 +5,7 @@ const initialState = {
   goods: [],
   isLoading: false,
   status: null,
+  // editedGoods: null,
 };
 
 // add goods
@@ -34,7 +35,6 @@ export const deleteGoods = createAsyncThunk(
   async (body) => {
     // const { id } = Object.fromEntries(body);
     const { id } = body;
-
     const { adminRequest } = useHttp();
     const { data } = await adminRequest(
       `http://localhost:3002/api/goods/${id}`,
@@ -60,6 +60,7 @@ export const editGoods = createAsyncThunk(
       formData,
       { "Content-type": "multipart/form-data" }
     );
+
     return data;
   }
 );
@@ -144,6 +145,30 @@ const adminSlice = createSlice({
         };
       })
       .addCase(deleteGoods.rejected, (state, action) => {
+        return {
+          ...state,
+          isLoading: false,
+          status: action.payload,
+        };
+      })
+
+      // edit goods
+      .addCase(editGoods.pending, (state) => {
+        return {
+          ...state,
+          isLoading: true,
+          status: null,
+        };
+      })
+      .addCase(editGoods.fulfilled, (state, action) => {
+        const index = state.goods.findIndex(
+          (elem) => elem._id === action.payload.updatedGoods._id
+        );
+        state.isLoading = false;
+        state.status = action.payload.message;
+        state.goods[index] = action.payload.updatedGoods;
+      })
+      .addCase(editGoods.rejected, (state, action) => {
         return {
           ...state,
           isLoading: false,
