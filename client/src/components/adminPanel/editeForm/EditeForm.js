@@ -1,13 +1,7 @@
 import "./editeForm.scss";
 import trash_icon from "../../../resources/icons/adminPanel/trash-round.png";
 
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Button from "react-bootstrap/Button";
@@ -15,11 +9,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 
-import {
-  addGoods,
-  editGoods,
-  getGoodsToId,
-} from "../../pages/admin/adminSlice";
+import { editGoods } from "../../pages/admin/adminSlice";
 import useHttp from "../../../hooks/http.hooks";
 import { AdminContext } from "../adminContext";
 
