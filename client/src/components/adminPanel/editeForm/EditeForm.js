@@ -1,13 +1,7 @@
 import "./editeForm.scss";
 import trash_icon from "../../../resources/icons/adminPanel/trash-round.png";
 
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Button from "react-bootstrap/Button";
@@ -15,17 +9,17 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 
-import { addGoods, editGoods } from "../../pages/admin/adminSlice";
+import { editGoods } from "../../pages/admin/adminSlice";
 import useHttp from "../../../hooks/http.hooks";
 import { AdminContext } from "../adminContext";
 
 const EditeForm = () => {
-  const targetId = useContext(AdminContext);
   const imageRef = useRef([]);
+  const targetId = useContext(AdminContext);
 
   const [validated, setValidated] = useState(false);
 
-  const [id, setId] = useState(targetId);
+  // const [id, setId] = useState(targetId);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [mainType, setMainType] = useState("");
@@ -66,8 +60,6 @@ const EditeForm = () => {
     setDescription("");
     setMainType("");
     setType("");
-    photoInput.current.value = "";
-    setPicture(null);
     setSale(false);
     setFeatured(false);
     setisNew(false);
@@ -100,7 +92,8 @@ const EditeForm = () => {
       event.preventDefault();
 
       const formData = new FormData();
-      formData.append("_id", id);
+      formData.append("_id", targetId);
+      // formData.append("_id", id);
       formData.append("name", name);
       formData.append("description", description);
       formData.append("mainType", mainType);
@@ -119,25 +112,17 @@ const EditeForm = () => {
       formData.append("notDeletedPicture", JSON.stringify(noDelete()));
 
       dispatch(editGoods(formData));
-
-      // clear form after submit
-      // setName("");
-      // photoInput.current.value = "";
-      // setPicture(null);
-      // setSale(false);
-      // setFeatured(false);
-      // setisNew(false);
-      // setPromo(false);
     }
 
     setValidated(true);
   };
+
   // get target goods
-  const fetchOnePost = useCallback(async () => {
+  const fetchOnePost = async () => {
     const { data } = await adminRequest(
       `http://localhost:3002/api/goods/${targetId}`
     );
-    // !------------------------
+
     const parameters = JSON.parse(data.parameters);
     const { color, height, length, price, weight, width } = parameters;
 
@@ -157,9 +142,7 @@ const EditeForm = () => {
     setLength(length);
     setWeight(weight);
     setPrice(price);
-
-    // !------------------------
-  }, [adminRequest, targetId]);
+  };
 
   useEffect(() => {
     fetchOnePost();
@@ -195,7 +178,6 @@ const EditeForm = () => {
 
           {/* desc */}
           <Form.Group md="4" controlId="validationCustom01" className="mb-4">
-            {/* <Form.Group md="4" controlId="validationCustom01"> */}
             <Form.Label className="fw-bolder">Enter description</Form.Label>
             <FloatingLabel controlId="floatingTextarea2" label="Description">
               <Form.Control
@@ -225,7 +207,6 @@ const EditeForm = () => {
               onChange={(e) => setMainType(e.target.value)}
               value={mainType}
             >
-              {/* <option>Choose main type</option> */}
               <option></option>
               <option value="bags & backpacks">Bags & backpacks</option>
               <option value="hand & clutches">Hand & clutches</option>
@@ -367,6 +348,7 @@ const EditeForm = () => {
           >
             {/* color */}
             <Form.Group>
+              <Form.Label className="mb-0 fw-lighter">color</Form.Label>
               <Form.Control
                 className="goods__params"
                 type="text"
@@ -382,6 +364,7 @@ const EditeForm = () => {
 
             {/* height */}
             <Form.Group>
+              <Form.Label className="mb-0 fw-lighter">height</Form.Label>
               <Form.Control
                 className="goods__params"
                 type="text"
@@ -397,6 +380,7 @@ const EditeForm = () => {
 
             {/* width */}
             <Form.Group>
+              <Form.Label className="mb-0 fw-lighter">width</Form.Label>
               <Form.Control
                 className="goods__params"
                 type="text"
@@ -411,6 +395,7 @@ const EditeForm = () => {
             </Form.Group>
             {/* length */}
             <Form.Group>
+              <Form.Label className="mb-0 fw-lighter">length</Form.Label>
               <Form.Control
                 className="goods__params"
                 type="text"
@@ -425,6 +410,7 @@ const EditeForm = () => {
             </Form.Group>
             {/* weight */}
             <Form.Group>
+              <Form.Label className="mb-0 fw-lighter">weight</Form.Label>
               <Form.Control
                 className="goods__params"
                 type="text"
@@ -440,6 +426,7 @@ const EditeForm = () => {
 
             {/* price */}
             <Form.Group>
+              <Form.Label className="mb-0 fw-lighter">price</Form.Label>
               <Form.Control
                 className="goods__params"
                 required
