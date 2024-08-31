@@ -9,6 +9,8 @@ import fileService from "../fileService/fileService.js";
 // post
 export const postGoods = async (req, res) => {
   //  const user = await AdminSchema.findById(req.userId);
+  console.log(req.body);
+
   try {
     const goods = await GoodsService.postGoods(req.body, req.files?.picture);
 
