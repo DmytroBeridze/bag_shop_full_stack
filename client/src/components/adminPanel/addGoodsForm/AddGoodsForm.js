@@ -42,7 +42,7 @@ const AddGoodsForm = () => {
     price,
   };
 
-  // validations
+  // validation
   const numReg = /^\d*(\.\d+)?$/;
   const heightValidation = !height.match(numReg) ? false : true;
 
@@ -74,6 +74,10 @@ const AddGoodsForm = () => {
       // if (form.checkValidity() === false || heightValidation === false) {
       event.preventDefault();
       event.stopPropagation();
+
+      // document
+      //   .querySelectorAll(".invalid-feedback")
+      //   .forEach((elem) => elem.classList.add("test"));
     } else {
       event.preventDefault();
 
@@ -109,6 +113,14 @@ const AddGoodsForm = () => {
       setFeatured(false);
       setisNew(false);
       setPromo(false);
+
+      // -------------------
+
+      // document
+      //   .querySelectorAll('input[type="text"]')
+      //   // .closest(".col-sm-9")
+      //   .find(".invalid-feedback")
+      //   .classList.add("test");
     }
 
     setValidated(true);
@@ -183,7 +195,7 @@ const AddGoodsForm = () => {
           </Form.Group>
 
           {/* type */}
-          <Form.Group md="4" className="mb-4">
+          <Form.Group md="4" className="mb-4 ">
             <Form.Label className="fw-bolder">Enter type</Form.Label>
             <Form.Select
               type="text"

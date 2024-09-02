@@ -87,7 +87,7 @@ const Admin = () => {
   };
 
   return (
-    <section className="admin">
+    <section className="admin ">
       <div className="admin__container">
         <header className="admin__header mb-lg-5 d-flex flex-row bd-highlight justify-content-between align-items-center border-bottom ">
           <h1>Yellow bag admin panel</h1>
