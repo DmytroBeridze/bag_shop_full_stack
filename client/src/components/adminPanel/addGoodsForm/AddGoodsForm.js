@@ -12,6 +12,9 @@ import { addGoods } from "../../pages/admin/adminSlice";
 const AddGoodsForm = () => {
   const [validated, setValidated] = useState(false);
 
+  const dispatch = useDispatch();
+  const photoInput = useRef(null);
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [mainType, setMainType] = useState("");
@@ -39,8 +42,9 @@ const AddGoodsForm = () => {
     price,
   };
 
-  const dispatch = useDispatch();
-  const photoInput = useRef(null);
+  // validation
+  const numReg = /^\d*(\.\d+)?$/;
+  const heightValidation = !height.match(numReg) ? false : true;
 
   // clear form
   const clearForm = () => {
@@ -67,8 +71,13 @@ const AddGoodsForm = () => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
+      // if (form.checkValidity() === false || heightValidation === false) {
       event.preventDefault();
       event.stopPropagation();
+
+      // document
+      //   .querySelectorAll(".invalid-feedback")
+      //   .forEach((elem) => elem.classList.add("test"));
     } else {
       event.preventDefault();
 
@@ -104,6 +113,14 @@ const AddGoodsForm = () => {
       setFeatured(false);
       setisNew(false);
       setPromo(false);
+
+      // -------------------
+
+      // document
+      //   .querySelectorAll('input[type="text"]')
+      //   // .closest(".col-sm-9")
+      //   .find(".invalid-feedback")
+      //   .classList.add("test");
     }
 
     setValidated(true);
@@ -113,12 +130,7 @@ const AddGoodsForm = () => {
     <section className="d-flex flex-column  goods">
       <div className=""></div>
       <h2 className="mb-3">Add goods</h2>
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-        // className="admin col-4"
-      >
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="d-flex flex-column">
           <Form.Group md="4" controlId="nameGoods" className="mb-4">
             {/* name */}
@@ -183,7 +195,7 @@ const AddGoodsForm = () => {
           </Form.Group>
 
           {/* type */}
-          <Form.Group md="4" className="mb-4">
+          <Form.Group md="4" className="mb-4 ">
             <Form.Label className="fw-bolder">Enter type</Form.Label>
             <Form.Select
               type="text"
@@ -301,9 +313,16 @@ const AddGoodsForm = () => {
                 value={height}
                 name="height"
                 onChange={(e) => setHeight(e.target.value)}
+                // isInvalid={!heightValidation}
+                pattern="^[ 0-9]+$"
               />
+
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -316,9 +335,13 @@ const AddGoodsForm = () => {
                 value={width}
                 name="width"
                 onChange={(e) => setWidth(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
             {/* length */}
@@ -330,9 +353,13 @@ const AddGoodsForm = () => {
                 value={length}
                 name="length"
                 onChange={(e) => setLength(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
             {/* weight */}
@@ -344,9 +371,13 @@ const AddGoodsForm = () => {
                 value={weight}
                 name="weight"
                 onChange={(e) => setWeight(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -360,22 +391,34 @@ const AddGoodsForm = () => {
                 value={price}
                 name="price"
                 onChange={(e) => setPrice(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
               </Form.Control.Feedback>
-              <Form.Control.Feedback
-                type="invalid"
-                className="goods__params_feedback"
-              >
-                Please enter price.
-              </Form.Control.Feedback>
+
+              {heightValidation && price !== "" ? (
+                <Form.Control.Feedback type="invalid">
+                  Only numbers.
+                </Form.Control.Feedback>
+              ) : (
+                <Form.Control.Feedback
+                  type="invalid"
+                  className="goods__params_feedback"
+                >
+                  Please enter price.
+                </Form.Control.Feedback>
+              )}
             </Form.Group>
           </Form.Group>
         </Row>
 
         {/* buttons */}
-        <Button type="submit" className="goods__buttons goods__buttons_submit ">
+        <Button
+          // disabled={!heightValidation}
+          type="submit"
+          className="goods__buttons goods__buttons_submit "
+        >
           Submit form
         </Button>
         <Button

@@ -72,6 +72,10 @@ const EditeForm = () => {
     setPrice("");
   };
 
+  // validation
+  const numReg = /^\d*(\.\d+)?$/;
+  const heightValidation = !height.match(numReg) ? false : true;
+
   // find not deleted pictures
   const noDelete = () => {
     let res = imageRef.current.filter(
@@ -372,9 +376,13 @@ const EditeForm = () => {
                 value={height}
                 name="height"
                 onChange={(e) => setHeight(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -388,9 +396,13 @@ const EditeForm = () => {
                 value={width}
                 name="width"
                 onChange={(e) => setWidth(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
             {/* length */}
@@ -403,9 +415,13 @@ const EditeForm = () => {
                 value={length}
                 name="length"
                 onChange={(e) => setLength(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
             {/* weight */}
@@ -418,9 +434,13 @@ const EditeForm = () => {
                 value={weight}
                 name="weight"
                 onChange={(e) => setWeight(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">
+                Only numbers.
               </Form.Control.Feedback>
             </Form.Group>
 
@@ -435,16 +455,24 @@ const EditeForm = () => {
                 value={price}
                 name="price"
                 onChange={(e) => setPrice(e.target.value)}
+                pattern="^[ 0-9]+$"
               />
               <Form.Control.Feedback className="goods__params_feedback">
                 Looks good!
               </Form.Control.Feedback>
-              <Form.Control.Feedback
-                type="invalid"
-                className="goods__params_feedback"
-              >
-                Please enter price.
-              </Form.Control.Feedback>
+
+              {heightValidation && price !== "" ? (
+                <Form.Control.Feedback type="invalid">
+                  Only numbers.
+                </Form.Control.Feedback>
+              ) : (
+                <Form.Control.Feedback
+                  type="invalid"
+                  className="goods__params_feedback"
+                >
+                  Please enter price.
+                </Form.Control.Feedback>
+              )}
             </Form.Group>
           </Form.Group>
         </Row>

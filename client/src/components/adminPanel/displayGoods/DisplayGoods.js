@@ -16,6 +16,7 @@ import { memo, useState } from "react";
 
 const DisplayGoods = ({ imageModal, getTargetId }) => {
   const { goods } = useSelector((state) => state.adminReducer);
+
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
   return (
@@ -84,6 +85,7 @@ const View = memo(
     ...args
   }) => {
     const { description, picture, parameters, _id } = args;
+
     const { price } = JSON.parse(parameters);
 
     // const formData = new FormData();
