@@ -10,6 +10,7 @@ const toastPopupService = (status) => {
       case "You are logged in":
       case "Goods created":
       case "Goods edited":
+      case "Post created":
         return toast.success(status, { position: "bottom-right" });
       default:
         toast.info(status, { position: "bottom-right" });

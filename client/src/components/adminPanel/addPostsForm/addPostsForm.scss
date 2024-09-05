@@ -1,21 +1,16 @@
-.goods {
-  // position: fixed;
+.posts {
   position: sticky;
-  // top: 254px;
   top: 135px;
-  // right: 40px;
-  // bottom: 0;
-  // max-height: 700px;
-  // max-height: 84vh;
+
   max-height: 770px;
   width: 600px;
   max-width: clamp(12.5rem, 7.5rem + 25vw, 37.5rem);
-  overflow-y: scroll;
+  //   overflow-y: scroll;
   padding: 0 20px 20px;
+
   @media (max-width: 1000px) {
     max-height: 100%;
-    overflow-y: auto;
-    // position: static;
+    // overflow-y: auto;
 
     width: 100%;
     max-width: 100%;

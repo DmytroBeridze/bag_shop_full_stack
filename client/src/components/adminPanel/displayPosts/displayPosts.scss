@@ -1,4 +1,4 @@
-.display-goods {
+.display-posts {
   width: 65%;
   max-width: 100%;
   // border: 1px solid red;
@@ -11,7 +11,7 @@
   }
 
   &__description {
-    width: 30%;
+    width: 40%;
 
     @media (max-width: 500px) {
       display: none;
@@ -30,7 +30,8 @@
     width: 80px;
     padding-bottom: 0 !important;
   }
-  &__id {
+  &__id,
+  &__date {
     overflow-x: auto;
     max-width: 80px;
     // max-height: 158px;

@@ -24,6 +24,7 @@ app.use(fileUpload({}));
 // routes
 app.use("/api", router);
 app.use("/api/auth", router);
+app.use("/api/blog", router);
 
 // Endpoints
 // app.get("/api/goods", async (req, res) => {

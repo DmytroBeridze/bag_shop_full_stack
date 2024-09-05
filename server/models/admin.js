@@ -15,7 +15,7 @@ const AdminSchema = new mongoose.Schema(
     posts: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Post",
+        ref: "Posts",
       },
     ],
   },

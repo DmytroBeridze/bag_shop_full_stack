@@ -14,6 +14,9 @@ import AddGoodsForm from "../../adminPanel/addGoodsForm/AddGoodsForm";
 import DisplayGoods from "../../adminPanel/displayGoods/DisplayGoods";
 import ImagePopup from "../../adminPanel/imagePopup/ImagePopup";
 import { AdminContext } from "../../adminPanel/adminContext";
+import AddPostsForm from "../../adminPanel/addPostsForm/AddPostsForm";
+import DisplayPosts from "../../adminPanel/displayPosts/DisplayPosts";
+import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 
 // import ModalPopup from "../../modal/Modal";
 // import EditeForm from "../../adminPanel/editeForm/EditeForm";
@@ -37,6 +40,7 @@ const Admin = () => {
   // const [modalShow, setModalShow] = React.useState(false);
 
   const { status } = useSelector((state) => state.adminReducer);
+  const { postStatus } = useSelector((state) => state.postsReducer);
 
   useEffect(() => {
     dispatch(getMe());
@@ -52,10 +56,18 @@ const Admin = () => {
     toastPopupService(status);
   }, [status]);
 
+  useEffect(() => {
+    toastPopupService(postStatus);
+  }, [postStatus]);
+
   // TODO----Що краще, залежність від status, чи конструкція з промісу в AddGoodsForm?
   useEffect(() => {
     dispatch(getGoods());
   }, [dispatch, status]);
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch, postStatus]);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -89,7 +101,7 @@ const Admin = () => {
   return (
     <section className="admin ">
       <div className="admin__container">
-        <header className="admin__header mb-lg-5 d-flex flex-row bd-highlight justify-content-between align-items-center border-bottom ">
+        <header className="admin__header mb-2 mb-lg-5 mb-sm-3 d-flex flex-row bd-highlight justify-content-between align-items-center border-bottom ">
           <h1>Yellow bag admin panel</h1>
           <Button variant="danger" onClick={logoutHandler}>
             logout
@@ -99,8 +111,23 @@ const Admin = () => {
         {isAuth ? (
           <>
             <AdminContext.Provider value={targetId}>
-              <AddGoodsForm />
-              <DisplayGoods imageModal={imageModal} getTargetId={getTargetId} />
+              <div className="admin__goods-container">
+                {/* <div className="d-flex flex-row bd-highlight justify-content-between admin__goods-container"> */}
+                <DisplayGoods
+                  imageModal={imageModal}
+                  getTargetId={getTargetId}
+                />
+                <AddGoodsForm />
+              </div>
+
+              <div className="admin__posts-container ">
+                {/* <div className="d-flex flex-row bd-highlight justify-content-between admin__goods-container"> */}
+                <DisplayPosts
+                  imageModal={imageModal}
+                  getTargetId={getTargetId}
+                />
+                <AddPostsForm />
+              </div>
               <ImagePopup
                 imgSrc={imgSrc}
                 activeClass={activeClass}
