@@ -1,0 +1,11 @@
+@import "../../../style/variables.scss";
+.home {
+  background-color: beige;
+  width: 100%;
+  min-height: 100vh;
+  // height: 100vh;
+  &__title {
+    display: inline-block;
+    margin-top: 150px;
+  }
+}

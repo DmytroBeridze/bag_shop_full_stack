@@ -1,9 +1,11 @@
-import React from "react";
+import "./catalog.scss";
 
 const Catalog = () => {
   return (
-    <div>
-      <h1>Catalog</h1>
+    <div className="catalog">
+      <div className="main-container">
+        <h1 className="catalog__title">Catalog</h1>
+      </div>
     </div>
   );
 };

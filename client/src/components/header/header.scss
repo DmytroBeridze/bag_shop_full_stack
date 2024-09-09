@@ -1,0 +1,99 @@
+@import "../../style/variables.scss";
+.header {
+  width: 100%;
+  max-width: 1920px;
+  background-color: $clr-yellow-main;
+  height: 90px;
+  box-shadow: -2px 3px 3px 0px rgba(0, 0, 0, 0.11);
+  position: fixed;
+  z-index: 999;
+  top: 0;
+}
+
+// dropdown
+.nav-list {
+  max-width: 750px;
+}
+
+.dropdown {
+  display: inline-block;
+  // color: $clr-text-white;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  .arrow-down {
+    width: 12px;
+  }
+
+  cursor: pointer;
+  margin-right: clamp(1rem, 0.825rem + 0.88vw, 1.875rem);
+
+  & a {
+    text-decoration: none;
+    color: $clr-text-white;
+  }
+  & h4 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+  &:last-child {
+    margin-right: 0px;
+  }
+}
+
+.dropdown-child {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  background-color: $clr-yellow-drop;
+  width: 100%;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3px;
+  padding: 20px;
+  top: 90px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  box-shadow: -1px -1px 12px 0px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s;
+
+  &__home {
+    width: 140px;
+  }
+}
+.dropdown-child a {
+  color: $clr-text-white;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 20px;
+  &:hover {
+    color: $clr-maeked-text-brown;
+  }
+}
+
+.dropdown:hover h4,
+.dropdown:hover svg {
+  color: $clr-maeked-text-brown;
+}
+
+.basket {
+  cursor: pointer;
+}
+.basket-count {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 24px;
+  color: $clr-text-white;
+}
+.show {
+  opacity: 1;
+  visibility: visible;
+}
