@@ -2,6 +2,8 @@ import "./header.scss";
 import logo from "../../resources/img/header/logo.png";
 import basket from "../../resources/icons/header/basket.png";
 import { IoIosArrowDown } from "react-icons/io";
+import { BiMenu } from "react-icons/bi";
+import { CgClose } from "react-icons/cg";
 
 import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -11,10 +13,15 @@ import Navbar from "react-bootstrap/Navbar";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState();
+  const [modalToggle, setModalToggle] = useState(false);
   let location = useLocation();
 
   const showDropdown = (value) => {
     setDropdown(value);
+  };
+
+  const popupMenueHendler = () => {
+    setModalToggle((modalToggle) => !modalToggle);
   };
 
   return (
@@ -23,13 +30,18 @@ const Header = () => {
         <div className="main-container">
           <Navbar
             expand="lg"
-            className="d-flex justify-content-between align-items-center p-0 h-100"
+            className="d-flex justify-content-between align-items-center p-0 h-100 position-relative"
           >
-            <Navbar.Brand href="/" className="p-0">
-              <img src={logo} alt="img" />
+            <Navbar.Brand
+              href="/"
+              className="header__logo"
+              style={{ "max-width": "200px" }}
+            >
+              <img src={logo} alt="img" className="w-100" />
             </Navbar.Brand>
 
-            <Nav className="h-100">
+            <Nav className={`nav ${modalToggle && "show"}`}>
+              {/* <Nav className="h-100 nav"> */}
               <ul className="nav-list d-flex align-items-center justify-content-between ">
                 <li
                   className="nav-link dropdown"
@@ -45,6 +57,7 @@ const Header = () => {
                     <h4>HOME</h4>
                     <IoIosArrowDown className="arrow-down" />
                   </NavLink>
+
                   <div
                     className={
                       dropdown === 1
@@ -174,6 +187,7 @@ const Header = () => {
                   <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
                   <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
                 </div>
+
                 <div className="dropdown-child">
                   <a href="http://www.вашдомен.ru/page1.html">HOME6</a>
                   <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
@@ -186,6 +200,11 @@ const Header = () => {
               <img src={basket} alt="basket" />
               <div className="basket-count">0</div>
             </div>
+            {modalToggle ? (
+              <CgClose className="burger-icon" onClick={popupMenueHendler} />
+            ) : (
+              <BiMenu className="burger-icon" onClick={popupMenueHendler} />
+            )}
           </Navbar>
         </div>
       </div>
