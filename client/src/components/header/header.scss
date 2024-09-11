@@ -6,7 +6,7 @@
   height: 90px;
   box-shadow: -2px 3px 3px 0px rgba(0, 0, 0, 0.11);
   position: fixed;
-  z-index: 999;
+  // z-index: 999;
   top: 0;
   &__logo {
     width: 200px;
@@ -15,27 +15,27 @@
       width: 60%;
     }
   }
-  & nav {
-    @media (max-width: 1050px) {
-      position: static !important;
-      width: 100%;
-    }
-  }
+  // & nav {
+  //   @media (max-width: 1050px) {
+  //     position: static !important;
+  //     width: 100%;
+  //   }
+  // }
 }
 
 // dropdown
 .nav {
   @media (max-width: 1050px) {
-    width: 50%;
-    position: absolute;
-    top: 90px;
-    left: -200%;
-    transition: left 0.3s;
-    // background-color: rgba(3, 3, 3, 0.144);
+    display: none;
+    // width: 50%;
+    // position: absolute;
+    // top: 90px;
+    // left: -200%;
+    // transition: left 0.3s;
   }
-  &.show {
-    left: 0;
-  }
+  // &.show {
+  //   left: 0;
+  // }
 }
 
 .nav-list {
@@ -57,17 +57,12 @@
 
 .dropdown {
   display: inline-block;
-  // color: $clr-text-white;
   height: 100%;
   display: flex;
   align-items: center;
 
   cursor: pointer;
   margin-right: clamp(1rem, 0.825rem + 0.88vw, 1.875rem);
-  @media (max-width: 1050px) {
-    padding: 0 !important;
-    height: fit-content;
-  }
   & a {
     text-decoration: none;
     color: $clr-text-white;
@@ -106,19 +101,10 @@
   margin: auto;
   box-shadow: -1px -1px 12px 0px rgba(0, 0, 0, 0.03);
   transition: all 0.3s;
-  @media (max-width: 1050px) {
-    top: 0;
-  }
 
   &__home {
     width: 140px;
     top: 60px;
-    @media (max-width: 1050px) {
-      top: 90px !important;
-      left: 10% !important;
-      position: fixed;
-      width: 50%;
-    }
   }
 
   & a {
@@ -131,36 +117,10 @@
     }
   }
 }
-// .dropdown-child a {
-//   color: $clr-text-white;
-//   text-decoration: none;
-//   display: block;
-//   margin-bottom: 20px;
-//   &:hover {
-//     color: $clr-maeked-text-brown;
-//   }
-// }
 
 .dropdown:hover h4,
 .dropdown:hover svg {
   color: $clr-maeked-text-brown;
-}
-
-.dropdown-child {
-  @media (max-width: 1050px) {
-    &:nth-child(1) {
-      top: 125px;
-      left: 180px;
-    }
-    &:nth-child(2) {
-      top: 200px;
-      left: 180px;
-    }
-    &:nth-child(3) {
-      top: 300px;
-      left: 180px;
-    }
-  }
 }
 
 .basket {

@@ -10,6 +10,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import BurgerMenu from "../burgerMenu/BurgerMenu";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState();
@@ -35,7 +36,7 @@ const Header = () => {
             <Navbar.Brand
               href="/"
               className="header__logo"
-              style={{ "max-width": "200px" }}
+              style={{ maxWidth: "200px" }}
             >
               <img src={logo} alt="img" className="w-100" />
             </Navbar.Brand>
@@ -207,6 +208,10 @@ const Header = () => {
             )}
           </Navbar>
         </div>
+        <BurgerMenu
+          modalToggle={modalToggle}
+          popupMenueHendler={popupMenueHendler}
+        />
       </div>
     )
   );
