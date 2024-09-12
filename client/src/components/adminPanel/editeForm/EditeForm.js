@@ -212,10 +212,10 @@ const EditeForm = () => {
               value={mainType}
             >
               <option></option>
-              <option value="bags & backpacks">Bags & backpacks</option>
-              <option value="hand & clutches">Hand & clutches</option>
-              <option value="luggage">Luggage</option>
-              <option value="stores">Stores</option>
+              <option value="backpacks">Backpacks</option>
+              <option value="bags">Bags</option>
+              <option value="handbags">Handbags</option>
+              <option value="wallets">Wallets</option>
             </Form.Select>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
@@ -236,11 +236,22 @@ const EditeForm = () => {
             >
               <option></option>
               {/* <option>Choose type</option> */}
-              <option value="carpet">Carpet</option>
-              <option value="handbag">Handbag</option>
-              <option value="laptop">Laptop</option>
-              <option value="leather">Leather</option>
-              <option value="Tote bag">Tote bag</option>
+              <option value="hiking">Hiking (backpacks)</option>
+              <option value="laptop">Laptop (backpacks)</option>
+              <option value="scool">Scool (backpacks)</option>
+
+              <option value="business bags">Business bags (bags)</option>
+              <option value="duffle bags">Duffle bags (bags)</option>
+              <option value="laptop bags">Laptop bags (bags)</option>
+              <option value="travel bags">Travel bags (bags)</option>
+
+              <option value="crossbody">Crossbody (handbags)</option>
+              <option value="mens bags">Mens bags (handbags)</option>
+              <option value="shoulder bags">Shoulder bags (handbags)</option>
+              <option value="work totes">Work totes (handbags)</option>
+
+              <option value="mens wallets">Mens wallets (wallets)</option>
+              <option value="womens wallets">Womens wallets (wallets)</option>
             </Form.Select>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">
