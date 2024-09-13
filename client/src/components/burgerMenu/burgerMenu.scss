@@ -8,13 +8,12 @@
   &__background {
     background-color: rgba(0, 0, 0, 0.629);
     height: 100vh;
-    position: absolute;
+    position: absolute !important;
     top: 0;
     width: 30%;
     right: -120%;
     z-index: 999;
     transition: all 1s;
-
     &.show {
       right: 0;
     }

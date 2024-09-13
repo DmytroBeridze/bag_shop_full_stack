@@ -1,19 +1,32 @@
 @import "../../style/variables.scss";
+.header-wrapper {
+  width: 100%;
+  max-width: 1920px;
+  background-color: $clr-yellow-main;
+  height: 133px;
+  // padding-top: 43px;
+  position: relative;
+}
+
 .header {
   width: 100%;
   max-width: 1920px;
   background-color: $clr-yellow-main;
   height: 90px;
   box-shadow: -2px 3px 3px 0px rgba(0, 0, 0, 0.11);
-  position: fixed;
-  // z-index: 999;
-  top: 0;
+  position: absolute;
+  border-top: 1px solid #fbfdff67;
+  top: 43px;
   &__logo {
     width: 200px;
     padding: 0;
     @media (max-width: 400px) {
       width: 60%;
     }
+  }
+  &.move {
+    position: fixed;
+    top: 0;
   }
   // & nav {
   //   @media (max-width: 1050px) {
