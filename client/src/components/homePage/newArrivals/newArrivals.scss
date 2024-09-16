@@ -1,6 +1,126 @@
 @import "../../../style/variables.scss";
 .new-arrivals {
-  // padding-top: 150px;
+  background-color: $clr-yellow-drop;
+  max-height: 657px;
+  @media (max-width: 560px) {
+    padding-bottom: 15px;
+  }
+
+  &__subtitle {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    margin-bottom: 27px;
+    @media (max-width: 850px) {
+      font-size: 10px;
+    }
+    @media (max-width: 650px) {
+      margin-bottom: 10px;
+    }
+  }
   &__title {
+    text-transform: uppercase;
+    font-family: Arvo;
+    font-weight: 700;
+    // font-size: 90px;
+    font-size: clamp(1rem, 0.075rem + 4.63vw, 5.625rem);
+    // line-height: 90px;
+    line-height: clamp(1rem, 0.075rem + 4.63vw, 5.625rem);
+    color: $clr-text-white;
+    margin-bottom: 21px;
+    @media (max-width: 650px) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__slider-container {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 632px;
+    max-height: 657px;
+    overflow: hidden;
+    @media (max-width: 1100px) {
+      max-width: 450px;
+    }
+    @media (max-width: 850px) {
+      max-width: 350px;
+    }
+    @media (max-width: 650px) {
+      max-width: 250px;
+    }
+    @media (max-width: 560px) {
+      max-width: 200px;
+    }
+    @media (max-width: 360px) {
+      max-width: 150px;
+    }
+  }
+  &__text {
+    margin-bottom: 37px;
+    font-size: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #292929;
+    opacity: 0.5;
+    @media (max-width: 850px) {
+      font-size: 12px;
+      line-height: 12px;
+    }
+    @media (max-width: 650px) {
+      margin-bottom: 20px;
+    }
+    @media (max-width: 460px) {
+      display: none;
+    }
+  }
+  &__swiper {
+    max-width: 100%;
+    height: 100%;
+  }
+  &__slide {
+    background-color: $clr-yellow-drop;
+  }
+
+  // slider pagination vertical right stiles
+  & .swiper-pagination {
+    position: absolute;
+    top: 38% !important;
+    width: fit-content;
+    left: 97% !important;
+    // right: 50px !important;
+    padding-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    height: fit-content;
+    width: fit-content !important;
+    @media (max-width: 650px) {
+      left: 95% !important;
+    }
+  }
+
+  & .swiper-pagination-bullet {
+    width: 9px;
+    height: 9px;
+    opacity: 0.7;
+    background: rgb(251, 249, 249) !important;
+    margin: 10px 0 !important;
+    z-index: 1 !important;
+    transition: background 0.3s !important;
+    @media (max-width: 360px) {
+      width: 5px;
+      height: 5px;
+      margin: 6px 0 !important;
+    }
+  }
+
+  & .swiper-pagination-bullet-active {
+    background: rgb(251, 249, 249) !important;
+    opacity: 1;
   }
 }

@@ -23,9 +23,16 @@ const Header = () => {
 
   const popupMenueHendler = () => {
     setModalToggle((modalToggle) => !modalToggle);
+    !modalToggle
+      ? (document.body.style.position = "fixed")
+      : (document.body.style.position = "static");
+    // !modalToggle
+    //   ? (document.body.style.overflow = "hidden")
+    //   : (document.body.style.overflow = "visible");
   };
 
   const headerRef = useRef(null);
+
   useEffect(() => {
     const handleScroll = () => {
       if (headerRef.current) {
@@ -40,6 +47,7 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.addEventListener("scroll", handleScroll);
   }, []);
+
   return (
     !location.pathname.includes("admin") && (
       <div className="header-wrapper">

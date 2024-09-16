@@ -8,12 +8,13 @@
   &__background {
     background-color: rgba(0, 0, 0, 0.629);
     height: 100vh;
-    position: absolute !important;
+    position: fixed;
+    // position: absolute !important;
     top: 0;
     width: 30%;
     right: -120%;
     z-index: 999;
-    transition: all 1s;
+    transition: all 0.9s;
     &.show {
       right: 0;
     }
@@ -30,7 +31,8 @@
   &__list {
     background-color: $clr-text-white;
     height: 100vh !important;
-    position: absolute !important;
+    position: fixed !important;
+    // position: absolute !important;
     top: 0;
     width: 70% !important;
     left: -120%;
