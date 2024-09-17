@@ -11,6 +11,10 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
+import {
+  scrollbarHide,
+  scrollbarShow,
+} from "../../features/scrollbarToggle/scrollBarToggle";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState();
@@ -23,12 +27,14 @@ const Header = () => {
 
   const popupMenueHendler = () => {
     setModalToggle((modalToggle) => !modalToggle);
-    !modalToggle
-      ? (document.body.style.position = "fixed")
-      : (document.body.style.position = "static");
     // !modalToggle
-    //   ? (document.body.style.overflow = "hidden")
-    //   : (document.body.style.overflow = "visible");
+    //   ? (document.body.style.position = "fixed")
+    //   : (document.body.style.position = "static");
+
+    !modalToggle
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "visible");
+    // !modalToggle ? scrollbarShow() : scrollbarHide();
   };
 
   const headerRef = useRef(null);

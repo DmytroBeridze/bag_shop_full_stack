@@ -17,6 +17,34 @@
   letter-spacing: 1.1px;
   text-align: center;
   vertical-align: middle;
+  &:hover {
+    background-color: $clr-text-black;
+    color: $clr-text-white;
+  }
+  @media (max-width: 850px) {
+    padding: 16px 35px;
+    font-size: 10px;
+  }
+  @media (max-width: 650px) {
+    padding: 5px 10px;
+  }
+}
+
+.main-yellow {
+  background-color: $clr-yellow-main;
+  color: $clr-text-white;
+  padding: 20px 45px;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: uppercase;
+  font-family: Montserrat;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-align: center;
+  vertical-align: middle;
+  &:hover {
+    background-color: $clr-maeked-text-brown;
+  }
   @media (max-width: 850px) {
     padding: 16px 35px;
     font-size: 10px;

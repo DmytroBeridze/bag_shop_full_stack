@@ -11,6 +11,7 @@ const Home = () => {
       behavior: "smooth",
     });
   };
+
   useEffect(() => {
     pageUp();
   }, []);
