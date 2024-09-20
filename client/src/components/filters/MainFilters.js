@@ -1,27 +1,46 @@
 import { useRef } from "react";
 import "./mainfilters.scss";
 
-const MainFilters = () => {
-  const filterElements = ["bags", "backpack", "hand bags", "wallets"];
-  const filterRef = useRef([]);
+import { mainfilterValue } from "./mainFilters.slice";
+import { useDispatch, useSelector } from "react-redux";
 
-  const filterToggle = (i) => {
-    filterRef.current.forEach((elem) => (elem.style.color = "inherit"));
-    filterRef.current[i].style.color = "#bb7311";
+const MainFilters = () => {
+  const filterElements = ["bags", "backpacks", "handbags", "wallets"];
+  // const filterRef = useRef([]);
+  const dispatch = useDispatch();
+  const { mainfilterType } = useSelector((state) => state.mainFilterReducer);
+
+  // const filterToggle = (i) => {
+  //   filterRef.current.forEach((elem) => (elem.style.color = "inherit"));
+  //   filterRef.current[i].style.color = "#bb7311";
+  // };
+
+  const filterHandle = (value) => {
+    dispatch(mainfilterValue(value));
   };
+
   return (
     <div className="main-container">
       <ul className="main__filters ">
-        {filterElements.map((elem, i) => (
-          <li
-            data-value={elem}
-            key={elem}
-            ref={(elem) => (filterRef.current[i] = elem)}
-            onClick={() => filterToggle(i)}
-          >
-            {elem}
-          </li>
-        ))}
+        {filterElements.map((elem, i) => {
+          const listStyle =
+            elem === mainfilterType
+              ? { color: "#bb7311" }
+              : { color: "inherit" };
+          return (
+            <li
+              // ref={(elem) => (filterRef.current[i] = elem)}
+              style={listStyle}
+              data-value={elem}
+              key={elem}
+              onClick={() => {
+                filterHandle(elem);
+              }}
+            >
+              {elem}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

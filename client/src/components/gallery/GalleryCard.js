@@ -1,22 +1,50 @@
 import "./galleryCard.scss";
-import testPhoto from "../../resources/img/home/featured-backpack.png";
 import Button from "../buttons/Buttons";
+import { useState } from "react";
 
-const GalleryCard = () => {
+const GalleryCard = ({ id, ...params }) => {
+  const [changePhoto, setChangePhoto] = useState(false);
+
+  const {
+    createdAt,
+    description,
+    featured,
+    mainType,
+    type,
+    name,
+    parameters,
+    picture,
+    promo,
+    sale,
+    new: newGoods,
+  } = params;
+  const { color, height, width, length, weight, price } =
+    JSON.parse(parameters);
+
   return (
     <>
-      <div className="gallery-card">
+      <div
+        className="gallery-card"
+        onMouseEnter={() => setChangePhoto(true)}
+        onMouseLeave={() => setChangePhoto(false)}
+      >
         <div className="gallery-card__image">
-          <img src={testPhoto} alt="card-image" />
+          <img
+            src={`http://localhost:3002/${
+              !changePhoto || !picture[2] ? picture[0] : picture[2]
+            }`}
+            alt="card-image"
+          />
         </div>
         <div className="gallery-card__content">
-          <h3>Lorem ipsum...</h3>
-          <p>It is like a delicious card, w...</p>
-          <p>$315.00</p>
+          <h3>{name}</h3>
+          <p>{description}</p>
+          <p>${price}</p>
 
           <Button
             label="quick view"
             className="grey-stroke__black-hover gallery-card__button"
+            onclick={() => console.log(id)}
           />
           <Button
             label="add to cart"
@@ -26,176 +54,11 @@ const GalleryCard = () => {
 
         {/* ---menu-selection */}
         <div className="menu-selection">
-          <Button className={"grey-stroke__black-hover"} label={"quick view"} />
           <Button
             className={"grey-stroke__black-hover"}
-            label={"add to cart"}
+            label={"quick view"}
+            onclick={() => console.log(id)}
           />
-        </div>
-      </div>
-      {/* -------------------------------------- */}
-      <div className="gallery-card">
-        <div className="gallery-card__image">
-          <img src={testPhoto} alt="card-image" />
-        </div>
-        <div className="gallery-card__content">
-          <h3>Lorem ipsum...</h3>
-          <p>It is like a delicious card, w...</p>
-          <p>$315.00</p>
-
-          <Button
-            label="quick view"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-          <Button
-            label="add to cart"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-        </div>
-
-        {/* ---menu-selection */}
-        <div className="menu-selection">
-          <Button className={"grey-stroke__black-hover"} label={"quick view"} />
-          <Button
-            className={"grey-stroke__black-hover"}
-            label={"add to cart"}
-          />
-        </div>
-      </div>{" "}
-      <div className="gallery-card">
-        <div className="gallery-card__image">
-          <img src={testPhoto} alt="card-image" />
-        </div>
-        <div className="gallery-card__content">
-          <h3>Lorem ipsum...</h3>
-          <p>It is like a delicious card, w...</p>
-          <p>$315.00</p>
-
-          <Button
-            label="quick view"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-          <Button
-            label="add to cart"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-        </div>
-
-        {/* ---menu-selection */}
-        <div className="menu-selection">
-          <Button className={"grey-stroke__black-hover"} label={"quick view"} />
-          <Button
-            className={"grey-stroke__black-hover"}
-            label={"add to cart"}
-          />
-        </div>
-      </div>{" "}
-      <div className="gallery-card">
-        <div className="gallery-card__image">
-          <img src={testPhoto} alt="card-image" />
-        </div>
-        <div className="gallery-card__content">
-          <h3>Lorem ipsum...</h3>
-          <p>It is like a delicious card, w...</p>
-          <p>$315.00</p>
-
-          <Button
-            label="quick view"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-          <Button
-            label="add to cart"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-        </div>
-
-        {/* ---menu-selection */}
-        <div className="menu-selection">
-          <Button className={"grey-stroke__black-hover"} label={"quick view"} />
-          <Button
-            className={"grey-stroke__black-hover"}
-            label={"add to cart"}
-          />
-        </div>
-      </div>{" "}
-      <div className="gallery-card">
-        <div className="gallery-card__image">
-          <img src={testPhoto} alt="card-image" />
-        </div>
-        <div className="gallery-card__content">
-          <h3>Lorem ipsum...</h3>
-          <p>It is like a delicious card, w...</p>
-          <p>$315.00</p>
-
-          <Button
-            label="quick view"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-          <Button
-            label="add to cart"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-        </div>
-
-        {/* ---menu-selection */}
-        <div className="menu-selection">
-          <Button className={"grey-stroke__black-hover"} label={"quick view"} />
-          <Button
-            className={"grey-stroke__black-hover"}
-            label={"add to cart"}
-          />
-        </div>
-      </div>{" "}
-      <div className="gallery-card">
-        <div className="gallery-card__image">
-          <img src={testPhoto} alt="card-image" />
-        </div>
-        <div className="gallery-card__content">
-          <h3>Lorem ipsum...</h3>
-          <p>It is like a delicious card, w...</p>
-          <p>$315.00</p>
-
-          <Button
-            label="quick view"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-          <Button
-            label="add to cart"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-        </div>
-
-        {/* ---menu-selection */}
-        <div className="menu-selection">
-          <Button className={"grey-stroke__black-hover"} label={"quick view"} />
-          <Button
-            className={"grey-stroke__black-hover"}
-            label={"add to cart"}
-          />
-        </div>
-      </div>{" "}
-      <div className="gallery-card">
-        <div className="gallery-card__image">
-          <img src={testPhoto} alt="card-image" />
-        </div>
-        <div className="gallery-card__content">
-          <h3>Lorem ipsum...</h3>
-          <p>It is like a delicious card, w...</p>
-          <p>$315.00</p>
-
-          <Button
-            label="quick view"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-          <Button
-            label="add to cart"
-            className="grey-stroke__black-hover gallery-card__button"
-          />
-        </div>
-
-        {/* ---menu-selection */}
-        <div className="menu-selection">
-          <Button className={"grey-stroke__black-hover"} label={"quick view"} />
           <Button
             className={"grey-stroke__black-hover"}
             label={"add to cart"}
