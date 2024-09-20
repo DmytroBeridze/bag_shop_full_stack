@@ -58,7 +58,8 @@
 
 .yellow-stroke,
 .white-stroke,
-.grey-stroke {
+.grey-stroke,
+.grey-stroke__black-hover {
   border: 2px solid $clr-yellow-main;
   background: transparent;
   color: $clr-text-white;
@@ -94,5 +95,30 @@
   color: $clr-text-black;
   &:hover {
     color: $clr-text-white;
+  }
+}
+
+.grey-stroke__black-hover {
+  // display: none;
+  border: 2px solid $clr-text-grey;
+  color: $clr-text-black;
+  padding: 10px 0;
+  width: 150px;
+  &:hover {
+    color: $clr-text-white;
+    background-color: $clr-text-black;
+    border: 2px solid $clr-text-black;
+  }
+  @media (max-width: 1150px) {
+    // display: block;
+    font-size: 10px;
+  }
+  @media (max-width: 1000px) {
+    width: 130px;
+    font-size: 10px;
+  }
+  @media (max-width: 850px) {
+    width: 110px;
+    font-size: 10px;
   }
 }

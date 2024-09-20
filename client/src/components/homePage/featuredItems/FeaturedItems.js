@@ -16,22 +16,22 @@ const FeaturedItems = () => {
 
   // ---Динамічне зменшення висоти блока
   useEffect(() => {
-    // ref.current.forEach((elem) => {
-    //   elem.style.height =
-    //     size[0] > 600
-    //       ? `${Math.floor(size[0] * 0.5)}px`
-    //       : `${Math.floor(size[0] * 2)}px`;
-    // });
+    ref.current.forEach((elem) => {
+      elem.style.height =
+        size[0] > 600
+          ? `${Math.floor(size[0] * 0.5)}px`
+          : `${Math.floor(size[0] * 2)}px`;
+    });
 
-    ref.current.style.height =
-      size[0] > 600
-        ? `${Math.floor(size[0] * 0.5)}px`
-        : `${Math.floor(size[0] * 2)}px`;
+    // ref.current.style.height =
+    //   size[0] > 600
+    //     ? `${Math.floor(size[0] * 0.5)}px`
+    //     : `${Math.floor(size[0] * 2)}px`;
 
-    promoRef.current.style.height =
-      size[0] > 600
-        ? `${Math.floor(size[0] * 0.5)}px`
-        : `${Math.floor(size[0] * 2)}px`;
+    // promoRef.current.style.height =
+    //   size[0] > 600
+    //     ? `${Math.floor(size[0] * 0.5)}px`
+    //     : `${Math.floor(size[0] * 2)}px`;
   }, [size]);
 
   // !----Це також робочий варіант адаптації висоти,
@@ -50,13 +50,13 @@ const FeaturedItems = () => {
       {/* featured */}
       <section className="featured-items pt-5">
         {/* <div className="main-container"> */}
-        <div className="featured-items__title text-center pb-5">
+        <h2 className="featured-items__title text-center pb-5">
           Featured Items
-        </div>
+        </h2>
         <div
           className="featured-items__arrivals "
-          ref={ref}
-          // ref={(elem) => (ref.current[0] = elem)}
+          // ref={ref}
+          ref={(elem) => (ref.current[0] = elem)}
         >
           <div className="arrivals__photo ">
             <img src={feturedBackpack} alt="feturedBackpack" />
@@ -89,9 +89,9 @@ const FeaturedItems = () => {
 
         {/* promo */}
         <div
-          className="featured-items__promo mt-5 pt-5"
-          ref={promoRef}
-          // ref={(elem) => (ref.current[1] = elem)}
+          className="featured-items__promo mt-5 pt-5 mb-5"
+          // ref={promoRef}
+          ref={(elem) => (ref.current[1] = elem)}
         >
           <div className="promo__photo">
             <img src={miniBag} alt="miniBag" />

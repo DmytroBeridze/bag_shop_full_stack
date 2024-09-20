@@ -1,6 +1,5 @@
 @import "../../../style/variables.scss";
 .home {
-  // background-color: beige;
   width: 100%;
   min-height: 100vh;
 
@@ -8,5 +7,16 @@
   &__title {
     display: inline-block;
     margin-top: 150px;
+  }
+}
+
+.home-gallery {
+  &__title {
+    font-family: "Arvo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 38px;
+    margin-bottom: 15px;
   }
 }

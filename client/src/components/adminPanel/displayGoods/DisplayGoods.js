@@ -16,7 +16,6 @@ import { memo, useState } from "react";
 
 const DisplayGoods = ({ imageModal, getTargetId }) => {
   const { goods } = useSelector((state) => state.adminReducer);
-  console.log(goods);
 
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);

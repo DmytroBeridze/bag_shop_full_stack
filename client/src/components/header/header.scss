@@ -128,10 +128,16 @@
     text-decoration: none;
     display: block;
     margin-bottom: 20px;
+    transition: 0.2s;
     &:hover {
       color: $clr-maeked-text-brown;
     }
   }
+}
+
+.dropdown h4,
+.dropdown svg {
+  transition: 0.3s;
 }
 
 .dropdown:hover h4,

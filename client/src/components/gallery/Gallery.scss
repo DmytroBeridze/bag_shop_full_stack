@@ -1,0 +1,19 @@
+@import "../../style/variables.scss";
+
+.gallery {
+  margin: 15px 0;
+
+  &__gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    // grid-template-rows: repeat(2, 1fr);
+    gap: 30px;
+    justify-items: center;
+    @media (max-width: 800px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
