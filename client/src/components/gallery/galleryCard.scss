@@ -1,12 +1,17 @@
 @import "../../style/variables.scss";
 .gallery-card {
+  // opacity: 1;
   max-width: 270px;
   background: rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 35px 28px 23px;
-  position: relative;
+
+  // position: relative;
+  // @media (max-width: 1150px) {
+  //   position: static;
+  // }
 
   &:hover .menu-selection {
     opacity: 1;
@@ -45,6 +50,7 @@
     max-width: 214px;
     height: 214px;
     margin-bottom: 68px;
+    position: relative;
 
     @media (max-width: 1150px) {
       max-width: 164px;
@@ -178,12 +184,12 @@
 
   transition: 0.4s;
 
-  width: 214px;
-  height: 214px;
+  width: 100%;
+  height: 100%;
   background: rgba(254, 253, 253, 0.855);
   position: absolute;
-  top: 35px;
-  left: 28px;
+  top: 0px;
+  left: 0px;
 
   display: flex;
   flex-direction: column;

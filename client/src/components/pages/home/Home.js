@@ -23,6 +23,10 @@ const Home = () => {
     dispatch(fetchAllGoods());
   }, []);
 
+  // const { isloading } = useSelector((state) => state.galleryReducer);
+
+  // console.log(isloading);
+
   // ---memoised
   const unsafeSelector = createSelector(
     (state) => state.galleryReducer.goods,
@@ -57,7 +61,8 @@ const Home = () => {
       <div className="home-gallery">
         <h2 className="home-gallery__title text-center">Best products</h2>
         <MainFilters />
-        <Gallery goodsArray={filteredGoods} />
+
+        <Gallery goodsArray={filteredGoods} seeMore={true} />
       </div>
 
       <ScrollToTop

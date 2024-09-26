@@ -1,0 +1,15 @@
+@import "../../style/variables.scss";
+
+.addedToCart {
+  width: 100%;
+  display: flex;
+  //   max-width: 450px;
+  background-color: $clr-text-white;
+  border: 1px solid red;
+  &__photo {
+    flex-basis: 30%;
+  }
+  &__content {
+    // flex-basis: 40%;
+  }
+}

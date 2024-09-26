@@ -1,58 +1,100 @@
-import { useEffect } from "react";
 import "./Gallery.scss";
+import Preloader from "../preloader/Preloader";
 
 import GalleryCard from "./GalleryCard";
-import { fetchAllGoods } from "./gallerySlice";
+import ModalPopup from "../modal/Modal";
 
-import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchGoodsById } from "./gallerySlice";
+import QuickView from "../quickWiev/QuickWiev";
+import AddedToCart from "../addedToCart/AddedToCart";
 
-import { useDispatch, useSelector } from "react-redux";
-import { createSelector } from "@reduxjs/toolkit";
+const Gallery = ({ goodsArray, seeMore = false }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [goodsId, setGoodsId] = useState(false);
+  const [addedCart, setAddedCart] = useState(false);
 
-const Gallery = ({ goodsArray }) => {
-  // const { goods } = useSelector((state) => state.galleryReducer);
-  // const { mainfilterType } = useSelector((state) => state.mainFilterReducer);
+  const { isloading, status, oneProduct } = useSelector(
+    (state) => state.galleryReducer
+  );
+  // productCartOpen
+  const productCartOpen = (value) => {
+    setAddedCart(value);
+  };
+  const productCartClose = () => {
+    setAddedCart(false);
+  };
 
-  // ?---перенесено в Home-------------
-  // const dispatch = useDispatch();
-  // const location = useLocation();
+  // show modal
+  const handleShow = (id) => {
+    setGoodsId(id);
+  };
+  // hide modal
+  const handleClose = () => {
+    setGoodsId(false);
+  };
 
-  // useEffect(() => {
-  //   dispatch(fetchAllGoods());
-  // }, []);
+  useEffect(() => {
+    goodsId && dispatch(fetchGoodsById(goodsId));
+  }, [goodsId, goodsId]);
 
-  // // ---memoised
-  // const unsafeSelector = createSelector(
-  //   (state) => state.galleryReducer.goods,
-  //   (state) => state.mainFilterReducer.mainfilterType,
-  //   (goods, filter) => {
-  //     return goods.filter((elem) => elem.mainType === filter);
-  //   }
-  // );
-  // const filteredGoods = useSelector(unsafeSelector);
-  // ?-------------
-  // const filteredGoods = goods.filter(
-  //   (elem) => elem.mainType === mainfilterType
-  // );
-
-  // console.log(location.pathname);
-
-  // ?---перенесено в Home-------------
-  // const filteredGoodsToPage =
-  //   location.pathname === "/" ? filteredGoods.slice(0, 7) : filteredGoods;
-  // console.log(filteredGoodsToPage);
-  // ?-------------
+  if (isloading) {
+    return <Preloader />;
+  } else if (status) {
+    return (
+      <h5 className="text-center mt-5 mb-5 text-danger">Loading error...</h5>
+    );
+  }
   return (
-    <section className="gallery">
-      <div className="main-container">
-        <div className="gallery__gallery">
-          {goodsArray.map(({ _id, ...params }) => (
-            <GalleryCard key={_id} id={_id} {...params} />
-          ))}
-          <div className="more">See More -</div>
+    <>
+      <section className="gallery">
+        <div className="main-container">
+          <div className="gallery__gallery">
+            {goodsArray.map(({ _id, ...params }) => (
+              <GalleryCard
+                key={_id}
+                id={_id}
+                {...params}
+                handleModal={handleShow}
+              />
+            ))}
+            {seeMore && (
+              <button
+                className="more"
+                onClick={() => {
+                  navigate("/catalog");
+                }}
+              >
+                See more
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      {/* modal */}
+      <ModalPopup
+        show={goodsId ? true : false}
+        onHide={handleClose}
+        btnstyle="btn-secondary"
+      >
+        <QuickView
+          oneProduct={oneProduct}
+          productCartOpen={productCartOpen}
+          handleClose={handleClose}
+        />
+      </ModalPopup>
+
+      <ModalPopup
+        show={addedCart ? true : false}
+        onHide={productCartClose}
+        btnstyle="btn-secondary"
+      >
+        <AddedToCart oneProduct={oneProduct} quantity={addedCart} />
+      </ModalPopup>
+    </>
   );
 };
 

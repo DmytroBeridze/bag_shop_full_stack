@@ -87,6 +87,7 @@ const adminSlice = createSlice({
           status: null,
         };
       })
+
       .addCase(addGoods.fulfilled, (state, action) => {
         return {
           ...state,
