@@ -6,11 +6,12 @@ import { BiMenu } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
+
 import {
   scrollbarHide,
   scrollbarShow,
@@ -19,7 +20,8 @@ import {
 const Header = () => {
   const [dropdown, setDropdown] = useState();
   const [modalToggle, setModalToggle] = useState(false);
-  let location = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const showDropdown = (value) => {
     setDropdown(value);
@@ -231,7 +233,10 @@ const Header = () => {
                   </div>
                 </div>
               </Nav>
-              <div className="basket d-flex gap-2">
+              <div
+                className="basket d-flex gap-2"
+                onClick={() => navigate("/cart")}
+              >
                 <img src={basket} alt="basket" />
                 <div className="basket-count">0</div>
               </div>

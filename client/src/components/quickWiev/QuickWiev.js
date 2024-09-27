@@ -12,6 +12,7 @@ import { Navigation } from "swiper/modules";
 
 import { useState } from "react";
 import useCounter from "../../hooks/counter.hook";
+import getToLocalStorage from "../../features/getToLocalStorage";
 
 const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -19,34 +20,40 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
 
   // add to local storage
   const addToCart = () => {
-    const local = JSON.parse(localStorage.getItem("goods"));
     productCartOpen(counter);
     handleClose();
-
-    if (local) {
-      const changeArr = local.filter((elem) => elem.id !== oneProduct._id);
-
-      localStorage.setItem(
-        "goods",
-        JSON.stringify([
-          ...changeArr,
-          {
-            counter,
-            id: oneProduct._id,
-          },
-        ])
-      );
-    } else
-      localStorage.setItem(
-        "goods",
-        JSON.stringify([
-          {
-            counter,
-            id: oneProduct._id,
-          },
-        ])
-      );
+    getToLocalStorage("goods", oneProduct._id, counter);
   };
+
+  // const addToCart = () => {
+  //   const local = JSON.parse(localStorage.getItem("goods"));
+  //   productCartOpen(counter);
+  //   handleClose();
+
+  //   if (local) {
+  //     const changeArr = local.filter((elem) => elem.id !== oneProduct._id);
+
+  //     localStorage.setItem(
+  //       "goods",
+  //       JSON.stringify([
+  //         ...changeArr,
+  //         {
+  //           counter,
+  //           id: oneProduct._id,
+  //         },
+  //       ])
+  //     );
+  //   } else
+  //     localStorage.setItem(
+  //       "goods",
+  //       JSON.stringify([
+  //         {
+  //           counter,
+  //           id: oneProduct._id,
+  //         },
+  //       ])
+  //     );
+  // };
 
   if (oneProduct) {
     const { name, description, type, parameters, picture } = oneProduct;
@@ -57,7 +64,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
       oneProduct && (
         <div className="quickPreview d-flex m-3 gap-5 ">
           <div className="quickPreview__slider">
-            <div className="quickPreview__preview p-3 mb-2">
+            <div className="quickPreview__preview p-3 mb-1">
               <img
                 className="w-100 "
                 src={`http://localhost:3002/${picture[activeIndex]}`}
@@ -65,7 +72,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
               />
             </div>
             <Swiper
-              spaceBetween={30}
+              spaceBetween={5}
               slidesPerView={2}
               navigation={true}
               modules={[Navigation]}

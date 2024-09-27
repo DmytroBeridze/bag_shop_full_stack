@@ -1,16 +1,15 @@
 import "./galleryCard.scss";
 
-import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../buttons/Buttons";
-import ModalPopup from "../modal/Modal";
 import ImageError from "../error/imageError/ImageError";
+import getToLocalStorage from "../../features/getToLocalStorage";
 
-const GalleryCard = ({ id, handleModal, ...params }) => {
+const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
   const [changePhoto, setChangePhoto] = useState(false);
-
-  // const { mainfilterType } = useSelector((state) => state.mainFilterReducer);
+  const [goodsId, setGoodsId] = useState(false);
 
   const {
     createdAt,
@@ -25,11 +24,10 @@ const GalleryCard = ({ id, handleModal, ...params }) => {
     sale,
     new: newGoods,
   } = params;
+
   const { color, height, width, length, weight, price } =
     JSON.parse(parameters);
 
-  const dispatch = useDispatch();
-  const [goodsId, setGoodsId] = useState(false);
   // show modal
   const handleShow = (state) => {
     setGoodsId(state);
@@ -66,6 +64,10 @@ const GalleryCard = ({ id, handleModal, ...params }) => {
           <Button
             className={"grey-stroke__black-hover"}
             label={"add to cart"}
+            onclick={() => {
+              productCartOpen(id);
+              getToLocalStorage("goods", id);
+            }}
           />
         </div>
       </div>
@@ -83,12 +85,16 @@ const GalleryCard = ({ id, handleModal, ...params }) => {
         <Button
           label="add to cart"
           className="grey-stroke__black-hover gallery-card__button"
+          onclick={() => {
+            productCartOpen(id);
+            getToLocalStorage("goods", id);
+          }}
         />
       </div>
 
-      <ModalPopup show={goodsId ? true : false} onHide={handleClose}>
+      {/* <ModalPopup show={goodsId ? true : false} onHide={handleClose}>
         {goodsId}
-      </ModalPopup>
+      </ModalPopup> */}
     </div>
   );
 };

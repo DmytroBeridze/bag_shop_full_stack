@@ -20,10 +20,14 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
   const { isloading, status, oneProduct } = useSelector(
     (state) => state.galleryReducer
   );
+
+  // console.log(oneProduct);
+
   // productCartOpen
   const productCartOpen = (value) => {
     setAddedCart(value);
   };
+
   const productCartClose = () => {
     setAddedCart(false);
   };
@@ -59,8 +63,10 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
                 id={_id}
                 {...params}
                 handleModal={handleShow}
+                productCartOpen={productCartOpen}
               />
             ))}
+
             {seeMore && (
               <button
                 className="more"
@@ -92,7 +98,7 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
         onHide={productCartClose}
         btnstyle="btn-secondary"
       >
-        <AddedToCart oneProduct={oneProduct} quantity={addedCart} />
+        <AddedToCart oneProduct={oneProduct} id={addedCart} />
       </ModalPopup>
     </>
   );
