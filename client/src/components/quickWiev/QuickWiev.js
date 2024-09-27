@@ -20,8 +20,9 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
 
   // add to local storage
   const addToCart = () => {
-    productCartOpen(counter);
     handleClose();
+
+    productCartOpen(counter);
     getToLocalStorage("goods", oneProduct._id, counter);
   };
 

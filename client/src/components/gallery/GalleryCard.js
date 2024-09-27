@@ -6,6 +6,7 @@ import { useState } from "react";
 import Button from "../buttons/Buttons";
 import ImageError from "../error/imageError/ImageError";
 import getToLocalStorage from "../../features/getToLocalStorage";
+import SaleLabel from "../saleLabel/SaleLabel";
 
 const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
   const [changePhoto, setChangePhoto] = useState(false);
@@ -28,14 +29,14 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
   const { color, height, width, length, weight, price } =
     JSON.parse(parameters);
 
-  // show modal
-  const handleShow = (state) => {
-    setGoodsId(state);
-  };
-  // hide modal
-  const handleClose = () => {
-    setGoodsId(false);
-  };
+  // // show modal
+  // const handleShow = (state) => {
+  //   setGoodsId(state);
+  // };
+  // // hide modal
+  // const handleClose = () => {
+  //   setGoodsId(false);
+  // };
   return (
     <div
       className="gallery-card"
@@ -92,9 +93,8 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
         />
       </div>
 
-      {/* <ModalPopup show={goodsId ? true : false} onHide={handleClose}>
-        {goodsId}
-      </ModalPopup> */}
+      {/* sale label */}
+      {JSON.parse(sale) && <SaleLabel />}
     </div>
   );
 };

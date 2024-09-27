@@ -1,0 +1,53 @@
+@import "../../style/variables.scss";
+
+.saleLabel {
+  //   width: 66px;
+  //   height: 66px;
+  padding: 32px;
+  background-color: $clr-yellow-main;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  @media (max-width: 1150px) {
+    padding: 28px;
+    top: 10px;
+    left: 10px;
+  }
+  @media (max-width: 800px) {
+    padding: 22px;
+    top: 5px;
+    left: 5px;
+  }
+  @media (max-width: 600px) {
+    padding: 28px;
+    top: 10px;
+    left: 10px;
+  }
+  @media (max-width: 450px) {
+    padding: 38px;
+    top: 10px;
+    left: 10px;
+  }
+
+  & h4 {
+    color: $clr-text-white;
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 66px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @media (max-width: 800px) {
+      font-size: 10px;
+    }
+    @media (max-width: 450px) {
+      font-size: 14px;
+    }
+  }
+}

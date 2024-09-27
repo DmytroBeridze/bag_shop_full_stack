@@ -8,10 +8,7 @@
   align-items: flex-start;
   padding: 35px 28px 23px;
 
-  // position: relative;
-  // @media (max-width: 1150px) {
-  //   position: static;
-  // }
+  position: relative;
 
   &:hover .menu-selection {
     opacity: 1;
