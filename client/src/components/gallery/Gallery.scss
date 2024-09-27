@@ -29,6 +29,11 @@
   &:hover {
     background-color: $clr-maeked-text-brown;
   }
+  @media (max-width: 450px) {
+    width: 80px;
+    height: 80px;
+    font-size: 14px;
+  }
 }
 
 .alert-enter {

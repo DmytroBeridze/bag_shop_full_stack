@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { fetchAllGoods } from "../../gallery/gallerySlice";
 import { createSelector } from "@reduxjs/toolkit";
+import LatestFromBlog from "../../homePage/latestFromBlog/LatestFromBlog";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -64,7 +65,7 @@ const Home = () => {
 
         <Gallery goodsArray={filteredGoods} seeMore={true} />
       </div>
-
+      <LatestFromBlog />
       <ScrollToTop
         style={{
           width: "50px",
