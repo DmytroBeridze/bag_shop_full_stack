@@ -10,6 +10,7 @@ import Blog from "../pages/blog/Blog";
 import Sale from "../pages/sale/Sale";
 import AboutUs from "../pages/aboutUs/AboutUs";
 import ContactUs from "../pages/contactUs/ContactUs";
+import CatalogElement from "../pages/catalogElement/CatalogElement";
 
 function App() {
   return (
@@ -23,7 +24,9 @@ function App() {
           <Route path="/sale" element={<Sale />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/catalog/:id" element={<ContactUs />} />
+          <Route path="/catalog/:id" element={<CatalogElement />} />
+
+          <Route path="/blog/:id" element={<ContactUs />} />
 
           {/* Admin panel */}
           <Route path="/admin/panel" element={<Admin />} />

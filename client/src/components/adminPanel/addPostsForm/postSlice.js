@@ -3,6 +3,7 @@ import useHttp from "../../../hooks/http.hooks";
 
 const initialState = {
   posts: [],
+  onePost: {},
   postStatus: null,
   isloading: false,
 };
@@ -25,6 +26,18 @@ export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   const { data } = await adminRequest("http://localhost:3002/api/blog/posts");
   return data;
 });
+
+// get by id
+export const getPostsById = createAsyncThunk(
+  "posts/getPostsById",
+  async (id) => {
+    const { adminRequest } = useHttp();
+    const { data } = await adminRequest(
+      `http://localhost:3002/api/blog/posts/${id}`
+    );
+    return data;
+  }
+);
 
 // delete
 export const deletePost = createAsyncThunk("posts/deletePost", async (body) => {
@@ -108,7 +121,32 @@ const postsSlice = createSlice({
           postStatus: action.payload,
           isloading: false,
         };
+      })
+
+      //  get by id
+      .addCase(getPostsById.pending, (state, action) => {
+        return {
+          ...state,
+          isloading: "true",
+          postStatus: null,
+        };
+      })
+      .addCase(getPostsById.fulfilled, (state, action) => {
+        return {
+          ...state,
+          onePost: action.payload,
+          postStatus: null,
+          isloading: false,
+        };
+      })
+      .addCase(getPostsById.rejected, (state, action) => {
+        return {
+          ...state,
+          postStatus: action.payload,
+          isloading: false,
+        };
       });
+
     //... delete
     builder
       .addCase(deletePost.pending, (state) => {
