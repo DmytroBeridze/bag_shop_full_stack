@@ -7,8 +7,9 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 35px 28px 23px;
-
   position: relative;
+
+  // cursor: pointer;
 
   &:hover .menu-selection {
     opacity: 1;
@@ -18,7 +19,7 @@
       visibility: hidden;
     }
   }
-  cursor: pointer;
+
   @media (max-width: 1150px) {
     max-width: 220px;
     align-items: center;
@@ -122,7 +123,12 @@
         width: 208px;
         font-size: 18px;
       }
+      & a {
+        text-decoration: none;
+        color: inherit;
+      }
     }
+
     & > p {
       font-weight: 400;
       font-size: 12px;

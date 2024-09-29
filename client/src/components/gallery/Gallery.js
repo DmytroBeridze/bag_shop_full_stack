@@ -14,25 +14,30 @@ import AddedToCart from "../addedToCart/AddedToCart";
 const Gallery = ({ goodsArray, seeMore = false }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [goodsId, setGoodsId] = useState(false);
-  const [addedCart, setAddedCart] = useState(false);
-
   const { isloading, status, oneProduct } = useSelector(
     (state) => state.galleryReducer
   );
 
-  // console.log(oneProduct);
+  const [addedCart, setAddedCart] = useState(false);
+  const [quontity, setQuontity] = useState(false);
 
-  // productCartOpen
-  const productCartOpen = (value) => {
-    setAddedCart(value);
+  const [goodsId, setGoodsId] = useState(false);
+
+  // show modal FromQuickView
+  const productCartOpenFromQuickView = (quantity) => {
+    setQuontity(quantity);
+  };
+  // show modal FromGalleryCard
+  const productCartOpenFromGalleryCard = (id) => {
+    setAddedCart(id);
   };
 
   const productCartClose = () => {
     setAddedCart(false);
+    setQuontity(false);
   };
 
-  // show modal
+  // show modal Quick view
   const handleShow = (id) => {
     setGoodsId(id);
   };
@@ -63,7 +68,7 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
                 id={_id}
                 {...params}
                 handleModal={handleShow}
-                productCartOpen={productCartOpen}
+                productCartOpen={productCartOpenFromGalleryCard}
               />
             ))}
 
@@ -80,7 +85,8 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
           </div>
         </div>
       </section>
-      {/* modal */}
+
+      {/* modal Quick view */}
       <ModalPopup
         show={goodsId ? true : false}
         onHide={handleClose}
@@ -88,17 +94,22 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
       >
         <QuickView
           oneProduct={oneProduct}
-          productCartOpen={productCartOpen}
+          productCartOpen={productCartOpenFromQuickView}
           handleClose={handleClose}
         />
       </ModalPopup>
 
+      {/* modal Added card */}
       <ModalPopup
-        show={addedCart ? true : false}
+        show={addedCart || quontity ? true : false}
         onHide={productCartClose}
         btnstyle="btn-secondary"
       >
-        <AddedToCart oneProduct={oneProduct} id={addedCart} />
+        <AddedToCart
+          oneProduct={oneProduct}
+          id={addedCart}
+          quantity={quontity}
+        />
       </ModalPopup>
     </>
   );

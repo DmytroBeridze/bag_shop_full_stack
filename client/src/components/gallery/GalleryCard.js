@@ -7,6 +7,7 @@ import Button from "../buttons/Buttons";
 import ImageError from "../error/imageError/ImageError";
 import getToLocalStorage from "../../features/getToLocalStorage";
 import SaleLabel from "../saleLabel/SaleLabel";
+import { NavLink } from "react-router-dom";
 
 const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
   const [changePhoto, setChangePhoto] = useState(false);
@@ -74,7 +75,10 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
       </div>
 
       <div className="gallery-card__content">
-        <h3>{name}</h3>
+        <h3>
+          <NavLink to={`/catalog/${id}`}>{name} </NavLink>
+        </h3>
+
         <p>{description}</p>
         <p>${price}</p>
 

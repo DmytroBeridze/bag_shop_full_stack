@@ -26,36 +26,6 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
     getToLocalStorage("goods", oneProduct._id, counter);
   };
 
-  // const addToCart = () => {
-  //   const local = JSON.parse(localStorage.getItem("goods"));
-  //   productCartOpen(counter);
-  //   handleClose();
-
-  //   if (local) {
-  //     const changeArr = local.filter((elem) => elem.id !== oneProduct._id);
-
-  //     localStorage.setItem(
-  //       "goods",
-  //       JSON.stringify([
-  //         ...changeArr,
-  //         {
-  //           counter,
-  //           id: oneProduct._id,
-  //         },
-  //       ])
-  //     );
-  //   } else
-  //     localStorage.setItem(
-  //       "goods",
-  //       JSON.stringify([
-  //         {
-  //           counter,
-  //           id: oneProduct._id,
-  //         },
-  //       ])
-  //     );
-  // };
-
   if (oneProduct) {
     const { name, description, type, parameters, picture } = oneProduct;
     const { color, height, width, length, weight, price } =

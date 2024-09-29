@@ -29,7 +29,7 @@ const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
           </div>
           <div className="addedToCart__content">
             <h3>{name}</h3>
-            <p>Quantity: {quantity}</p>
+            <p>Quantity: {!quantity ? 1 : quantity}</p>
             <div className="addedToCart__buttons">
               <Button
                 label="Go to cart"

@@ -66,6 +66,7 @@ const Home = () => {
         <Gallery goodsArray={filteredGoods} seeMore={true} />
       </div>
       <LatestFromBlog />
+
       <ScrollToTop
         style={{
           width: "50px",
