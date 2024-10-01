@@ -1,15 +1,18 @@
 import "./galleryCard.scss";
 
 import { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../buttons/Buttons";
 import ImageError from "../error/imageError/ImageError";
 import getToLocalStorage from "../../features/getToLocalStorage";
 import SaleLabel from "../saleLabel/SaleLabel";
 import { NavLink } from "react-router-dom";
+import { productCartOpenFromGalleryCard } from "./gallerySlice";
+import { useDispatch } from "react-redux";
 
-const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
+const GalleryCard = ({ id, handleModal, ...params }) => {
+  // const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
+  const dispatch = useDispatch();
   const [changePhoto, setChangePhoto] = useState(false);
   const [goodsId, setGoodsId] = useState(false);
 
@@ -67,7 +70,8 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
             className={"grey-stroke__black-hover"}
             label={"add to cart"}
             onclick={() => {
-              productCartOpen(id);
+              dispatch(productCartOpenFromGalleryCard(id));
+              // productCartOpen(id);
               getToLocalStorage("goods", id);
             }}
           />
@@ -87,11 +91,13 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
           className="grey-stroke__black-hover gallery-card__button"
           onclick={() => handleModal(id)}
         />
+
         <Button
           label="add to cart"
           className="grey-stroke__black-hover gallery-card__button"
           onclick={() => {
-            productCartOpen(id);
+            dispatch(productCartOpenFromGalleryCard(id));
+            // productCartOpen(id);
             getToLocalStorage("goods", id);
           }}
         />

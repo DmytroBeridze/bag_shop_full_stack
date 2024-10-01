@@ -108,17 +108,21 @@ const postsSlice = createSlice({
         };
       })
       .addCase(getAllPosts.fulfilled, (state, action) => {
+        // state.isloading = false;
+        // state.posts = action.payload;
+        // state.postStatus = false;
+
         return {
           ...state,
           posts: action.payload,
-          isLoading: false,
+          isloading: false,
           postStatus: null,
         };
       })
       .addCase(getAllPosts.rejected, (state, action) => {
         return {
           ...state,
-          postStatus: action.payload,
+          postStatus: action.error.message,
           isloading: false,
         };
       })
@@ -127,7 +131,7 @@ const postsSlice = createSlice({
       .addCase(getPostsById.pending, (state, action) => {
         return {
           ...state,
-          isloading: "true",
+          isloading: true,
           postStatus: null,
         };
       })

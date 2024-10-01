@@ -1,14 +1,24 @@
 import "./addedToCart.scss";
 
-import { useDispatch } from "react-redux";
 import Button from "../buttons/Buttons";
+import {
+  fetchGoodsById,
+  productCartOpen,
+  productCartOpenFromGalleryCard,
+} from "../gallery/gallerySlice";
+
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchGoodsById } from "../gallery/gallerySlice";
 import { useNavigate } from "react-router-dom";
 
 const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const closeModals = () => {
+    dispatch(productCartOpen(null));
+    dispatch(productCartOpenFromGalleryCard(null));
+  };
 
   useEffect(() => {
     id && dispatch(fetchGoodsById(id));
@@ -34,12 +44,20 @@ const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
               <Button
                 label="Go to cart"
                 className={"main-yellow"}
-                onclick={() => navigate("/cart")}
+                onclick={() => {
+                  navigate("/cart");
+                  // dispatch(productCartOpen(null));
+                  // dispatch(productCartOpenFromGalleryCard(null));
+                  closeModals();
+                }}
               />
               <Button
                 label="Continue shopping"
                 className={"main-yellow"}
-                onclick={() => navigate("/catalog")}
+                onclick={() => {
+                  navigate("/catalog");
+                  closeModals();
+                }}
               />
             </div>
           </div>

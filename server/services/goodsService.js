@@ -28,6 +28,7 @@ class GoodsService {
 
   //get
   async getAllGoods() {
+    // throw new Error("Test error");
     const allGoods = await GoodsSchema.find();
     return allGoods;
   }

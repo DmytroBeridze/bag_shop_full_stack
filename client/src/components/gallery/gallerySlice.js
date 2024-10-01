@@ -4,9 +4,15 @@ import useHttp from "../../hooks/http.hooks";
 
 const initialState = {
   goods: [],
-  oneProduct: null,
   isloading: false,
   status: null,
+
+  oneProduct: null,
+  oneProductisloading: false,
+  oneProductStatus: null,
+
+  quantity: null,
+  elemId: null,
 };
 
 // all goods
@@ -37,7 +43,17 @@ export const fetchGoodsById = createAsyncThunk(
 const gallerySlice = createSlice({
   name: "gallery",
   initialState,
-  reducers: {},
+  reducers: {
+    // show modal FromGalleryCard
+    productCartOpen(state, action) {
+      state.quantity = action.payload;
+    },
+
+    // show modal FromGalleryCard
+    productCartOpenFromGalleryCard(state, action) {
+      state.elemId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // get all googs
     builder
@@ -46,32 +62,43 @@ const gallerySlice = createSlice({
         state.status = null;
       })
       .addCase(fetchAllGoods.fulfilled, (state, action) => {
+        // console.log("fulfilled");
+
         state.goods = action.payload;
         state.isloading = false;
         state.status = false;
       })
       .addCase(fetchAllGoods.rejected, (state, action) => {
+        // console.log("rejected");
+
         state.isloading = false;
-        state.status = action.payload;
+        // state.status = action.message;
+        state.status = action.error.name;
       });
 
     // get goods by id
     builder
       .addCase(fetchGoodsById.pending, (state) => {
-        // state.isloading = true;
-        state.status = null;
+        state.oneProductisloading = true;
+        state.oneProductStatus = null;
+
+        // console.log(state.oneProductisloading);
       })
       .addCase(fetchGoodsById.fulfilled, (state, action) => {
-        // state.isloading = false;
-        state.status = null;
+        state.oneProductisloading = false;
+        state.oneProductStatus = null;
         state.oneProduct = action.payload;
+
+        // console.log(state.oneProductisloading);
       })
       .addCase(fetchGoodsById.rejected, (state, action) => {
-        // state.isloading = false;
-        state.status = action.payload;
+        state.oneProductisloading = false;
+        state.oneProductStatus = action.payload;
       });
   },
 });
 
-const { action, reducer } = gallerySlice;
+const { actions, reducer } = gallerySlice;
+
+export const { productCartOpen, productCartOpenFromGalleryCard } = actions;
 export default reducer;

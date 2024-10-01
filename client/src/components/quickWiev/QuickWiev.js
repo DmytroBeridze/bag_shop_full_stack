@@ -13,16 +13,20 @@ import { Navigation } from "swiper/modules";
 import { useState } from "react";
 import useCounter from "../../hooks/counter.hook";
 import getToLocalStorage from "../../features/getToLocalStorage";
+import { useDispatch } from "react-redux";
+import { productCartOpen } from "../gallery/gallerySlice";
 
-const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
+const QuickView = ({ oneProduct, handleClose }) => {
+  // const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const { decrement, increment, counter } = useCounter();
+  const dispatch = useDispatch();
 
   // add to local storage
   const addToCart = () => {
     handleClose();
-
-    productCartOpen(counter);
+    dispatch(productCartOpen(counter));
+    // productCartOpen(counter);
     getToLocalStorage("goods", oneProduct._id, counter);
   };
 
