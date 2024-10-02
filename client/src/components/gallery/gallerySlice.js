@@ -44,7 +44,7 @@ const gallerySlice = createSlice({
   name: "gallery",
   initialState,
   reducers: {
-    // show modal FromGalleryCard
+    // show modal FromQuickView
     productCartOpen(state, action) {
       state.quantity = action.payload;
     },
@@ -52,6 +52,11 @@ const gallerySlice = createSlice({
     // show modal FromGalleryCard
     productCartOpenFromGalleryCard(state, action) {
       state.elemId = action.payload;
+    },
+
+    // clear oneProduct state
+    clearOneProductState(state) {
+      state.oneProduct = null;
     },
   },
   extraReducers: (builder) => {
@@ -100,5 +105,9 @@ const gallerySlice = createSlice({
 
 const { actions, reducer } = gallerySlice;
 
-export const { productCartOpen, productCartOpenFromGalleryCard } = actions;
+export const {
+  productCartOpen,
+  productCartOpenFromGalleryCard,
+  clearOneProductState,
+} = actions;
 export default reducer;

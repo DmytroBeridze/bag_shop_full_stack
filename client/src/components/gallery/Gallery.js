@@ -26,27 +26,32 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
   const [goodsId, setGoodsId] = useState(false);
 
   // show modal FromQuickView
-  // const productCartOpenFromQuickView = (quantity) => {
-  //   setQuontity(quantity);
-  // };
+  const productCartOpenFromQuickView = (quantity) => {
+    setQuontity(quantity);
+  };
+
+  // show modal FromGalleryCard
+  const productCartOpenFromGalleryCard = (id) => {
+    setAddedCart(id);
+  };
 
   useEffect(() => {
     setQuontity(quantity);
   }, [quantity]);
+
   useEffect(() => {
     setAddedCart(elemId);
   }, [elemId]);
 
-  // show modal FromGalleryCard
-  // const productCartOpenFromGalleryCard = (id) => {
-  //   setAddedCart(id);
-  // };
+  useEffect(() => {
+    goodsId && dispatch(fetchGoodsById(goodsId));
+  }, [goodsId]);
 
   const productCartClose = () => {
     setAddedCart(false);
-    // setQuontity(false);
+    setQuontity(false);
 
-    dispatch(productCartOpen(null));
+    // dispatch(productCartOpen(null));
   };
 
   // show modal Quick view
@@ -58,15 +63,10 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
     setGoodsId(false);
   };
 
-  useEffect(() => {
-    goodsId && dispatch(fetchGoodsById(goodsId));
-  }, [goodsId, goodsId]);
-
   if (isloading) {
     return <Preloader />;
   } else if (status) {
     return (
-      // <h5 className="text-center mt-5 mb-5 text-danger">{status}</h5>
       <h5 className="text-center mt-5 mb-5 text-danger">Loading error...</h5>
     );
   }
@@ -83,7 +83,7 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
                   id={_id}
                   {...params}
                   handleModal={handleShow}
-                  // productCartOpen={productCartOpenFromGalleryCard}
+                  productCartOpen={productCartOpenFromGalleryCard}
                 />
               ))}
 
@@ -109,7 +109,7 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
       >
         <QuickView
           oneProduct={oneProduct}
-          // productCartOpen={productCartOpenFromQuickView}
+          productCartOpen={productCartOpenFromQuickView}
           handleClose={handleClose}
         />
       </ModalPopup>

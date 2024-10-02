@@ -14,8 +14,10 @@ import ModalPopup from "../../modal/Modal";
 import AddedToCart from "../../addedToCart/AddedToCart";
 import getToLocalStorage from "../../../features/getToLocalStorage";
 import Preloader from "../../preloader/Preloader";
+import Counter from "../../counter/Counter";
 
 import {
+  clearOneProductState,
   fetchGoodsById,
   productCartOpen,
   productCartOpenFromGalleryCard,
@@ -30,33 +32,43 @@ const CatalogElement = () => {
   const dispatch = useDispatch();
   const { oneProduct, oneProductisloading, oneProductStatus, quantity } =
     useSelector((state) => state.galleryReducer);
-  const { decrement, increment, counter } = useCounter();
+
+  const [valueCounter, setValueCounter] = useState(1);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   // add to local storage
   const addToCart = () => {
-    dispatch(productCartOpen(counter));
-    getToLocalStorage("goods", oneProduct._id, counter);
+    dispatch(productCartOpen(valueCounter));
+
+    getToLocalStorage("goods", oneProduct._id, valueCounter);
   };
 
   const productCartClose = () => {
     dispatch(productCartOpen(null));
-    dispatch(productCartOpenFromGalleryCard(null));
+    // dispatch(productCartOpenFromGalleryCard(null));
   };
 
   useEffect(() => {
     dispatch(fetchGoodsById(id));
   }, []);
 
+  // обнулення clearOneProductState в gallerySlice, щоб на секунду
+  //  не показувалася минула карточка при відкритті CatalogElement
+  useEffect(() => {
+    window.addEventListener("beforeunload", dispatch(clearOneProductState()));
+    return () => {
+      window.removeEventListener(
+        "beforeunload",
+        dispatch(clearOneProductState())
+      );
+    };
+  }, []);
+
   const handleSlideChange = (swiper) => {
     setActiveIndex(swiper.activeIndex);
   };
-
-  // TODO----Падає слайдер з-за thumbsSwiper, якщо застосовувати умовну перевірку oneProductisloading для показа лоадера
-  // console.log(thumbsSwiper.destroyed);
-  // console.log({ ...thumbsSwiper });
 
   if (oneProduct) {
     const {
@@ -73,21 +85,21 @@ const CatalogElement = () => {
     const { color, height, width, length, weight, price } =
       JSON.parse(parameters);
 
-    // if (oneProductisloading) {
-    //   return (
-    //     <div style={{ paddingTop: "150px" }}>
-    //       <Preloader />
-    //     </div>
-    //   );
-    // } else if (oneProductStatus) {
-    //   return (
-    //     <div style={{ paddingTop: "150px" }}>
-    //       <h5 className="text-center mt-5 mb-5 text-danger">
-    //         Loading error...
-    //       </h5>
-    //     </div>
-    //   );
-    // }
+    if (oneProductisloading) {
+      return (
+        <div style={{ paddingTop: "150px" }}>
+          <Preloader />
+        </div>
+      );
+    } else if (oneProductStatus) {
+      return (
+        <div style={{ paddingTop: "150px" }}>
+          <h5 className="text-center mt-5 mb-5 text-danger">
+            Loading error...
+          </h5>
+        </div>
+      );
+    }
 
     return (
       <section className="catalogElement">
@@ -97,31 +109,39 @@ const CatalogElement = () => {
             <div className="catalogElement__order">
               {/* slider */}
               <div className="catalogElement__slider">
-                {thumbsSwiper && (
-                  <Swiper
-                    navigation
-                    modules={[Navigation, Thumbs]}
-                    style={{ maxHeight: "570px", marginBottom: "15px" }}
-                    onSlideChange={handleSlideChange}
-                    thumbs={{ swiper: thumbsSwiper }}
-                  >
-                    {picture.map((image, index) => {
-                      return (
-                        <SwiperSlide key={index}>
-                          <img
-                            src={`http://localhost:3002/${image}`}
-                            alt={name.slice(0, 10)}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
-                )}
+                {/* {thumbsSwiper && ( */}
+
+                <Swiper
+                  navigation
+                  modules={[Navigation, Thumbs]}
+                  style={{ maxHeight: "570px", marginBottom: "15px" }}
+                  onSlideChange={handleSlideChange}
+                  thumbs={{
+                    swiper:
+                      thumbsSwiper && !thumbsSwiper.destroyed
+                        ? thumbsSwiper
+                        : null,
+                  }}
+                  // thumbs={{ swiper: thumbsSwiper }}
+                >
+                  {picture.map((image, index) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <img
+                          src={`http://localhost:3002/${image}`}
+                          alt={name.slice(0, 10)}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+
+                {/* )} */}
 
                 <Swiper
                   className="thumbs"
@@ -150,7 +170,7 @@ const CatalogElement = () => {
               </div>
 
               {/*  order form */}
-              <div className="catalogElement__order-form">
+              <div className="catalogElement__order-form ">
                 <h3 className="catalogElement__title">{name}</h3>
 
                 <div className="catalogElement__order-container">
@@ -158,7 +178,7 @@ const CatalogElement = () => {
                     <table>
                       <tbody>
                         <tr className="catalogElement__color">
-                          <td>Type:</td>
+                          <td data-label="type">Type:</td>
                           <td style={{ lineHeight: "16px" }}>
                             {type ? type : "-"}
                           </td>
@@ -187,31 +207,24 @@ const CatalogElement = () => {
                     </table>
                   </div>
                   <div className="catalogElement__order-block">
-                    <div className="quickPreview__quantity">
-                      <p>Choose quantity:</p>
-                      <div className="d-flex align-items-end gap-4">
-                        <div className="quickPreview__couner">
-                          <input type="text" value={counter} readOnly />
-                          <span
-                            className="quickPreview__decrement"
-                            onClick={decrement}
-                          >
-                            <FiMinus />
-                          </span>
-                          <span
-                            className="quickPreview__increment"
-                            onClick={increment}
-                          >
-                            <FaPlus />
-                          </span>
-                        </div>
-                        <button
-                          className="custom-button main-yellow quickPreview__button"
-                          onClick={addToCart}
-                        >
-                          Add to cart
-                        </button>
-                      </div>
+                    <p className="catalogElement__price">
+                      ${price * valueCounter}
+                    </p>
+                    <p className="mb-3 mt-3">Choose quantity:</p>
+                    <div className="d-flex align-items-center gap-3">
+                      {/* Counter */}
+                      <Counter
+                        setValueCounter={setValueCounter}
+                        valueCounter={valueCounter}
+                      />
+
+                      <button
+                        className="custom-button main-yellow catalogElement__button"
+                        onClick={addToCart}
+                        disabled={valueCounter < 1}
+                      >
+                        Add to cart
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -232,7 +245,8 @@ const CatalogElement = () => {
           onHide={productCartClose}
           btnstyle="btn-secondary"
         >
-          <AddedToCart oneProduct={oneProduct} id={_id} quantity={quantity} />
+          <AddedToCart oneProduct={oneProduct} quantity={quantity} />
+          {/* <AddedToCart oneProduct={oneProduct} id={_id} quantity={quantity} /> */}
         </ModalPopup>
       </section>
     );
