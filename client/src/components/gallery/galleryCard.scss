@@ -179,6 +179,38 @@
       width: 80%;
     }
   }
+
+  & .saleLabel {
+    @media (max-width: 1150px) {
+      padding: 28px;
+      top: 10px;
+      left: 10px;
+    }
+    @media (max-width: 800px) {
+      padding: 22px;
+      top: 5px;
+      left: 5px;
+    }
+    @media (max-width: 600px) {
+      padding: 28px;
+      top: 10px;
+      left: 10px;
+    }
+    @media (max-width: 450px) {
+      padding: 38px;
+      top: 10px;
+      left: 10px;
+    }
+
+    & h4 {
+      @media (max-width: 800px) {
+        font-size: 10px;
+      }
+      @media (max-width: 450px) {
+        font-size: 14px;
+      }
+    }
+  }
 }
 
 .menu-selection {

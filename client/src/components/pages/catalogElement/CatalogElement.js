@@ -1,31 +1,21 @@
 import "./catalogElement.scss";
 
-import { FaPlus } from "react-icons/fa6";
-import { FiMinus } from "react-icons/fi";
-
-// swiper
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Thumbs } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-
-import useCounter from "../../../hooks/counter.hook";
 import ModalPopup from "../../modal/Modal";
 import AddedToCart from "../../addedToCart/AddedToCart";
 import getToLocalStorage from "../../../features/getToLocalStorage";
 import Preloader from "../../preloader/Preloader";
-import Counter from "../../counter/Counter";
+import OrderForm from "./OrderForm";
+
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import CatalogSlider from "./CatalogSlider";
 
 import {
   clearOneProductState,
   fetchGoodsById,
   productCartOpen,
-  productCartOpenFromGalleryCard,
 } from "../../gallery/gallerySlice";
-
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 
 const CatalogElement = () => {
   const { id } = useParams();
@@ -34,9 +24,6 @@ const CatalogElement = () => {
     useSelector((state) => state.galleryReducer);
 
   const [valueCounter, setValueCounter] = useState(1);
-
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   // add to local storage
   const addToCart = () => {
@@ -66,10 +53,6 @@ const CatalogElement = () => {
     };
   }, []);
 
-  const handleSlideChange = (swiper) => {
-    setActiveIndex(swiper.activeIndex);
-  };
-
   if (oneProduct) {
     const {
       picture,
@@ -81,9 +64,6 @@ const CatalogElement = () => {
       sale,
       _id,
     } = oneProduct;
-
-    const { color, height, width, length, weight, price } =
-      JSON.parse(parameters);
 
     if (oneProductisloading) {
       return (
@@ -103,132 +83,21 @@ const CatalogElement = () => {
 
     return (
       <section className="catalogElement">
-        <div className="main-container">
+        <div className="main-container position-relative">
           <div className="catalogElement__wrapper">
+            <h3 className="catalogElement__title">{name}</h3>
+
             {/*  order block */}
             <div className="catalogElement__order">
               {/* slider */}
-              <div className="catalogElement__slider">
-                {/* {thumbsSwiper && ( */}
-
-                <Swiper
-                  navigation
-                  modules={[Navigation, Thumbs]}
-                  style={{ maxHeight: "570px", marginBottom: "15px" }}
-                  onSlideChange={handleSlideChange}
-                  thumbs={{
-                    swiper:
-                      thumbsSwiper && !thumbsSwiper.destroyed
-                        ? thumbsSwiper
-                        : null,
-                  }}
-                  // thumbs={{ swiper: thumbsSwiper }}
-                >
-                  {picture.map((image, index) => {
-                    return (
-                      <SwiperSlide key={index}>
-                        <img
-                          src={`http://localhost:3002/${image}`}
-                          alt={name.slice(0, 10)}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                          }}
-                        />
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
-
-                {/* )} */}
-
-                <Swiper
-                  className="thumbs"
-                  style={{ maxHeight: "100px" }}
-                  slidesPerView={5}
-                  spaceBetween={10}
-                  modules={[Navigation, Thumbs]}
-                  onSwiper={setThumbsSwiper}
-                >
-                  {picture.map((image, index) => (
-                    <SwiperSlide key={index}>
-                      <img
-                        src={`http://localhost:3002/${image}`}
-                        alt={name.slice(0, 10)}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          // objectFit: "contain",
-                          objectFit: "cover",
-                          opacity: index === activeIndex ? 1 : 0.6,
-                        }}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-
+              <CatalogSlider picture={picture} name={name} sale={sale} />
               {/*  order form */}
-              <div className="catalogElement__order-form ">
-                <h3 className="catalogElement__title">{name}</h3>
-
-                <div className="catalogElement__order-container">
-                  <div className="catalogElement__order-description">
-                    <table>
-                      <tbody>
-                        <tr className="catalogElement__color">
-                          <td data-label="type">Type:</td>
-                          <td style={{ lineHeight: "16px" }}>
-                            {type ? type : "-"}
-                          </td>
-                        </tr>
-                        <tr className="catalogElement__color">
-                          <td>Color:</td>
-                          <td>{color ? color : "-"}</td>
-                        </tr>
-                        <tr className="catalogElement__weight">
-                          <td>Weight:</td>
-                          <td>{weight ? weight : "-"}</td>
-                        </tr>
-                        <tr className="catalogElement__height">
-                          <td>Height:</td>
-                          <td>{height ? height : "-"}</td>
-                        </tr>
-                        <tr className="catalogElement__width">
-                          <td>Width:</td>
-                          <td>{width ? width : "-"}</td>
-                        </tr>
-                        <tr className="catalogElement__length">
-                          <td>Length:</td>
-                          <td>{length ? length : "-"}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="catalogElement__order-block">
-                    <p className="catalogElement__price">
-                      ${price * valueCounter}
-                    </p>
-                    <p className="mb-3 mt-3">Choose quantity:</p>
-                    <div className="d-flex align-items-center gap-3">
-                      {/* Counter */}
-                      <Counter
-                        setValueCounter={setValueCounter}
-                        valueCounter={valueCounter}
-                      />
-
-                      <button
-                        className="custom-button main-yellow catalogElement__button"
-                        onClick={addToCart}
-                        disabled={valueCounter < 1}
-                      >
-                        Add to cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <OrderForm
+                product={oneProduct}
+                valueCounter={valueCounter}
+                setValueCounter={setValueCounter}
+                addToCart={addToCart}
+              />
             </div>
 
             {/*  description block */}
@@ -246,7 +115,6 @@ const CatalogElement = () => {
           btnstyle="btn-secondary"
         >
           <AddedToCart oneProduct={oneProduct} quantity={quantity} />
-          {/* <AddedToCart oneProduct={oneProduct} id={_id} quantity={quantity} /> */}
         </ModalPopup>
       </section>
     );

@@ -10,159 +10,43 @@
   line-height: 24px;
 
   &__wrapper {
-    margin-top: 60px;
+    margin-bottom: 50px;
     width: 100%;
-    // height: 100vh;
-    // border: 1px solid red;
   }
+
+  &__title {
+    font-family: "Arvo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 36px;
+    display: block;
+    display: none;
+    margin-top: 30px;
+
+    @media (max-width: 760px) {
+      text-align: center;
+      display: block;
+    }
+    @media (max-width: 400px) {
+      font-size: 22px;
+      line-height: 24px;
+    }
+  }
+
   &__order {
-    max-height: 688px;
     display: flex;
     gap: 15px;
-  }
-  &__slider {
-    width: 50%;
-    // max-width: 570px;
-    height: 100%;
-
-    // max-height: 100%;
-  }
-  &__order-form {
-    // flex-basis: 50%;
-
-    width: 100%;
-    max-width: 685px;
-    padding: 80px 12px 20px;
-
-    & h3 {
-      font-family: "Arvo";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 32px;
-      line-height: 40px;
+    @media (max-width: 1000px) {
+      align-items: center;
     }
-  }
-  &__order-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    position: relative;
-    padding-top: 20px;
-    margin-top: 40px;
-    &::before {
-      content: "";
-      position: absolute;
-      display: block;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: $clr-text-grey;
-      opacity: 0.4;
-    }
-  }
-  &__order-description {
-    flex: 1;
-    & table {
-      border: 1px solid red;
-      width: 100%;
-      border-collapse: collapse;
-      // padding: 10px 10px;
-
-      // @media (max-width: 1000px) {
-      //   display: block; /* Превращаем таблицу в блочный элемент */
-      //   overflow-x: auto; /* Позволяет прокручивать таблицу */
-      //   white-space: nowrap; /* Отключаем перенос строк */
-      // }
-
-      & tr {
-        border: 1px solid rgb(0, 98, 255);
-        display: block; /* Превращаем таблицу в блочный элемент */
-        &:nth-child(even) {
-          background-color: #ffca0a2d;
-        }
-      }
-      & td {
-        // width: 120px;
-        width: 50%;
-        text-align: center;
-        padding: 10px 10px;
-        display: inline-block;
-        &:last-child {
-          color: $clr-text-grey;
-          // margin-left: 10px;
-        }
-      }
-    }
-  }
-  &__order-block {
-    flex: 1;
-  }
-
-  &__price {
-    font-weight: 700;
-    font-size: 20px;
-    margin-top: 30px;
-  }
-
-  &__button {
-    // height: 55px;
-    // font-size: 14px;
-    // padding: 5px 15px;
-    @media (max-width: 1250px) {
-      padding: 15px 15px;
-    }
-    &:disabled {
-      opacity: 0.6;
+    @media (max-width: 760px) {
+      align-items: center;
+      flex-direction: column;
     }
   }
 
   &__description {
     margin-top: 30px;
-  }
-
-  //------------------------ slider styles
-  & .thumbs .swiper-slide {
-    // width: 100px !important;
-    // opacity: 0.6;
-    cursor: pointer;
-  }
-
-  //   & .thumbs .swiper-slide-active {
-  //     // opacity: 1 !important;
-  //   }
-
-  & .swiper-button-next,
-  .swiper-button-prev {
-    width: 50px;
-    height: 50px;
-    color: #fff;
-    z-index: 10;
-    // position: absolute;
-  }
-  & .swiper-button-next,
-  & .swiper-button-prev {
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: url("../../../resources/icons/slider-arrows/arrow-right.png");
-      // background-image: url("../../../resources/icons/slider-arrows/catalogElement-slider-arrow.png");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      top: 0;
-      left: 0;
-      // transform: rotate(-90deg);
-      opacity: 0.6;
-    }
-  }
-  & .swiper-button-prev {
-    &::after {
-      transform: rotate(180deg);
-    }
   }
 }

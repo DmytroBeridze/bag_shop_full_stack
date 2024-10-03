@@ -11,6 +11,7 @@ import Sale from "../pages/sale/Sale";
 import AboutUs from "../pages/aboutUs/AboutUs";
 import ContactUs from "../pages/contactUs/ContactUs";
 import CatalogElement from "../pages/catalogElement/CatalogElement";
+import Footer from "../footer/Footer";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/admin/panel" element={<Admin />} />
           <Route path="/admin" element={<AdminLogin />} />
         </Routes>
+        <Footer />
         <ToastContainer autoClose={5000} />
       </div>
     </>
