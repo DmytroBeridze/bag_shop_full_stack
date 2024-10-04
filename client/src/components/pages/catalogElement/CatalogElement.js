@@ -16,6 +16,7 @@ import {
   fetchGoodsById,
   productCartOpen,
 } from "../../gallery/gallerySlice";
+import pageUp from "../../../features/PageUp";
 
 const CatalogElement = () => {
   const { id } = useParams();
@@ -24,6 +25,8 @@ const CatalogElement = () => {
     useSelector((state) => state.galleryReducer);
 
   const [valueCounter, setValueCounter] = useState(1);
+
+  console.log(oneProduct);
 
   // add to local storage
   const addToCart = () => {
@@ -39,10 +42,15 @@ const CatalogElement = () => {
 
   useEffect(() => {
     dispatch(fetchGoodsById(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    pageUp();
   }, []);
 
   // обнулення clearOneProductState в gallerySlice, щоб на секунду
   //  не показувалася минула карточка при відкритті CatalogElement
+
   useEffect(() => {
     window.addEventListener("beforeunload", dispatch(clearOneProductState()));
     return () => {
@@ -52,6 +60,30 @@ const CatalogElement = () => {
       );
     };
   }, []);
+
+  if (oneProductisloading) {
+    return (
+      <div style={{ paddingTop: "150px", height: "100vh" }}>
+        <Preloader />
+      </div>
+    );
+  }
+
+  if (oneProductStatus) {
+    return (
+      <div style={{ paddingTop: "150px", height: "100vh" }}>
+        <h5 className="text-center mt-5 mb-5 text-danger">Loading error...</h5>
+      </div>
+    );
+  }
+
+  if (!oneProduct) {
+    return (
+      <div style={{ paddingTop: "150px", height: "100vh" }}>
+        <Preloader />
+      </div>
+    );
+  }
 
   if (oneProduct) {
     const {
@@ -65,21 +97,21 @@ const CatalogElement = () => {
       _id,
     } = oneProduct;
 
-    if (oneProductisloading) {
-      return (
-        <div style={{ paddingTop: "150px" }}>
-          <Preloader />
-        </div>
-      );
-    } else if (oneProductStatus) {
-      return (
-        <div style={{ paddingTop: "150px" }}>
-          <h5 className="text-center mt-5 mb-5 text-danger">
-            Loading error...
-          </h5>
-        </div>
-      );
-    }
+    // if (oneProductisloading) {
+    //   return (
+    //     <div style={{ paddingTop: "150px", width: "1000px" }}>
+    //       <Preloader />
+    //     </div>
+    //   );
+    // } else if (oneProductStatus) {
+    //   return (
+    //     <div style={{ paddingTop: "150px" }}>
+    //       <h5 className="text-center mt-5 mb-5 text-danger">
+    //         Loading error...
+    //       </h5>
+    //     </div>
+    //   );
+    // }
 
     return (
       <section className="catalogElement">
@@ -101,7 +133,7 @@ const CatalogElement = () => {
             </div>
 
             {/*  description block */}
-            <div className="catalogElement__description">
+            <div className="catalogElement__description ">
               <h4>Welcome to the world of fashion.</h4>
               <p>{description}</p>
             </div>

@@ -17,6 +17,7 @@ import LatestFromBlog from "../../homePage/latestFromBlog/LatestFromBlog";
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 
 import { useLocation } from "react-router-dom";
+import pageUp from "../../../features/PageUp";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -49,13 +50,13 @@ const Home = () => {
     pageUp();
   }, []);
 
-  const pageUp = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
+  // const pageUp = () => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   return (
     <div className="home">

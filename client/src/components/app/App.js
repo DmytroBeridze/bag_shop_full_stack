@@ -12,12 +12,14 @@ import AboutUs from "../pages/aboutUs/AboutUs";
 import ContactUs from "../pages/contactUs/ContactUs";
 import CatalogElement from "../pages/catalogElement/CatalogElement";
 import Footer from "../footer/Footer";
+import Post from "../pages/post/Post";
 
 function App() {
   return (
     <>
       <div className="app">
         <Header />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
@@ -27,14 +29,14 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/catalog/:id" element={<CatalogElement />} />
 
-          <Route path="/blog/:id" element={<ContactUs />} />
+          <Route path="/blog/:id" element={<Post />} />
 
           {/* Admin panel */}
           <Route path="/admin/panel" element={<Admin />} />
           <Route path="/admin" element={<AdminLogin />} />
         </Routes>
-        <Footer />
         <ToastContainer autoClose={5000} />
+        <Footer />
       </div>
     </>
   );
