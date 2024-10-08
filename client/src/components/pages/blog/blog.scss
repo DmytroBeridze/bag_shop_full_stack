@@ -1,9 +1,94 @@
-.blog {
-  background-color: antiquewhite;
-  min-height: 100vh;
+@import "../../../style/variables.scss";
 
-  &__title {
-    display: inline-block;
-    margin-top: 150px;
+.blog {
+  padding: 213px 0 80px;
+  font-family: "Open Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  & .main-container {
+    display: flex;
+    gap: 15px;
   }
+
+  &__content {
+    flex-basis: 66%;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__post {
+    opacity: 1;
+    transition: 0.2s;
+    margin-bottom: 30px;
+    padding-bottom: 21px;
+    border-bottom: 1px solid $clr-text-grey;
+    &:last-child {
+      border-bottom: 4px solid $clr-text-grey;
+    }
+
+    &.loading {
+      opacity: 0;
+    }
+  }
+
+  &__header-image {
+    width: 100%;
+    height: 136px;
+    // height: 175px;
+    display: block;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &__meta {
+    margin: 10px 0;
+    font-size: 12px;
+    line-height: 18px;
+    color: $clr-text-grey;
+  }
+
+  &__body {
+    & a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+      &:hover {
+        color: $clr-text-grey;
+      }
+    }
+    & h2 {
+      /* theme354-bags.myshopify.com/Arvo/Regular 32 */
+      font-family: "Arvo";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 40px;
+    }
+    & P {
+      margin: 15px 20px;
+    }
+  }
+  // &__subtitle {
+  //   color: $clr-text-grey;
+  //   margin-bottom: 15px;
+  // }
+  &__nav {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    & button {
+      padding: 10px 15px;
+    }
+  }
+}
+
+.recent-posts {
+  flex-basis: 33%;
+  padding: 0 10px;
 }
