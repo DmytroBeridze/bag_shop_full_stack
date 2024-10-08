@@ -3,6 +3,7 @@ import useHttp from "../../../hooks/http.hooks";
 
 const initialState = {
   posts: [],
+  // filteredPosts: [],
   onePost: {},
   postStatus: null,
   isloading: false,
@@ -108,16 +109,20 @@ const postsSlice = createSlice({
         };
       })
       .addCase(getAllPosts.fulfilled, (state, action) => {
-        // state.isloading = false;
-        // state.posts = action.payload;
-        // state.postStatus = false;
+        state.isloading = false;
+        state.postStatus = null;
+        state.posts = action.payload.sort((a, b) => {
+          const dateA = new Date(a.createdAt);
+          const dateB = new Date(b.createdAt);
+          return dateB - dateA;
+        });
 
-        return {
-          ...state,
-          posts: action.payload,
-          isloading: false,
-          postStatus: null,
-        };
+        // return {
+        //   ...state,
+        //   posts: action.payload,
+        //   isloading: false,
+        //   postStatus: null,
+        // };
       })
       .addCase(getAllPosts.rejected, (state, action) => {
         return {
@@ -207,5 +212,5 @@ const postsSlice = createSlice({
 });
 
 const { actions, reducer } = postsSlice;
-// const {}=actions
+// export const { } = actions;
 export default reducer;

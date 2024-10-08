@@ -8,13 +8,24 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
+
   & .main-container {
     display: flex;
     gap: 15px;
   }
+
   &__content {
     flex-basis: 66%;
   }
+  &__post {
+    opacity: 1;
+    transition: 0.2s;
+
+    &.loading {
+      opacity: 0;
+    }
+  }
+
   &__header {
     border-bottom: 1px solid $clr-text-grey;
   }
@@ -62,6 +73,7 @@
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
+    align-items: end;
     & button {
       padding: 10px 15px;
     }
@@ -71,5 +83,4 @@
 .recent-posts {
   flex-basis: 34%;
   padding: 0 10px;
-  // border: 1px solid rgb(255, 230, 0);
 }

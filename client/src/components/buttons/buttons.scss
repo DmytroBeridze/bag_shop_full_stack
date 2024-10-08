@@ -43,6 +43,16 @@
   letter-spacing: 1.1px;
   text-align: center;
   vertical-align: middle;
+
+  &:disabled {
+    opacity: 0.6;
+    &:hover {
+      background-color: $clr-yellow-main;
+      color: $clr-text-white;
+      border: 2px solid $clr-yellow-main;
+    }
+  }
+
   &:hover {
     border: 2px solid $clr-maeked-text-brown;
     background-color: $clr-maeked-text-brown;
