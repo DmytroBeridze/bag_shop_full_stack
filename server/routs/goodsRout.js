@@ -20,16 +20,17 @@ import {
 
 import { checkAuth } from "../utils/checkAuth.js";
 
+// register
+router.post("/admin/register", adminRegister);
+router.post("/admin/login", adminLogin);
+router.get("/admin/me", checkAuth, getMe);
+
+// goods
 router.post("/goods", postGoods);
 router.get("/goods", getAllGoods);
 router.get("/goods/:id", getGoodsId);
 router.put("/goods/:id", putGoods);
 router.delete("/goods/:id", deleteGoods);
-
-// register
-router.post("/admin/register", adminRegister);
-router.post("/admin/login", adminLogin);
-router.get("/admin/me", checkAuth, getMe);
 
 // posts
 router.post("/posts", createPost);

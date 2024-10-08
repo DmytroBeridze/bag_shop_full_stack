@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import adminReducer from "../components/pages/admin/adminSlice";
+
 import postsReducer from "../components/adminPanel/addPostsForm/postSlice";
 import galleryReducer from "../components/gallery/gallerySlice";
 import mainFilterReducer from "../components/filters/mainFilters.slice";

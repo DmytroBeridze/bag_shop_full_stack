@@ -3,6 +3,8 @@ import useHttp from "../../../hooks/http.hooks";
 
 const initialState = {
   posts: [],
+  // filteredPosts: [],
+  onePost: {},
   postStatus: null,
   isloading: false,
 };
@@ -25,6 +27,18 @@ export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   const { data } = await adminRequest("http://localhost:3002/api/blog/posts");
   return data;
 });
+
+// get by id
+export const getPostsById = createAsyncThunk(
+  "posts/getPostsById",
+  async (id) => {
+    const { adminRequest } = useHttp();
+    const { data } = await adminRequest(
+      `http://localhost:3002/api/blog/posts/${id}`
+    );
+    return data;
+  }
+);
 
 // delete
 export const deletePost = createAsyncThunk("posts/deletePost", async (body) => {
@@ -95,20 +109,53 @@ const postsSlice = createSlice({
         };
       })
       .addCase(getAllPosts.fulfilled, (state, action) => {
+        state.isloading = false;
+        state.postStatus = null;
+        state.posts = action.payload.sort((a, b) => {
+          const dateA = new Date(a.createdAt);
+          const dateB = new Date(b.createdAt);
+          return dateB - dateA;
+        });
+
+        // return {
+        //   ...state,
+        //   posts: action.payload,
+        //   isloading: false,
+        //   postStatus: null,
+        // };
+      })
+      .addCase(getAllPosts.rejected, (state, action) => {
         return {
           ...state,
-          posts: action.payload,
-          isLoading: false,
+          postStatus: action.error.message,
+          isloading: false,
+        };
+      })
+
+      //  get by id
+      .addCase(getPostsById.pending, (state, action) => {
+        return {
+          ...state,
+          isloading: true,
           postStatus: null,
         };
       })
-      .addCase(getAllPosts.rejected, (state, action) => {
+      .addCase(getPostsById.fulfilled, (state, action) => {
+        return {
+          ...state,
+          onePost: action.payload,
+          postStatus: null,
+          isloading: false,
+        };
+      })
+      .addCase(getPostsById.rejected, (state, action) => {
         return {
           ...state,
           postStatus: action.payload,
           isloading: false,
         };
       });
+
     //... delete
     builder
       .addCase(deletePost.pending, (state) => {
@@ -165,5 +212,5 @@ const postsSlice = createSlice({
 });
 
 const { actions, reducer } = postsSlice;
-// const {}=actions
+// export const { } = actions;
 export default reducer;

@@ -56,12 +56,14 @@ export const postGoods = async (req, res) => {
 //get
 export const getAllGoods = async (req, res) => {
   try {
+    // throw new Error("Test error");
     const allGoods = await GoodsService.getAllGoods();
     return res.json(allGoods);
   } catch (error) {
-    res.status(500).json(error.massage);
+    res.status(500).json(error.message);
   }
 };
+
 // export const getAllGoods = async (req, res) => {
 //   try {
 //     const allGoods = await GoodsSchema.find();

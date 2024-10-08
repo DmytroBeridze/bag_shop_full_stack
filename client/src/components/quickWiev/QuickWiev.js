@@ -13,48 +13,26 @@ import { Navigation } from "swiper/modules";
 import { useState } from "react";
 import useCounter from "../../hooks/counter.hook";
 import getToLocalStorage from "../../features/getToLocalStorage";
+import { useDispatch, useSelector } from "react-redux";
+import { productCartOpen } from "../gallery/gallerySlice";
+import Counter from "../counter/Counter";
 
+// const QuickView = ({ oneProduct, handleClose }) => {
 const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { decrement, increment, counter } = useCounter();
+  const [valueCounter, setValueCounter] = useState(1);
+  // const { decrement, increment, counter } = useCounter();
+  const dispatch = useDispatch();
+
+  // const { oneProduct } = useSelector((state) => state.galleryReducer);
 
   // add to local storage
   const addToCart = () => {
     handleClose();
-
-    productCartOpen(counter);
-    getToLocalStorage("goods", oneProduct._id, counter);
+    // dispatch(productCartOpen(counter));
+    productCartOpen(valueCounter);
+    getToLocalStorage("goods", oneProduct._id, valueCounter);
   };
-
-  // const addToCart = () => {
-  //   const local = JSON.parse(localStorage.getItem("goods"));
-  //   productCartOpen(counter);
-  //   handleClose();
-
-  //   if (local) {
-  //     const changeArr = local.filter((elem) => elem.id !== oneProduct._id);
-
-  //     localStorage.setItem(
-  //       "goods",
-  //       JSON.stringify([
-  //         ...changeArr,
-  //         {
-  //           counter,
-  //           id: oneProduct._id,
-  //         },
-  //       ])
-  //     );
-  //   } else
-  //     localStorage.setItem(
-  //       "goods",
-  //       JSON.stringify([
-  //         {
-  //           counter,
-  //           id: oneProduct._id,
-  //         },
-  //       ])
-  //     );
-  // };
 
   if (oneProduct) {
     const { name, description, type, parameters, picture } = oneProduct;
@@ -98,12 +76,16 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
               Product type: {type[0].toUpperCase() + type.slice(1)}
             </p>
             <p className="quickPreview__color">Color: {color}</p>
-            <p className="quickPreview__price">${price}</p>
+            <p className="quickPreview__price">${price * valueCounter}</p>
 
             <div className="quickPreview__quantity">
-              <p>Choose quantity:</p>
-              <div className="d-flex align-items-end gap-4">
-                <div className="quickPreview__couner">
+              <p className="mb-3">Choose quantity:</p>
+              <div className="d-flex align-items-center gap-3">
+                <Counter
+                  setValueCounter={setValueCounter}
+                  valueCounter={valueCounter}
+                />
+                {/* <div className="quickPreview__couner">
                   <input type="text" value={counter} readOnly />
                   <span className="quickPreview__decrement" onClick={decrement}>
                     <FiMinus />
@@ -111,10 +93,11 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
                   <span className="quickPreview__increment" onClick={increment}>
                     <FaPlus />
                   </span>
-                </div>
+                </div> */}
                 <button
                   className="custom-button main-yellow quickPreview__button"
                   onClick={addToCart}
+                  disabled={valueCounter < 1}
                 >
                   Add to cart
                 </button>

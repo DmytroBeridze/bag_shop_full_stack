@@ -39,50 +39,20 @@
     font-size: 20px;
     margin-top: 30px;
   }
+
   &__quantity {
     margin-top: 20px;
     & p {
       font-size: inherit;
     }
   }
-  &__couner {
-    margin-top: 15px;
-    max-width: 60px;
-
-    & input {
-      max-width: 100%;
-      font-size: 16px;
-      line-height: 22px;
-      text-align: center;
-      padding: 0 18px;
-      border: 2px solid grey;
-    }
-    & span {
-      // display: inline-block;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid grey;
-      width: 27px;
-      text-align: center;
-      margin: 5px 5px 0 0;
-      padding: 4px 0;
-      color: black;
-      transition: 0.2s;
-
-      cursor: pointer;
-      &:last-child {
-        margin-right: 0;
-      }
-      &:hover {
-        color: $clr-maeked-text-brown;
-      }
-    }
-  }
   &__button {
     height: 55px;
     font-size: 14px;
     padding: 5px 15px;
+    &:disabled {
+      opacity: 0.6;
+    }
   }
 }
 

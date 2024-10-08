@@ -8,12 +8,13 @@ import NoImage from "../noImage/NoImage";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { memo, useState } from "react";
+
+import Moment from "react-moment";
 
 import ModalPopup from "../../modal/Modal";
-import { memo, useState } from "react";
 import { deletePost } from "../addPostsForm/postSlice";
 import EditPost from "../editPost/EditPost";
-import Moment from "react-moment";
 
 const DisplayPosts = ({ imageModal, getTargetId }) => {
   const { posts } = useSelector((state) => state.postsReducer);

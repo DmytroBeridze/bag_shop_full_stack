@@ -1,4 +1,5 @@
 @import "../../../style/variables.scss";
+
 .new-arrivals {
   background-color: $clr-yellow-drop;
   max-height: 657px;
@@ -122,5 +123,10 @@
   & .swiper-pagination-bullet-active {
     background: rgb(251, 249, 249) !important;
     opacity: 1;
+  }
+
+  & .swiper-button-prev,
+  & .swiper-button-next {
+    display: none;
   }
 }
