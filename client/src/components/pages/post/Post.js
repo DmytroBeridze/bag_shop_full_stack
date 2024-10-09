@@ -8,7 +8,7 @@ import Moment from "react-moment";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Button from "../../buttons/Buttons";
-import RecentPost from "../../catalogPage/RecentPost";
+import RecentPost from "../../blogPage/RecentPost";
 import pageUp from "../../../features/PageUp";
 import Preloader from "../../preloader/Preloader";
 

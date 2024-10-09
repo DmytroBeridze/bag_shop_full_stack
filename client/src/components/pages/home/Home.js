@@ -1,8 +1,5 @@
 import "./home.scss";
 
-import ScrollToTop from "react-scroll-to-top";
-import ArrowTop from "../../../resources/icons/up-arrow.png";
-
 import NewArrivals from "../../homePage/newArrivals/NewArrivals";
 import FeaturedItems from "../../homePage/featuredItems/FeaturedItems";
 import Gallery from "../../gallery/Gallery";
@@ -16,8 +13,8 @@ import { createSelector } from "@reduxjs/toolkit";
 import LatestFromBlog from "../../homePage/latestFromBlog/LatestFromBlog";
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 
-import { useLocation } from "react-router-dom";
 import pageUp from "../../../features/PageUp";
+import CustomScrollToTop from "../../../features/CustomScrollToTop";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -66,21 +63,11 @@ const Home = () => {
       <div className="home-gallery">
         <h2 className="home-gallery__title text-center">Best products</h2>
         <MainFilters />
-
         <Gallery goodsArray={filteredGoods} seeMore={true} />
       </div>
-      <LatestFromBlog />
 
-      <ScrollToTop
-        style={{
-          width: "50px",
-          height: "50px",
-        }}
-        smooth
-        component={
-          <img src={ArrowTop} alt="ArrowTop" style={{ width: "100%" }} />
-        }
-      />
+      <LatestFromBlog />
+      <CustomScrollToTop />
     </div>
   );
 };

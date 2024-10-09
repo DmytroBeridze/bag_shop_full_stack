@@ -8,9 +8,10 @@ import Moment from "react-moment";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Button from "../../buttons/Buttons";
-import RecentPost from "../../catalogPage/RecentPost";
+import RecentPost from "../../blogPage/RecentPost";
 import pageUp from "../../../features/PageUp";
 import Preloader from "../../preloader/Preloader";
+import CustomScrollToTop from "../../../features/CustomScrollToTop";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -18,13 +19,84 @@ const Blog = () => {
   const { posts, isloading, postStatus } = useSelector(
     (state) => state.postsReducer
   );
-  // const [currentIndex, setCurrentIndex] = useState(0);
-  // const [transition, setTransition] = useState(false);
+  const recentPosts = posts.slice(0, 3);
+
+  const [transition, setTransition] = useState(false);
+
+  const [stringNbr, setStringNbr] = useState(1);
+  const [step, setStep] = useState(3);
+  const [firstIndex, setFirstIndex] = useState(0);
+  const [lastIndex, setLastIndex] = useState(step);
+
+  const sortedArray = posts.slice(firstIndex, lastIndex);
+  const displayBtns = sortedArray.length < posts.length ? true : false;
+
+  const nextPage = () => {
+    if (lastIndex < posts.length) {
+      setTransition(true);
+      setStringNbr((stringNbr) => stringNbr + 1);
+
+      setTimeout(() => {
+        setFirstIndex(lastIndex);
+        setLastIndex(Math.min(lastIndex + step, posts.length));
+
+        setTransition(false);
+      }, 500);
+    }
+  };
+
+  const prevPage = () => {
+    if (firstIndex > 0) {
+      setTransition(true);
+      setStringNbr((stringNbr) => stringNbr - 1);
+
+      setTimeout(() => {
+        setLastIndex(firstIndex);
+        setFirstIndex(Math.max(firstIndex - step, 0));
+
+        setTransition(false);
+      }, 500);
+    }
+  };
+
+  const onChangeQuantityPostsToPage = (e) => {
+    setStep(Number(e.target.value));
+    setFirstIndex(0);
+    setStringNbr(1);
+  };
+
+  // ! ---Моє рішення
+  // const nextPage = () => {
+
+  //   if (firstIndex < posts.length - step) {
+  //     setStringNbr((stringNbr) => stringNbr + 1);
+
+  //     setFirstIndex(lastIndex);
+  //     setLastIndex((lastIndex) => lastIndex + step);
+  //   }
+  // };
+  // const prevPage = () => {
+  //   if (firstIndex >= step) {
+  //     setStringNbr((stringNbr) => stringNbr - 1);
+
+  //     setFirstIndex(lastIndex - step * 2);
+  //     setLastIndex((lastIndex) => lastIndex - step);
+  //   }
+  // };
+
+  useEffect(() => {
+    setFirstIndex(0);
+    setLastIndex(step);
+  }, [step]);
 
   useEffect(() => {
     dispatch(getAllPosts());
     pageUp();
   }, [dispatch]);
+
+  useEffect(() => {
+    pageUp();
+  }, [firstIndex, lastIndex]);
 
   if (isloading || posts.length === 0) {
     // if (isloading || posts.length === 0 || currentIndex < 0) {
@@ -42,8 +114,6 @@ const Blog = () => {
     );
   }
 
-  const recentPosts = posts.slice(0, 3);
-
   return (
     <div className="blog">
       <div className="main-container">
@@ -60,29 +130,90 @@ const Blog = () => {
           </ul>
         </aside>
         <main className="blog__content">
-          {posts.map(({ picture, name, createdAt, description, _id }) => {
-            const desc =
-              description.length >= 200
-                ? description.slice(0, 200) + "..."
-                : description;
-            const imageUrl = picture.length
-              ? `http://localhost:3002/${picture[0]}`
-              : imgPlaceholder;
-            return (
-              <View
-                key={_id}
-                // transition={transition}
-                imageUrl={imageUrl}
-                name={name}
-                createdAt={createdAt}
-                desc={desc}
-                id={_id}
-                navigate={navigate}
+          <div className="blog__header">
+            <h1>Blog</h1>
+            <div className="blog__sort">
+              <button
+                className="blog__show-all"
+                onClick={() => {
+                  setStep(posts.length);
+                  setFirstIndex(0);
+                }}
+              >
+                all
+              </button>
+
+              <select
+                className="blog__select"
+                aria-label="Small select example"
+                value={step}
+                onChange={(e) => onChangeQuantityPostsToPage(e)}
+              >
+                <option value="" hidden>
+                  qantity per page
+                </option>
+                {/* <option value={posts.length}>all</option> */}
+                <option value="3">3 per page</option>
+                <option value="4">4 per page</option>
+                <option value="5">5 per page</option>
+                <option value="6">6 per page</option>
+                <option value="8">8 per page</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            {sortedArray.map(
+              ({ picture, name, createdAt, description, _id }) => {
+                const desc =
+                  description.length >= 200
+                    ? description.slice(0, 200) + "..."
+                    : description;
+                const imageUrl = picture.length
+                  ? `http://localhost:3002/${picture[0]}`
+                  : imgPlaceholder;
+                return (
+                  <View
+                    key={_id}
+                    transition={transition}
+                    imageUrl={imageUrl}
+                    name={name}
+                    createdAt={createdAt}
+                    desc={desc}
+                    id={_id}
+                    navigate={navigate}
+                    displayBtns={displayBtns}
+                  />
+                );
+              }
+            )}
+          </div>
+
+          {displayBtns && (
+            <div className="blog__nav">
+              <Button
+                className="grey-stroke__black-hover"
+                label="prev"
+                disabled={firstIndex === 0}
+                onclick={() => prevPage()}
               />
-            );
-          })}
+
+              <div style={{ color: "#9fa3a7" }}>{`${stringNbr}/${Math.ceil(
+                posts.length / step
+              )}`}</div>
+
+              <Button
+                className="grey-stroke__black-hover"
+                label="next"
+                disabled={lastIndex === posts.length}
+                onclick={() => nextPage()}
+              />
+            </div>
+          )}
         </main>
       </div>
+
+      <CustomScrollToTop />
     </div>
   );
 };
@@ -96,32 +227,34 @@ const View = ({
   id,
   navigate,
 }) => {
-  console.log(navigate);
+  const truncateText = (name, length = 200) => {
+    return name.length >= 200 ? name.slice(0, length) + "..." : name;
+  };
 
   return (
     // <main className="blog__content">
-    <article className={`blog__post ${transition ? "loading" : ""}`}>
-      <header className="blog__header">
+    <article className={`post ${transition ? "loading" : ""}`}>
+      <header className="post__header">
         <div
-          className="blog__header-image"
+          className="post__header-image"
           style={{ backgroundImage: `url(${imageUrl})` }}
         ></div>
-        <p className="blog__meta">
-          <span className="blog__date">
+        <p className="post__meta">
+          <span className="post__date">
             <Moment format="dddd, MMMM DD, YYYY">{createdAt}</Moment>
           </span>
         </p>
       </header>
 
-      <section className="blog__body">
+      <section className="post__body">
         <NavLink to={`/blog/${id}`}>
-          <h2>{name.length >= 200 ? name.slice(0, 200) + "..." : name}</h2>
+          <h2>{truncateText(name)}</h2>
+          {/* <h2>{name.length >= 200 ? name.slice(0, 200) + "..." : name}</h2> */}
         </NavLink>
-        {/* <h3 className="blog__subtitle">{subtitle}</h3> */}
-        <p className="blog__text">{desc}</p>
+        <p className="post__text">{desc}</p>
       </section>
       <Button
-        className="main-yellow"
+        className="main-yellow post__read-more"
         label="read more"
         onclick={() => navigate(`/blog/${id}`)}
       />

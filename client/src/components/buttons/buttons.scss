@@ -119,6 +119,14 @@
     background-color: $clr-text-black;
     border: 2px solid $clr-text-black;
   }
+  &:disabled {
+    opacity: 0.3;
+    &:hover {
+      background-color: inherit;
+      color: $clr-text-black;
+      border: 2px solid $clr-text-grey;
+    }
+  }
   @media (max-width: 1150px) {
     // display: block;
     font-size: 10px;

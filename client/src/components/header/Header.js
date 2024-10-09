@@ -7,10 +7,12 @@ import { CgClose } from "react-icons/cg";
 
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
+import BlogNavbarDropdown from "../blogPage/BlogNavbarDropdown";
 
 import {
   scrollbarHide,
@@ -18,6 +20,8 @@ import {
 } from "../../features/scrollbarToggle/scrollBarToggle";
 
 const Header = () => {
+  const { posts } = useSelector((state) => state.postsReducer);
+
   const [dropdown, setDropdown] = useState();
   const [modalToggle, setModalToggle] = useState(false);
   const location = useLocation();
@@ -94,7 +98,7 @@ const Header = () => {
                       <h4>HOME</h4>
                       <IoIosArrowDown className="arrow-down" />
                     </NavLink>
-
+                    {/* home dropdown */}
                     <div
                       className={
                         dropdown === 1
@@ -187,6 +191,7 @@ const Header = () => {
                 </ul>
 
                 <div className="dropdown-content">
+                  {/* catalog dropdown */}
                   <div
                     className={
                       dropdown === 2 ? "dropdown-child show" : "dropdown-child "
@@ -197,16 +202,17 @@ const Header = () => {
                     <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
                     <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
                   </div>
+
+                  {/* blog dropdown */}
                   <div
                     className={
                       dropdown === 3 ? "dropdown-child show" : "dropdown-child "
                     }
                   >
-                    <a href="http://www.вашдомен.ru/page1.html">HOME3</a>
-                    <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
-                    <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
-                    <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
+                    <BlogNavbarDropdown />
                   </div>
+
+                  {/* sale dropdown */}
                   <div
                     className={
                       dropdown === 4 ? "dropdown-child show" : "dropdown-child "
@@ -217,7 +223,7 @@ const Header = () => {
                     <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
                     <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
                   </div>
-
+                  {/* 
                   <div className="dropdown-child">
                     <a href="http://www.вашдомен.ru/page1.html">HOME5</a>
                     <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
@@ -230,7 +236,7 @@ const Header = () => {
                     <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
                     <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
                     <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
-                  </div>
+                  </div> */}
                 </div>
               </Nav>
               <div

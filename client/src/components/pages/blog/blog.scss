@@ -15,24 +15,87 @@
 
   &__content {
     flex-basis: 66%;
-
     display: flex;
     flex-direction: column;
   }
 
-  &__post {
-    opacity: 1;
-    transition: 0.2s;
-    margin-bottom: 30px;
-    padding-bottom: 21px;
-    border-bottom: 1px solid $clr-text-grey;
-    &:last-child {
-      border-bottom: 4px solid $clr-text-grey;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    &h1 {
+      font-family: "Arvo";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 40px;
     }
+  }
 
-    &.loading {
-      opacity: 0;
+  &__sort {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    // justify-content: end;
+  }
+
+  & select {
+    height: 38px;
+    width: 200px;
+    border-radius: 5px;
+
+    &:focus {
+      border-color: $clr-yellow-main;
+      box-shadow: 0 0 0 0.2rem #fed0384e;
     }
+    & option {
+      &:nth-child(odd) {
+        background-color: rgb(249, 251, 251);
+      }
+    }
+  }
+
+  &__show-all {
+    border-radius: 100%;
+    width: 38px;
+    height: 38px;
+    border: none;
+    background-color: $clr-text-black;
+    border: 2px solid $clr-text-black;
+    color: white;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+  &__nav {
+    // margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    & button {
+      padding: 8px 15px;
+      width: fit-content;
+    }
+  }
+}
+
+// ----post
+
+.post {
+  opacity: 1;
+  transition: 0.2s;
+  margin-bottom: 30px;
+  padding-bottom: 21px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.151);
+  &:last-child {
+    border-bottom: 4px solid rgba(128, 128, 128, 0.151);
+  }
+
+  &.loading {
+    opacity: 0;
   }
 
   &__header-image {
@@ -70,21 +133,11 @@
       line-height: 40px;
     }
     & P {
-      margin: 15px 20px;
+      margin: 15px 0 20px;
     }
   }
-  // &__subtitle {
-  //   color: $clr-text-grey;
-  //   margin-bottom: 15px;
-  // }
-  &__nav {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    & button {
-      padding: 10px 15px;
-    }
+  &__read-more {
+    padding: 15px 30px;
   }
 }
 
