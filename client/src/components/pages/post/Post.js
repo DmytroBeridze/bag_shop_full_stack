@@ -117,12 +117,15 @@ const Post = () => {
             </section>
           </article>
           <nav className="post-page__nav">
+            {/* <button className="post-page__arrow-btn">-</button> */}
+
             <Button
               label="preview post"
               className="main-yellow"
               onclick={() => goToPost(-1)}
               disabled={currentIndex === 0}
             />
+
             <div style={{ color: "#9fa3a7" }}>{`${currentIndex + 1}/${
               posts.length
             }`}</div>
@@ -133,6 +136,7 @@ const Post = () => {
               onclick={() => goToPost(+1)}
               disabled={currentIndex === posts.length - 1}
             />
+            {/* <button className="post-page__arrow-btn">+</button> */}
           </nav>
         </main>
       </div>

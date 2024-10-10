@@ -8,14 +8,32 @@
   font-size: 16px;
   line-height: 24px;
 
+  @media (max-width: 600px) {
+    padding: 180px 0 60px;
+
+    & h3,
+    h2 {
+      font-size: 22px !important;
+    }
+  }
+
   & .main-container {
     display: flex;
     gap: 15px;
+    @media (max-width: 1000px) {
+      gap: 25px;
+    }
+    @media (max-width: 740px) {
+      flex-direction: column-reverse;
+    }
   }
 
   &__content {
     flex-basis: 66%;
-    width: 770px;
+    // width: 770px;
+    @media (max-width: 1000px) {
+      flex-basis: auto;
+    }
   }
 
   &__post {
@@ -55,6 +73,13 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
+      @media (max-width: 470px) {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
   &__meta {
@@ -78,6 +103,42 @@
     align-items: end;
     & button {
       padding: 10px 15px;
+      @media (max-width: 450px) {
+        padding: 2px;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        &::before {
+          content: "-";
+          background-image: url("../../../resources/icons/slider-arrows/left-arrow.png");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+        &:last-child::before {
+          content: "";
+          background-image: url("../../../resources/icons/slider-arrows/right-arrow.png");
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: contain;
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        & span {
+          display: none;
+        }
+      }
     }
   }
 }
@@ -85,4 +146,12 @@
 .recent-posts {
   flex-basis: 33%;
   padding: 0 10px;
+  @media (max-width: 1000px) {
+    flex-basis: auto;
+  }
+  & ul {
+    @media (max-width: 1000px) {
+      margin-top: 20px;
+    }
+  }
 }

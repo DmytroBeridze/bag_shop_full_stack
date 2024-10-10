@@ -7,7 +7,7 @@ const Button = ({ onclick, className, disabled, label }) => {
       disabled={disabled}
       className={`custom-button ${className}`}
     >
-      {label}
+      <span> {label} </span>
     </button>
   );
 };

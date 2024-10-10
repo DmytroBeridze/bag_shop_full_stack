@@ -160,7 +160,6 @@ const Blog = () => {
 
               <select
                 className="blog__select form-select "
-                // className="blog__select"
                 aria-label="Small select example"
                 value={step}
                 onChange={(e) => onChangeQuantityPostsToPage(e)}
@@ -168,7 +167,6 @@ const Blog = () => {
                 <option value="" hidden>
                   qantity per page
                 </option>
-                {/* <option value={posts.length}>all</option> */}
                 <option value="3">3 per page</option>
                 <option value="4">4 per page</option>
                 <option value="5">5 per page</option>
@@ -178,15 +176,12 @@ const Blog = () => {
 
               <select
                 className="blog__select form-select "
-                // className="blog__select"
                 aria-label="Small select example"
-                // value={step}
                 onChange={(e) => onChangeDisplayPostsYoDate(e)}
               >
                 <option value="" hidden>
                   sort by date
                 </option>
-                {/* <option value={posts.length}>all</option> */}
                 <option value="1">new first</option>
                 <option value="2"> old first</option>
               </select>
