@@ -27,8 +27,17 @@ const Blog = () => {
   const [step, setStep] = useState(3);
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(step);
+  const [dataSort, setDataSort] = useState(1);
 
-  const sortedArray = posts.slice(firstIndex, lastIndex);
+  const sortedByDateArr = [...posts].sort((a, b) => {
+    const date1 = new Date(a.createdAt);
+    const date2 = new Date(b.createdAt);
+
+    return dataSort == 1 ? date2 - date1 : date1 - date2;
+  });
+
+  const sortedArray = sortedByDateArr.slice(firstIndex, lastIndex);
+
   const displayBtns = sortedArray.length < posts.length ? true : false;
 
   const nextPage = () => {
@@ -62,6 +71,12 @@ const Blog = () => {
   const onChangeQuantityPostsToPage = (e) => {
     setStep(Number(e.target.value));
     setFirstIndex(0);
+    setStringNbr(1);
+  };
+  const onChangeDisplayPostsYoDate = (e) => {
+    setDataSort(Number(e.target.value));
+    setFirstIndex(0);
+    setLastIndex(step);
     setStringNbr(1);
   };
 
@@ -159,6 +174,21 @@ const Blog = () => {
                 <option value="5">5 per page</option>
                 <option value="6">6 per page</option>
                 <option value="8">8 per page</option>
+              </select>
+
+              <select
+                className="blog__select form-select "
+                // className="blog__select"
+                aria-label="Small select example"
+                // value={step}
+                onChange={(e) => onChangeDisplayPostsYoDate(e)}
+              >
+                <option value="" hidden>
+                  sort by date
+                </option>
+                {/* <option value={posts.length}>all</option> */}
+                <option value="1">new first</option>
+                <option value="2"> old first</option>
               </select>
             </div>
           </div>

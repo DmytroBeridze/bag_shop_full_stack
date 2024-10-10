@@ -8,7 +8,6 @@ import Moment from "react-moment";
 
 const BlogNavbarDropdown = memo(({ setDropdown }) => {
   const { posts } = useSelector((state) => state.postsReducer);
-  console.log(posts);
 
   return (
     <main className="blogNavbarDropdown">
@@ -28,11 +27,13 @@ const BlogNavbarDropdown = memo(({ setDropdown }) => {
                   <div className="blogNavbarDropdown__date">
                     <Moment format="MMMM DD, YYYY">{createdAt}</Moment>
                   </div>
+
                   <Link to={`/blog/${_id}`} onClick={() => setDropdown(false)}>
                     <h1 className="blogNavbarDropdown__title">{name}</h1>
                   </Link>
 
                   <p className="blogNavbarDropdown__text">{description}</p>
+
                   <Link to={`/blog/${_id}`} onClick={() => setDropdown(false)}>
                     <span className="blogNavbarDropdown__read-more">
                       read more
