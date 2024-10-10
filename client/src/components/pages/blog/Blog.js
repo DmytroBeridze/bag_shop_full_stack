@@ -144,7 +144,8 @@ const Blog = () => {
               </button>
 
               <select
-                className="blog__select"
+                className="blog__select form-select "
+                // className="blog__select"
                 aria-label="Small select example"
                 value={step}
                 onChange={(e) => onChangeQuantityPostsToPage(e)}

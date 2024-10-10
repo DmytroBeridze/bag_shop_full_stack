@@ -4,76 +4,44 @@ import imgPlaceholder from "../../resources/img/blog/blog-img-placeholder.jpg";
 import { memo } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
-// TODO---де викликати useSelector, тут, чи в Header?
-
-const BlogNavbarDropdown = memo(() => {
+const BlogNavbarDropdown = memo(({ setDropdown }) => {
   const { posts } = useSelector((state) => state.postsReducer);
   console.log(posts);
 
   return (
     <main className="blogNavbarDropdown">
       <ul className="blogNavbarDropdown__list">
-        <li>
-          <article className="blogNavbarDropdown__card">
-            <div className="blogNavbarDropdown__picture">
-              <img src={imgPlaceholder} alt="" />
-            </div>
-            <div className="blogNavbarDropdown__date">august 28, 2017</div>
-            <h1 className="blogNavbarDropdown__header">
-              We provide only branded goods - that's a part of our official
-              policy
-            </h1>
-            <p className="blogNavbarDropdown__text">
-              Even if you are not the biggest fan of fashion, our shop can still
-              offer you some special propositions. What we sell are not just
-              simple handbags; the products of our shop are the part of a style
-              because...
-            </p>
-            <Link>
-              <span className="blogNavbarDropdown__read-more">read more</span>
-            </Link>
-          </article>
-        </li>
+        {posts
+          .slice(0, 3)
+          .map(({ _id, createdAt, description, name, picture }) => {
+            const img = picture.length
+              ? `http://localhost:3002/${picture[0]}`
+              : imgPlaceholder;
+            return (
+              <li key={_id}>
+                <article className="blogNavbarDropdown__card">
+                  <div className="blogNavbarDropdown__picture">
+                    <img src={img} alt="" />
+                  </div>
+                  <div className="blogNavbarDropdown__date">
+                    <Moment format="MMMM DD, YYYY">{createdAt}</Moment>
+                  </div>
+                  <Link to={`/blog/${_id}`} onClick={() => setDropdown(false)}>
+                    <h1 className="blogNavbarDropdown__title">{name}</h1>
+                  </Link>
 
-        <li>
-          <article className="blogNavbarDropdown__card">
-            <div className="blogNavbarDropdown__picture">
-              <img src={imgPlaceholder} alt="" />
-            </div>
-            <div className="blogNavbarDropdown__date">august 28, 2017</div>
-            <h1 className="blogNavbarDropdown__header">
-              We provide only branded goods - that's a part of our official
-              policy
-            </h1>
-            <p className="blogNavbarDropdown__text">
-              Even if you are not the biggest fan of fashion, our shop can still
-              offer you some special propositions. What we sell are not just
-              simple handbags; the products of our shop are the part of a style
-              because...
-            </p>
-            <Link>read more</Link>
-          </article>
-        </li>
-        <li>
-          <article className="blogNavbarDropdown__card">
-            <div className="blogNavbarDropdown__picture">
-              <img src={imgPlaceholder} alt="" />
-            </div>
-            <div className="blogNavbarDropdown__date">august 28, 2017</div>
-            <h1 className="blogNavbarDropdown__header">
-              We provide only branded goods - that's a part of our official
-              policy
-            </h1>
-            <p className="blogNavbarDropdown__text">
-              Even if you are not the biggest fan of fashion, our shop can still
-              offer you some special propositions. What we sell are not just
-              simple handbags; the products of our shop are the part of a style
-              because...
-            </p>
-            <Link>read more</Link>
-          </article>
-        </li>
+                  <p className="blogNavbarDropdown__text">{description}</p>
+                  <Link to={`/blog/${_id}`} onClick={() => setDropdown(false)}>
+                    <span className="blogNavbarDropdown__read-more">
+                      read more
+                    </span>
+                  </Link>
+                </article>
+              </li>
+            );
+          })}
       </ul>
     </main>
   );

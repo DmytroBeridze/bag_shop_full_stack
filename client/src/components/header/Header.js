@@ -7,7 +7,6 @@ import { CgClose } from "react-icons/cg";
 
 import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -20,9 +19,7 @@ import {
 } from "../../features/scrollbarToggle/scrollBarToggle";
 
 const Header = () => {
-  const { posts } = useSelector((state) => state.postsReducer);
-
-  const [dropdown, setDropdown] = useState();
+  const [dropdown, setDropdown] = useState(null);
   const [modalToggle, setModalToggle] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -94,6 +91,7 @@ const Header = () => {
                       style={({ isActive }) => ({
                         color: isActive ? "#bb7311" : "#ffffff",
                       })}
+                      onClick={() => setDropdown(false)}
                     >
                       <h4>HOME</h4>
                       <IoIosArrowDown className="arrow-down" />
@@ -123,6 +121,7 @@ const Header = () => {
                       style={({ isActive }) => ({
                         color: isActive ? "#bb7311" : "#ffffff",
                       })}
+                      onClick={() => setDropdown(false)}
                     >
                       <h4>CATALOG</h4>
                       <IoIosArrowDown className="arrow-down" />
@@ -139,6 +138,7 @@ const Header = () => {
                       style={({ isActive }) => ({
                         color: isActive ? "#bb7311" : "#ffffff",
                       })}
+                      onClick={() => setDropdown(false)}
                     >
                       <h4>BLOG</h4>
                       <IoIosArrowDown className="arrow-down" />
@@ -155,6 +155,7 @@ const Header = () => {
                       style={({ isActive }) => ({
                         color: isActive ? "#bb7311" : "#ffffff",
                       })}
+                      onClick={() => setDropdown(false)}
                     >
                       <h4>SALE</h4>
                       <IoIosArrowDown className="arrow-down" />
@@ -209,7 +210,7 @@ const Header = () => {
                       dropdown === 3 ? "dropdown-child show" : "dropdown-child "
                     }
                   >
-                    <BlogNavbarDropdown />
+                    <BlogNavbarDropdown setDropdown={setDropdown} />
                   </div>
 
                   {/* sale dropdown */}
