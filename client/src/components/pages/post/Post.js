@@ -8,9 +8,10 @@ import Moment from "react-moment";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Button from "../../buttons/Buttons";
-import RecentPost from "../../blogPage/RecentPost";
+// import RecentPost from "../../blogPage/RecentPost";
 import pageUp from "../../../features/PageUp";
 import Preloader from "../../preloader/Preloader";
+import ResentPost from "../../blogPage/RecentPost";
 
 const Post = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,8 @@ const Post = () => {
       <div className="main-container">
         <aside className="recent-posts">
           <h3 className="recent-posts__title">Recent Posts</h3>
-          <ul>
+          <ResentPost recentPosts={recentPosts} />
+          {/* <ul>
             {recentPosts.map(({ _id, ...params }) => {
               return (
                 <li key={_id}>
@@ -90,7 +92,7 @@ const Post = () => {
                 </li>
               );
             })}
-          </ul>
+          </ul> */}
         </aside>
 
         <main className="post-page__content">

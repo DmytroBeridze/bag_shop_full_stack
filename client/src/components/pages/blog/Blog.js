@@ -8,10 +8,12 @@ import Moment from "react-moment";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Button from "../../buttons/Buttons";
-import RecentPost from "../../blogPage/RecentPost";
+// import RecentPost from "../../blogPage/RecentPost";
 import pageUp from "../../../features/PageUp";
 import Preloader from "../../preloader/Preloader";
 import CustomScrollToTop from "../../../features/CustomScrollToTop";
+import ResentPost from "../../blogPage/RecentPost";
+import Sort from "../../blogPage/Sort";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -19,10 +21,10 @@ const Blog = () => {
   const { posts, isloading, postStatus } = useSelector(
     (state) => state.postsReducer
   );
+
   const recentPosts = posts.slice(0, 3);
 
   const [transition, setTransition] = useState(false);
-
   const [stringNbr, setStringNbr] = useState(1);
   const [step, setStep] = useState(3);
   const [firstIndex, setFirstIndex] = useState(0);
@@ -32,14 +34,13 @@ const Blog = () => {
   const sortedByDateArr = [...posts].sort((a, b) => {
     const date1 = new Date(a.createdAt);
     const date2 = new Date(b.createdAt);
-
     return dataSort == 1 ? date2 - date1 : date1 - date2;
   });
 
   const sortedArray = sortedByDateArr.slice(firstIndex, lastIndex);
-
   const displayBtns = sortedArray.length < posts.length ? true : false;
 
+  // ---------next page
   const nextPage = () => {
     if (lastIndex < posts.length) {
       setTransition(true);
@@ -54,6 +55,7 @@ const Blog = () => {
     }
   };
 
+  // ---------prev page
   const prevPage = () => {
     if (firstIndex > 0) {
       setTransition(true);
@@ -68,12 +70,14 @@ const Blog = () => {
     }
   };
 
+  // --------quantity per page
   const onChangeQuantityPostsToPage = (e) => {
     setStep(Number(e.target.value));
     setFirstIndex(0);
     setStringNbr(1);
   };
-  const onChangeDisplayPostsYoDate = (e) => {
+  // --------sort by date
+  const onChangeDisplayPostsToDate = (e) => {
     setDataSort(Number(e.target.value));
     setFirstIndex(0);
     setLastIndex(step);
@@ -134,20 +138,24 @@ const Blog = () => {
       <div className="main-container">
         <aside className="recent-posts">
           <h3 className="recent-posts__title">Recent Posts</h3>
-          <ul>
-            {recentPosts.map(({ _id, ...params }) => {
-              return (
-                <li key={_id}>
-                  <RecentPost id={_id} {...params} />
-                </li>
-              );
-            })}
-          </ul>
+
+          {/* --------recent posts */}
+          <ResentPost recentPosts={recentPosts} />
         </aside>
         <main className="blog__content">
           <div className="blog__header">
             <h1>Blog</h1>
-            <div className="blog__sort">
+
+            {/*--------- sort */}
+            <Sort
+              setStep={setStep}
+              step={step}
+              posts={posts}
+              setFirstIndex={setFirstIndex}
+              onChangeQuantityPostsToPage={onChangeQuantityPostsToPage}
+              onChangeDisplayPostsToDate={onChangeDisplayPostsToDate}
+            />
+            {/* <div className="blog__sort">
               <button
                 className="blog__show-all"
                 onClick={() => {
@@ -177,7 +185,7 @@ const Blog = () => {
               <select
                 className="blog__select form-select "
                 aria-label="Small select example"
-                onChange={(e) => onChangeDisplayPostsYoDate(e)}
+                onChange={(e) => onChangeDisplayPostsToDate(e)}
               >
                 <option value="" hidden>
                   sort by date
@@ -185,7 +193,7 @@ const Blog = () => {
                 <option value="1">new first</option>
                 <option value="2"> old first</option>
               </select>
-            </div>
+            </div> */}
           </div>
 
           <div>
@@ -279,6 +287,7 @@ const View = ({
         </NavLink>
         <p className="post__text">{desc}</p>
       </section>
+
       <Button
         className="main-yellow post__read-more"
         label="read more"
