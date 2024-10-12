@@ -9,9 +9,9 @@ const Sort = ({
   onChangeDisplayPostsToDate,
 }) => {
   return (
-    <div className="blog__sort">
+    <div className="sort">
       <button
-        className="blog__show-all"
+        className="sort__show-all"
         onClick={() => {
           setStep(posts.length);
           setFirstIndex(0);
@@ -21,7 +21,7 @@ const Sort = ({
       </button>
 
       <select
-        className="blog__select form-select "
+        className="sort__select form-select "
         aria-label="Small select example"
         value={step}
         onChange={(e) => onChangeQuantityPostsToPage(e)}
@@ -37,7 +37,7 @@ const Sort = ({
       </select>
 
       <select
-        className="blog__select form-select "
+        className="sort__select form-select "
         aria-label="Small select example"
         onChange={(e) => onChangeDisplayPostsToDate(e)}
       >

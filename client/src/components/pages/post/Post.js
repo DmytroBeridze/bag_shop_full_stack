@@ -3,18 +3,20 @@ import imgPlaceholder from "../../../resources/img/blog/blog-img-placeholder.jpg
 
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Moment from "react-moment";
+import ReactMarkdown from "react-markdown";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Button from "../../buttons/Buttons";
-// import RecentPost from "../../blogPage/RecentPost";
 import pageUp from "../../../features/PageUp";
 import Preloader from "../../preloader/Preloader";
-import ResentPost from "../../blogPage/RecentPost";
+import RecentPost from "../../blogPage/RecentPost";
+import PromoProducts from "../../promoProducts/PromoProducts";
 
 const Post = () => {
   const dispatch = useDispatch();
+  const ref = useRef();
 
   const { id } = useParams();
   const { posts, isloading, postStatus } = useSelector(
@@ -22,6 +24,14 @@ const Post = () => {
   );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [transition, setTransition] = useState(false);
+  const [postHeight, setPostHeight] = useState();
+
+  // ---findg post element height
+  const updateHeight = () => {
+    if (ref.current) {
+      setPostHeight(ref.current.offsetHeight);
+    }
+  };
 
   useEffect(() => {
     dispatch(getAllPosts());
@@ -37,6 +47,11 @@ const Post = () => {
       }, 500);
     }
   }, [id, posts]);
+
+  useEffect(() => {
+    updateHeight();
+    // setPostHeight(ref.current && ref.current.getBoundingClientRect().height);
+  }, [currentIndex]);
 
   if (isloading || posts.length === 0 || currentIndex < 0) {
     return (
@@ -54,13 +69,20 @@ const Post = () => {
   }
 
   // if (posts.length !== 0 && currentIndex >= 0) {
-  const recentPosts = posts.filter((elem) => elem._id !== id).slice(0, 3);
+
+  const remainingPosts = posts.filter((elem) => elem._id !== id);
+  const recentPosts =
+    remainingPosts.length > 3
+      ? remainingPosts.slice(0, 3)
+      : remainingPosts.slice(0, remainingPosts.length);
+
+  // const recentPosts = posts.filter((elem) => elem._id !== id).slice(0, 3);
 
   const currentPost = posts[currentIndex];
   const { name, description, createdAt, picture } = currentPost;
 
   const subtitle = description.split(".")[0];
-  const desc = description.split(".").slice(1);
+  const desc = description.split(".").slice(1).join("");
   const imageUrl = picture.length
     ? `http://localhost:3002/${picture[0]}`
     : imgPlaceholder;
@@ -79,20 +101,15 @@ const Post = () => {
   };
 
   return (
-    <div className="post-page">
+    <div className="post-page" ref={ref}>
       <div className="main-container">
         <aside className="recent-posts">
           <h3 className="recent-posts__title">Recent Posts</h3>
-          <ResentPost recentPosts={recentPosts} />
-          {/* <ul>
-            {recentPosts.map(({ _id, ...params }) => {
-              return (
-                <li key={_id}>
-                  <RecentPost id={_id} {...params} />
-                </li>
-              );
-            })}
-          </ul> */}
+
+          {/* ---recent posts */}
+          <RecentPost recentPosts={recentPosts} />
+          {/* promo products */}
+          <PromoProducts elemQuantity={postHeight > 1600 ? 2 : 1} />
         </aside>
 
         <main className="post-page__content">
@@ -115,7 +132,10 @@ const Post = () => {
 
             <section className="post-page__body">
               <h3 className="post-page__subtitle">{subtitle}</h3>
-              <p className="post-page__text">{desc}</p>
+              <div className="post-page__text">
+                <ReactMarkdown>{desc}</ReactMarkdown>
+              </div>
+              {/* <p className="post-page__text">{desc}</p> */}
             </section>
           </article>
           <nav className="post-page__nav">

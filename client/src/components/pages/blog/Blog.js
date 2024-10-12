@@ -3,26 +3,30 @@ import imgPlaceholder from "../../../resources/img/blog/blog-img-placeholder.jpg
 
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Moment from "react-moment";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Button from "../../buttons/Buttons";
-// import RecentPost from "../../blogPage/RecentPost";
 import pageUp from "../../../features/PageUp";
 import Preloader from "../../preloader/Preloader";
 import CustomScrollToTop from "../../../features/CustomScrollToTop";
-import ResentPost from "../../blogPage/RecentPost";
+import RecentPost from "../../blogPage/RecentPost";
 import Sort from "../../blogPage/Sort";
+import PromoProducts from "../../promoProducts/PromoProducts";
 
 const Blog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const postRef = useRef([]);
+
+  // post
   const { posts, isloading, postStatus } = useSelector(
     (state) => state.postsReducer
   );
 
-  const recentPosts = posts.slice(0, 3);
+  const recentPosts =
+    posts.length > 3 ? posts.slice(0, 3) : posts.slice(0, posts.length);
 
   const [transition, setTransition] = useState(false);
   const [stringNbr, setStringNbr] = useState(1);
@@ -30,13 +34,16 @@ const Blog = () => {
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(step);
   const [dataSort, setDataSort] = useState(1);
+  const [promoPerPage, setPromoPerPage] = useState(3);
 
+  // --sorted  by date array
   const sortedByDateArr = [...posts].sort((a, b) => {
     const date1 = new Date(a.createdAt);
     const date2 = new Date(b.createdAt);
     return dataSort == 1 ? date2 - date1 : date1 - date2;
   });
 
+  //--- quantity per page array
   const sortedArray = sortedByDateArr.slice(firstIndex, lastIndex);
   const displayBtns = sortedArray.length < posts.length ? true : false;
 
@@ -70,19 +77,24 @@ const Blog = () => {
     }
   };
 
-  // --------quantity per page
+  // --------quantity posts per page
   const onChangeQuantityPostsToPage = (e) => {
     setStep(Number(e.target.value));
     setFirstIndex(0);
     setStringNbr(1);
   };
-  // --------sort by date
+  // --------sort posts by date
   const onChangeDisplayPostsToDate = (e) => {
     setDataSort(Number(e.target.value));
     setFirstIndex(0);
     setLastIndex(step);
     setStringNbr(1);
   };
+  // ----- quantity promo products per page
+  useLayoutEffect(() => {
+    let res = postRef.current.length && postRef.current.filter((elem) => elem);
+    setPromoPerPage(res.length);
+  }, [step, lastIndex, posts]);
 
   // ! ---Моє рішення
   // const nextPage = () => {
@@ -110,6 +122,7 @@ const Blog = () => {
 
   useEffect(() => {
     dispatch(getAllPosts());
+    // dispatch(fetchAllGoods());
     pageUp();
   }, [dispatch]);
 
@@ -140,8 +153,11 @@ const Blog = () => {
           <h3 className="recent-posts__title">Recent Posts</h3>
 
           {/* --------recent posts */}
-          <ResentPost recentPosts={recentPosts} />
+          <RecentPost recentPosts={recentPosts} />
+          {/*--------- promo products */}
+          <PromoProducts elemQuantity={promoPerPage} />
         </aside>
+
         <main className="blog__content">
           <div className="blog__header">
             <h1>Blog</h1>
@@ -155,50 +171,11 @@ const Blog = () => {
               onChangeQuantityPostsToPage={onChangeQuantityPostsToPage}
               onChangeDisplayPostsToDate={onChangeDisplayPostsToDate}
             />
-            {/* <div className="blog__sort">
-              <button
-                className="blog__show-all"
-                onClick={() => {
-                  setStep(posts.length);
-                  setFirstIndex(0);
-                }}
-              >
-                all
-              </button>
-
-              <select
-                className="blog__select form-select "
-                aria-label="Small select example"
-                value={step}
-                onChange={(e) => onChangeQuantityPostsToPage(e)}
-              >
-                <option value="" hidden>
-                  qantity per page
-                </option>
-                <option value="3">3 per page</option>
-                <option value="4">4 per page</option>
-                <option value="5">5 per page</option>
-                <option value="6">6 per page</option>
-                <option value="8">8 per page</option>
-              </select>
-
-              <select
-                className="blog__select form-select "
-                aria-label="Small select example"
-                onChange={(e) => onChangeDisplayPostsToDate(e)}
-              >
-                <option value="" hidden>
-                  sort by date
-                </option>
-                <option value="1">new first</option>
-                <option value="2"> old first</option>
-              </select>
-            </div> */}
           </div>
 
           <div>
             {sortedArray.map(
-              ({ picture, name, createdAt, description, _id }) => {
+              ({ picture, name, createdAt, description, _id }, i) => {
                 const desc =
                   description.length >= 200
                     ? description.slice(0, 200) + "..."
@@ -217,6 +194,8 @@ const Blog = () => {
                     id={_id}
                     navigate={navigate}
                     displayBtns={displayBtns}
+                    postRef={postRef}
+                    i={i}
                   />
                 );
               }
@@ -260,14 +239,25 @@ const View = ({
   desc,
   id,
   navigate,
+  postRef,
+  i,
 }) => {
   const truncateText = (name, length = 200) => {
     return name.length >= 200 ? name.slice(0, length) + "..." : name;
   };
 
   return (
-    // <main className="blog__content">
-    <article className={`post ${transition ? "loading" : ""}`}>
+    <article
+      className={`post ${transition ? "loading" : ""}`}
+      ref={(elem) => {
+        postRef.current[i] = elem;
+      }}
+      // ref={(elem) => {
+      //   if (elem) {
+      //     postRef.current[i] = elem;
+      //   }
+      // }}
+    >
       <header className="post__header">
         <div
           className="post__header-image"
@@ -294,7 +284,6 @@ const View = ({
         onclick={() => navigate(`/blog/${id}`)}
       />
     </article>
-    // </main>
   );
 };
 

@@ -1,0 +1,73 @@
+.promoProducts {
+  margin-top: 40px;
+  width: 100%;
+  &__title {
+    font-family: Open Sans;
+  }
+
+  &__card {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    padding-bottom: 34px;
+
+    border-bottom: 1px solid rgba(128, 128, 128, 0.151);
+    &:last-child {
+      border-bottom: 4px solid rgba(128, 128, 128, 0.151);
+    }
+    @media (max-width: 1000px) {
+      flex-direction: column;
+    }
+    @media (max-width: 740px) {
+      flex-direction: row;
+    }
+  }
+  &__picture {
+    width: 145px;
+    object-fit: cover;
+    @media (max-width: 400px) {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  &__information {
+    flex-basis: 50%;
+    max-width: 600px;
+  }
+  &__name {
+    margin-bottom: 5px;
+    font-family: Arvo;
+    font-size: 18px;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 5px;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__price {
+    margin-bottom: 3px;
+    @media (max-width: 400px) {
+      display: none;
+    }
+  }
+  &__more-btn {
+    // max-width: 80px;
+    width: fit-content;
+    max-height: 30px;
+    padding: 5px 10px;
+    font-size: 12px !important;
+  }
+}

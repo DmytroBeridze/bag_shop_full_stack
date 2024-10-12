@@ -91,6 +91,10 @@
 
   &__body {
     margin-top: 15px;
+
+    & p {
+      margin-bottom: 20px;
+    }
   }
   &__subtitle {
     color: $clr-text-grey;

@@ -28,6 +28,22 @@
     }
   }
 
+  .recent-posts {
+    flex-basis: 33%;
+    padding: 0 10px;
+    @media (max-width: 1000px) {
+      flex-basis: auto;
+    }
+    & ul {
+      @media (max-width: 1000px) {
+        margin-top: 20px;
+      }
+      @media (max-width: 740px) {
+        margin-top: 0;
+      }
+    }
+  }
+
   &__content {
     flex-basis: 66%;
     display: flex;
@@ -56,69 +72,6 @@
     }
   }
 
-  &__sort {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    @media (max-width: 420px) {
-      flex-direction: column;
-      align-items: start;
-    }
-  }
-
-  &__show-all {
-    border-radius: 100%;
-    width: 38px;
-    height: 38px;
-    border: none;
-    background-color: $clr-text-black;
-    border: 2px solid $clr-text-black;
-    color: white;
-    transition: opacity 0.2s;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.5;
-    }
-    @media (max-width: 1000px) {
-      height: 30px;
-      width: 30px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
-      width: 26px;
-      height: 26px;
-      font-size: 12px;
-    }
-  }
-
-  & select {
-    height: 38px;
-    width: 200px;
-    border-radius: 5px;
-    @media (max-width: 1000px) {
-      height: 30px;
-      width: 150px;
-      font-size: 12px;
-    }
-    @media (max-width: 600px) {
-      height: 26px;
-      font-size: 12px;
-      padding: 2px 10px;
-      width: 150px;
-    }
-
-    &:focus {
-      border-color: $clr-yellow-main;
-      box-shadow: 0 0 0 0.2rem #fed0384e;
-    }
-    & option {
-      &:nth-child(odd) {
-        background-color: rgb(249, 251, 251);
-      }
-    }
-  }
-
   &__nav {
     // margin-top: 30px;
     display: flex;
@@ -131,7 +84,7 @@
   }
 }
 
-// ----post
+// ----post (View)
 .post {
   opacity: 1;
   transition: 0.2s;
@@ -155,6 +108,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    @media (max-width: 740px) {
+      height: 200px;
+    }
   }
   &__meta {
     margin: 10px 0;
@@ -188,22 +144,6 @@
     padding: 15px 30px;
     @media (max-width: 400px) {
       padding: 10px 20px;
-    }
-  }
-}
-
-.recent-posts {
-  flex-basis: 33%;
-  padding: 0 10px;
-  @media (max-width: 1000px) {
-    flex-basis: auto;
-  }
-  & ul {
-    @media (max-width: 1000px) {
-      margin-top: 20px;
-    }
-    @media (max-width: 740px) {
-      margin-top: 0;
     }
   }
 }

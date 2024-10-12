@@ -5,11 +5,12 @@ import AddedToCart from "../../addedToCart/AddedToCart";
 import getToLocalStorage from "../../../features/getToLocalStorage";
 import Preloader from "../../preloader/Preloader";
 import OrderForm from "./OrderForm";
+import CatalogSlider from "./CatalogSlider";
 
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import CatalogSlider from "./CatalogSlider";
+import ReactMarkdown from "react-markdown";
 
 import {
   clearOneProductState,
@@ -25,8 +26,6 @@ const CatalogElement = () => {
     useSelector((state) => state.galleryReducer);
 
   const [valueCounter, setValueCounter] = useState(1);
-
-  console.log(oneProduct);
 
   // add to local storage
   const addToCart = () => {
@@ -135,7 +134,8 @@ const CatalogElement = () => {
             {/*  description block */}
             <div className="catalogElement__description ">
               <h4>Welcome to the world of fashion.</h4>
-              <p>{description}</p>
+              <ReactMarkdown>{description}</ReactMarkdown>
+              {/* <p>{description}</p> */}
             </div>
           </div>
         </div>

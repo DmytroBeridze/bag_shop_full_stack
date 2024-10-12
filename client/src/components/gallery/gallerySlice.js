@@ -67,15 +67,11 @@ const gallerySlice = createSlice({
         state.status = null;
       })
       .addCase(fetchAllGoods.fulfilled, (state, action) => {
-        // console.log("fulfilled");
-
         state.goods = action.payload;
         state.isloading = false;
         state.status = false;
       })
       .addCase(fetchAllGoods.rejected, (state, action) => {
-        // console.log("rejected");
-
         state.isloading = false;
         // state.status = action.message;
         state.status = action.error.name;
@@ -86,15 +82,11 @@ const gallerySlice = createSlice({
       .addCase(fetchGoodsById.pending, (state) => {
         state.oneProductisloading = true;
         state.oneProductStatus = null;
-
-        // console.log(state.oneProductisloading);
       })
       .addCase(fetchGoodsById.fulfilled, (state, action) => {
         state.oneProductisloading = false;
         state.oneProductStatus = null;
         state.oneProduct = action.payload;
-
-        // console.log(state.oneProductisloading);
       })
       .addCase(fetchGoodsById.rejected, (state, action) => {
         state.oneProductisloading = false;
