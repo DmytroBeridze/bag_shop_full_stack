@@ -124,6 +124,10 @@
     top: 60px;
     padding: 20px;
   }
+  &__home,
+  &__catalog {
+    text-transform: uppercase;
+  }
 
   & a {
     color: $clr-text-white;

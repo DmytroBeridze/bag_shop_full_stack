@@ -11,14 +11,17 @@ import { fetchGoodsById, productCartOpen } from "./gallerySlice";
 import QuickView from "../quickWiev/QuickWiev";
 import AddedToCart from "../addedToCart/AddedToCart";
 
-const Gallery = ({ goodsArray, seeMore = false }) => {
+const Gallery = ({ goodsArray, columns = 4, seeMore = false }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isloading, status, oneProduct, quantity, elemId } = useSelector(
     (state) => state.galleryReducer
   );
 
-  // useSelector((state) => console.log(state.postsReducer));
+  // ------quantity columns
+  const galleryStyle = {
+    gridTemplateColumns: `repeat(${columns}, 1fr)`,
+  };
 
   const [addedCart, setAddedCart] = useState(false);
   const [quontity, setQuontity] = useState(false);
@@ -50,8 +53,6 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
   const productCartClose = () => {
     setAddedCart(false);
     setQuontity(false);
-
-    // dispatch(productCartOpen(null));
   };
 
   // show modal Quick view
@@ -75,7 +76,7 @@ const Gallery = ({ goodsArray, seeMore = false }) => {
     <>
       <section className="gallery">
         <div className="main-container">
-          <div className="gallery__gallery">
+          <div className="gallery__gallery" style={galleryStyle}>
             {goodsArray &&
               goodsArray.map(({ _id, ...params }) => (
                 <GalleryCard

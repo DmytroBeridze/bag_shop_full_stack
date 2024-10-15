@@ -17,6 +17,7 @@ import {
   scrollbarHide,
   scrollbarShow,
 } from "../../features/scrollbarToggle/scrollBarToggle";
+import CatalogDropdown from "../catalogPage/CatalogDropdown";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(null);
@@ -79,7 +80,7 @@ const Header = () => {
               </Navbar.Brand>
 
               <Nav className={`nav ${modalToggle && "show"}`}>
-                {/* <Nav className="h-100 nav"> */}
+                {/* --------------dropdown */}
                 <ul className="nav-list d-flex align-items-center justify-content-between ">
                   <li
                     className="nav-link dropdown"
@@ -191,17 +192,17 @@ const Header = () => {
                   </li>
                 </ul>
 
+                {/* --------------dropdown-content */}
                 <div className="dropdown-content">
                   {/* catalog dropdown */}
                   <div
                     className={
-                      dropdown === 2 ? "dropdown-child show" : "dropdown-child "
+                      dropdown === 2
+                        ? "dropdown-child dropdown-child__catalog show"
+                        : "dropdown-child dropdown-child__catalog "
                     }
                   >
-                    <a href="http://www.вашдомен.ru/page1.html">HOME2</a>
-                    <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
-                    <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
-                    <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
+                    <CatalogDropdown dataType="dropdown" />
                   </div>
 
                   {/* blog dropdown */}
@@ -224,20 +225,6 @@ const Header = () => {
                     <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
                     <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
                   </div>
-                  {/* 
-                  <div className="dropdown-child">
-                    <a href="http://www.вашдомен.ru/page1.html">HOME5</a>
-                    <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
-                    <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
-                    <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
-                  </div>
-
-                  <div className="dropdown-child">
-                    <a href="http://www.вашдомен.ru/page1.html">HOME6</a>
-                    <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
-                    <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
-                    <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
-                  </div> */}
                 </div>
               </Nav>
               <div

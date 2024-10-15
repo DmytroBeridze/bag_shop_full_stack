@@ -1,0 +1,184 @@
+@import "../../style/variables.scss";
+
+.catalog-galery {
+  font-family: "Arvo";
+  font-style: normal;
+  font-weight: 400;
+
+  padding: 213px 0 80px;
+  & .main-container {
+    padding: 0;
+  }
+  &__container {
+    display: flex;
+    width: 100%;
+    padding: 0 30px !important;
+    gap: 30px;
+    @media (max-width: 800px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__sidebar {
+    max-width: 300px;
+    @media (max-width: 800px) {
+      max-width: 100%;
+    }
+  }
+  &__main {
+    max-width: 100%;
+  }
+  &__header {
+    margin-bottom: 30px;
+  }
+  &__description {
+    margin-bottom: 30px;
+  }
+  &__header-image {
+    width: 100%;
+    // height: 175px;
+    height: 136px;
+    display: block;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    & h2 {
+      font-size: 32px;
+      line-height: 40px;
+      color: $clr-text-white;
+      text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.6);
+
+      padding: 0 15px;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+    }
+  }
+  &__description {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  // --------------------------promo products
+  & .promoProducts {
+    &__card {
+      @media (max-width: 800px) {
+        flex-direction: row;
+      }
+    }
+    &__title {
+      font-family: "Arvo";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 40px;
+      margin-bottom: 15px;
+    }
+  }
+
+  // -------------------------galery
+  & .gallery__gallery {
+    @media (max-width: 1000px) {
+      gap: 20px;
+    }
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  & .gallery-card {
+    max-width: 100%;
+    @media (max-width: 800px) {
+      max-height: 250px;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      max-height: 600px;
+    }
+
+    &__image {
+      @media (max-width: 800px) {
+        width: 100%;
+        max-width: 214px;
+        max-height: 214px;
+        height: auto;
+        flex-basis: 40%;
+      }
+      @media (max-width: 600px) {
+        max-width: 100%;
+        max-height: 214px;
+      }
+    }
+  }
+  & .gallery-card__content {
+    @media (max-width: 800px) {
+      flex-basis: 60%;
+    }
+    & h3 {
+      font-size: 18px;
+      line-height: 20px;
+      margin-bottom: 4px;
+
+      white-space: unset;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      @media (max-width: 900px) {
+        width: 100%;
+      }
+      @media (max-width: 600px) {
+        text-align: center;
+      }
+    }
+    & > p {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 24px;
+      white-space: unset;
+      width: fit-content;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      @media (max-width: 600px) {
+        text-align: center;
+      }
+
+      & + p {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 26px;
+        display: inline-block;
+        // margin-left: 2px;
+        width: 55px;
+        @media (max-width: 450px) {
+          text-align: center;
+          width: 208px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+
+  // ---sale label
+
+  .saleLabel {
+    @media (max-width: 800px) {
+      width: 60px !important;
+      height: 60px !important;
+    }
+    @media (max-width: 600px) {
+      width: 76px !important;
+      height: 76px !important;
+    }
+  }
+}

@@ -18,7 +18,7 @@ const CollectionCard = ({ id, ...params }) => {
 
       <div className="collection-card__content">
         <h3>
-          <NavLink to={`/catalog/${id}`}>{mainType} </NavLink>
+          <NavLink to={`/catalog/galery/${mainType}`}>{mainType} </NavLink>
         </h3>
 
         <p>{dataLength} products</p>

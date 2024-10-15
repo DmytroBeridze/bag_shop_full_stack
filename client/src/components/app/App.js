@@ -13,6 +13,7 @@ import ContactUs from "../pages/contactUs/ContactUs";
 import CatalogElement from "../pages/catalogElement/CatalogElement";
 import Footer from "../footer/Footer";
 import Post from "../pages/post/Post";
+import CatalogGalery from "../catalogPage/CatalogGalery";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/catalog/:id" element={<CatalogElement />} />
+          <Route path="/catalog/galery/:mainType" element={<CatalogGalery />} />
 
           <Route path="/blog/:id" element={<Post />} />
 
