@@ -27,7 +27,14 @@
   }
   &__main {
     max-width: 100%;
+    opacity: 1;
+    transition: 0.5s;
+    margin-bottom: 30px;
+    &.loading {
+      opacity: 0;
+    }
   }
+
   &__header {
     margin-bottom: 30px;
   }

@@ -1,7 +1,7 @@
-const pageUp = () => {
+const pageUp = (top = 0, left = 0) => {
   window.scrollTo({
-    top: 0,
-    left: 0,
+    top: top,
+    left: left,
     behavior: "smooth",
   });
 };

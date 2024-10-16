@@ -14,6 +14,7 @@ import CustomScrollToTop from "../../../features/CustomScrollToTop";
 import RecentPost from "../../blogPage/RecentPost";
 import Sort from "../../blogPage/Sort";
 import PromoProducts from "../../promoProducts/PromoProducts";
+import GalleryNavigation from "../../galleryNavigation/GalleryNavigation";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -203,29 +204,38 @@ const Blog = () => {
           </div>
 
           {displayBtns && (
-            <div className="blog__nav">
-              <Button
-                className="grey-stroke__black-hover"
-                label="prev"
-                disabled={firstIndex === 0}
-                onclick={() => prevPage()}
-              />
+            <GalleryNavigation
+              firstIndex={firstIndex}
+              lastIndex={lastIndex}
+              stringNbr={stringNbr}
+              arr={posts}
+              quantity={step}
+              prevPage={prevPage}
+              nextPage={nextPage}
+            />
+            // <div className="blog__nav">
+            //   <Button
+            //     className="grey-stroke__black-hover"
+            //     label="prev"
+            //     disabled={firstIndex === 0}
+            //     onclick={() => prevPage()}
+            //   />
 
-              <div style={{ color: "#9fa3a7" }}>{`${stringNbr}/${Math.ceil(
-                posts.length / step
-              )}`}</div>
+            //   <div style={{ color: "#9fa3a7" }}>{`${stringNbr}/${Math.ceil(
+            //     posts.length / step
+            //   )}`}</div>
 
-              <Button
-                className="grey-stroke__black-hover"
-                label="next"
-                disabled={lastIndex === posts.length}
-                onclick={() => nextPage()}
-              />
-            </div>
+            //   <Button
+            //     className="grey-stroke__black-hover"
+            //     label="next"
+            //     disabled={lastIndex === posts.length}
+            //     onclick={() => nextPage()}
+            //   />
+            // </div>
           )}
         </main>
       </div>
-
+      {/* ------scroll to top */}
       <CustomScrollToTop />
     </div>
   );
