@@ -15,6 +15,7 @@ import RecentPost from "../../blogPage/RecentPost";
 import Sort from "../../blogPage/Sort";
 import PromoProducts from "../../promoProducts/PromoProducts";
 import GalleryNavigation from "../../galleryNavigation/GalleryNavigation";
+import { fetchAllGoods } from "../../gallery/gallerySlice";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -123,7 +124,7 @@ const Blog = () => {
 
   useEffect(() => {
     dispatch(getAllPosts());
-    // dispatch(fetchAllGoods());
+    dispatch(fetchAllGoods());
     pageUp();
   }, [dispatch]);
 

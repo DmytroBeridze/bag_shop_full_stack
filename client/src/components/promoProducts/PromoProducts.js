@@ -31,9 +31,11 @@ const PromoProducts = memo(({ elemQuantity = 1 }) => {
       : promoProducts.length - 1;
   const shufftedProducts = shufftingPromoProducts(promoProducts, quantity);
 
-  useEffect(() => {
-    dispatch(fetchAllGoods());
-  }, [dispatch]);
+  // !----------відключив бо в CatalogGalery був постійний ререндер
+  // !----------підключив  dispatch(fetchAllGoods()) в Gallery при загрузці сторінки
+  // useEffect(() => {
+  //   dispatch(fetchAllGoods());
+  // }, [dispatch]);
 
   // !------simple solution
   // const promoProducts = goods.filter((elem) => JSON.parse(elem.promo));
@@ -62,7 +64,6 @@ const PromoProducts = memo(({ elemQuantity = 1 }) => {
   //   console.log(sortingPromoProducts(promoProducts));
 
   if (isloading) {
-    // if (isloading || goods.length === 0) {
     return (
       <div style={{ paddingTop: "150px", height: "100vh" }}>
         <Preloader />

@@ -1,18 +1,24 @@
 import "./sort.scss";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const Sort = ({ onChangeQuantityGoodsToPage, quantity }) => {
+const Sort = ({
+  onChangeQuantityGoodsToPage,
+  sortGoodsByPrice,
+  quantity,
+  sortByPrice,
+}) => {
   //   const [quantity, setQuantity] = useState(6);
+  console.log(sortByPrice);
 
   return (
     <div>
       <form>
-        <label htmlFor="catalog-select">Show: </label>
+        <label htmlFor="catalog-quantity">Show: </label>
 
         <select
-          name="catalog-select"
-          id="catalog-select"
+          name="catalog-quantity"
+          id="catalog-quantity"
           value={quantity}
           onChange={(e) => onChangeQuantityGoodsToPage(e)}
         >
@@ -21,6 +27,17 @@ const Sort = ({ onChangeQuantityGoodsToPage, quantity }) => {
           <option value="6">6</option>
           <option value="9">9</option>
           <option value="12">12</option>
+        </select>
+
+        <label htmlFor="catalog-sort">Sort products: </label>
+        <select
+          className="catalog-sort"
+          id="catalog-sort"
+          // value={sortByPrice}
+          onChange={(e) => sortGoodsByPrice(e)}
+        >
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
         </select>
       </form>
     </div>

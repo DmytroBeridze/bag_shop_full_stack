@@ -27,7 +27,7 @@ const GalleryNavigation = ({
       <Button
         className="grey-stroke__black-hover"
         label="next"
-        disabled={lastIndex === arr.length}
+        disabled={lastIndex >= arr.length}
         onclick={() => nextPage()}
       />
     </div>

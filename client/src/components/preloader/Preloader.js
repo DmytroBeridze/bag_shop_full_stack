@@ -4,7 +4,7 @@ import React from "react";
 
 const Preloader = () => {
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <img
         src={loader}
         alt="loader"

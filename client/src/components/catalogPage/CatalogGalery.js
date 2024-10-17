@@ -1,7 +1,7 @@
 import "./catalogGalery.scss";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import { fetchAllGoods } from "../gallery/gallerySlice";
@@ -12,13 +12,14 @@ import { getAllPosts } from "../adminPanel/addPostsForm/postSlice";
 import CatalogDropdown from "./CatalogDropdown";
 import catalogGaleryDescription from "./catalogGaleryDescription";
 import Sort from "./Sort";
-import Button from "../buttons/Buttons";
 import GalleryNavigation from "../galleryNavigation/GalleryNavigation";
 import CustomScrollToTop from "../../features/CustomScrollToTop";
+import Preloader from "../preloader/Preloader";
 
 const CatalogGalery = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const galeryRef = useRef(null);
 
   const { goods, isloading, status } = useSelector(
     (state) => state.galleryReducer
@@ -33,15 +34,28 @@ const CatalogGalery = () => {
   const filter = location.state?.filter;
 
   const [quantity, setQuantity] = useState(6);
+  const [sortByPrice, setSortByPrice] = useState("low");
+
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(quantity);
   const [sortedArray, setSortedArray] = useState([]);
   const [stringNbr, setStringNbr] = useState(1);
+  const [distanceFromTop, setDistanceFromTop] = useState(0);
 
   const displayBtns = sortedArray.length < goods.length ? true : false;
 
+  // --sorted  by date array
+  const sortedByPriceArr = [...goods].sort((a, b) => {
+    const price1 = JSON.parse(a.parameters).price;
+    const price2 = JSON.parse(b.parameters).price;
+
+    return sortByPrice == "high" ? price2 - price1 : price1 - price2;
+  });
+
   const filteredProducts = () => {
-    const filteredMainType = goods.filter((elem) => elem.mainType === mainType);
+    const filteredMainType = sortedByPriceArr.filter(
+      (elem) => elem.mainType === mainType
+    );
 
     return filter
       ? filteredMainType.filter((item) => item.type === filter)
@@ -51,6 +65,11 @@ const CatalogGalery = () => {
   // --------quantity posts per page
   const onChangeQuantityGoodsToPage = (e) => {
     setQuantity(Number(e.target.value));
+    setFirstIndex(0);
+    setStringNbr(1);
+  };
+  const sortGoodsByPrice = (e) => {
+    setSortByPrice(e.target.value);
     setFirstIndex(0);
     setStringNbr(1);
   };
@@ -94,13 +113,16 @@ const CatalogGalery = () => {
   }, [lastIndex, products]);
 
   useEffect(() => {
-    pageUp(550);
+    pageUp(distanceFromTop + 133);
   }, [firstIndex, lastIndex]);
 
   useEffect(() => {
     pageUp();
     dispatch(getAllPosts());
     dispatch(fetchAllGoods());
+    const { top } =
+      galeryRef.current && galeryRef.current.getBoundingClientRect();
+    setDistanceFromTop(top);
   }, [dispatch]);
 
   useEffect(() => {
@@ -113,16 +135,31 @@ const CatalogGalery = () => {
         setTransition(false);
       }, 500);
     }
-  }, [goods, mainType]);
+  }, [goods, mainType, sortByPrice]);
 
   useEffect(() => {
     setProducts(filteredProducts());
-  }, [filter]);
+  }, [filter, sortByPrice]);
 
   useEffect(() => {
     setFirstIndex(0);
     setStringNbr(1);
   }, [mainType, filter]);
+
+  if (isloading) {
+    return (
+      <div style={{ paddingTop: "150px", height: "100vh" }}>
+        <Preloader />
+      </div>
+    );
+  }
+  if (status) {
+    return (
+      <div style={{ paddingTop: "150px", height: "100vh" }}>
+        <h5 className="text-center mt-5 mb-5 text-danger">Loading error...</h5>
+      </div>
+    );
+  }
 
   return (
     <div className="catalog-galery">
@@ -161,10 +198,12 @@ const CatalogGalery = () => {
             {/* -----------sort */}
             <Sort
               onChangeQuantityGoodsToPage={onChangeQuantityGoodsToPage}
+              sortGoodsByPrice={sortGoodsByPrice}
               quantity={quantity}
+              sortByPrice={sortByPrice}
             />
             {/* -----------gallery */}
-            <Gallery goodsArray={sortedArray} columns={3} />
+            <Gallery goodsArray={sortedArray} columns={3} ref={galeryRef} />
           </main>
           {/*------------- navigation */}
           {displayBtns && (
