@@ -1,14 +1,27 @@
 import "./catalogDropdown.scss";
 
 import { memo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const CatalogDropdown = memo(
-  ({ dataType = "dropdown", productType, productFilter }) => {
+  ({ dataType = "dropdown", productType, productFilter, setDropdown }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const locationPathname = location.pathname.split("/");
+    const navigateLink = locationPathname
+      .slice(0, locationPathname.length - 1)
+      .join("/")
+      .replace(/\/+/g, "/");
+    // .slice(0, locationPathname.length - 1)
+    // .join()
+    // .replaceAll(",", "/");
 
     const handleFilterClick = (link, filterName) => {
       navigate(`/catalog/galery/${link}`, { state: { filter: filterName } });
+    };
+    const handleFilterSaleClick = (link, filterName) => {
+      navigate(`${navigateLink}/${link}`, { state: { filter: filterName } });
     };
 
     const links = [
@@ -55,6 +68,7 @@ const CatalogDropdown = memo(
                 <Link
                   to={`/catalog/galery/${mainType}`}
                   className="catalog-dropdown__link"
+                  onClick={setDropdown}
                 >
                   {mainType}
                 </Link>
@@ -93,7 +107,8 @@ const CatalogDropdown = memo(
                 // -----------mainType
                 <li key={mainType} className="catalog-dropdown__mainType">
                   <Link
-                    to={`/catalog/galery/${mainType}`}
+                    to={`${navigateLink}/${mainType}`}
+                    // to={`/catalog/galery/${mainType}`}
                     className={catalogGaleryMainTypeClass(mainType)}
                   >
                     {mainType}
@@ -115,8 +130,11 @@ const CatalogDropdown = memo(
                   className={catalogGaleryTypeClass(item)}
                   key={item}
                   onClick={() =>
-                    handleFilterClick(productSubtypes.mainType, item)
+                    handleFilterSaleClick(productSubtypes.mainType, item)
                   }
+                  // onClick={() =>
+                  //   handleFilterClick(productSubtypes.mainType, item)
+                  // }
                 >
                   {item}
                 </li>

@@ -1,47 +1,30 @@
-import "./sort.scss";
+const sort = (arr, sortAttr, sortProducts) => {
+  return [...arr].sort((a, b) => {
+    // price
+    const price1 = JSON.parse(a.parameters).price;
+    const price2 = JSON.parse(b.parameters).price;
+    // name
+    const name1 = a.name.toLowerCase();
+    const name2 = b.name.toLowerCase();
+    // added
+    const date1 = new Date(a.createdAt);
+    const date2 = new Date(b.createdAt);
 
-import { useEffect, useState } from "react";
+    switch (sortAttr) {
+      case "price":
+        return sortProducts === "high" ? price2 - price1 : price1 - price2;
+      case "name": {
+        if (sortProducts === "a-z") {
+          return name1.localeCompare(name2);
+        } else if (sortProducts === "z-a") return name2.localeCompare(name1);
+      }
+      case "added":
+        return sortProducts === "old-new" ? date2 - date1 : date1 - date2;
 
-const Sort = ({
-  onChangeQuantityGoodsToPage,
-  sortGoodsByPrice,
-  quantity,
-  sortByPrice,
-}) => {
-  //   const [quantity, setQuantity] = useState(6);
-  console.log(sortByPrice);
-
-  return (
-    <div>
-      <form>
-        <label htmlFor="catalog-quantity">Show: </label>
-
-        <select
-          name="catalog-quantity"
-          id="catalog-quantity"
-          value={quantity}
-          onChange={(e) => onChangeQuantityGoodsToPage(e)}
-        >
-          {/* <option value="">--Please choose an option--</option> */}
-          <option value="3">3</option>
-          <option value="6">6</option>
-          <option value="9">9</option>
-          <option value="12">12</option>
-        </select>
-
-        <label htmlFor="catalog-sort">Sort products: </label>
-        <select
-          className="catalog-sort"
-          id="catalog-sort"
-          // value={sortByPrice}
-          onChange={(e) => sortGoodsByPrice(e)}
-        >
-          <option value="low">Price: low to high</option>
-          <option value="high">Price: high to low</option>
-        </select>
-      </form>
-    </div>
-  );
+      default:
+        break;
+    }
+  });
 };
 
-export default Sort;
+export default sort;

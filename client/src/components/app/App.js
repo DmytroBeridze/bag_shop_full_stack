@@ -14,8 +14,14 @@ import CatalogElement from "../pages/catalogElement/CatalogElement";
 import Footer from "../footer/Footer";
 import Post from "../pages/post/Post";
 import CatalogGalery from "../catalogPage/CatalogGalery";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { goods, isloading, status } = useSelector(
+    (state) => state.galleryReducer
+  );
+  // const saleItems = goods.filter((elem) => elem.sale !== "false");
+
   return (
     <>
       <div className="app">
@@ -25,11 +31,33 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/sale" element={<Sale />} />
+
+          <Route path="/sale/:mainType" element={<Sale />} />
+          {/* <Route
+            path="/sale/:mainType"
+            element={
+              <CatalogGalery
+                goods={saleItems}
+                isloading={isloading}
+                status={status}
+              />
+            }
+          /> */}
+          {/* <Route path="/sale" element={<Sale />} /> */}
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/catalog/:id" element={<CatalogElement />} />
-          <Route path="/catalog/galery/:mainType" element={<CatalogGalery />} />
+          <Route
+            path="/catalog/galery/:mainType"
+            element={
+              <CatalogGalery
+                goods={goods}
+                isloading={isloading}
+                status={status}
+                title="Catalog"
+              />
+            }
+          />
 
           <Route path="/blog/:id" element={<Post />} />
 

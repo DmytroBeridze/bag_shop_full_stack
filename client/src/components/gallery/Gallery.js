@@ -89,9 +89,9 @@ const Gallery = forwardRef(
       <>
         <section className="gallery" ref={ref}>
           <div className="main-container">
-            <div className="gallery__gallery" style={galleryStyle}>
-              {goodsArray &&
-                goodsArray.map(({ _id, ...params }) => (
+            {goodsArray.length ? (
+              <div className="gallery__gallery" style={galleryStyle}>
+                {goodsArray.map(({ _id, ...params }) => (
                   <GalleryCard
                     key={_id}
                     id={_id}
@@ -101,17 +101,22 @@ const Gallery = forwardRef(
                   />
                 ))}
 
-              {seeMore && (
-                <button
-                  className="more"
-                  onClick={() => {
-                    navigate("/catalog");
-                  }}
-                >
-                  See more
-                </button>
-              )}
-            </div>
+                {seeMore && (
+                  <button
+                    className="more"
+                    onClick={() => {
+                      navigate("/catalog");
+                    }}
+                  >
+                    See more
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="text-center mt-5 fs-3 text-warning">
+                No elements
+              </div>
+            )}
           </div>
         </section>
 

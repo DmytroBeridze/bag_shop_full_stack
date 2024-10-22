@@ -1,4 +1,4 @@
-import "./collextions.scss";
+import "./collections.scss";
 
 import { useSelector } from "react-redux";
 
@@ -77,7 +77,7 @@ const Collections = () => {
 
   if (isloading || goods.length === 0) {
     return (
-      <div style={{ paddingTop: "150px", height: "100vh" }}>
+      <div style={{ paddingTop: "213px" }}>
         <Preloader />
       </div>
     );

@@ -1,36 +1,122 @@
 import "./aboutUs.scss";
 
+import glass from "../../../resources/icons/aboutUs/glass.svg";
+import car from "../../../resources/icons/aboutUs/car.svg";
+import like from "../../../resources/icons/aboutUs/like.svg";
+import john from "../../../resources/img/aboutUs/john.jpg";
+import jessica from "../../../resources/img/aboutUs/jessica.jpg";
+import sam from "../../../resources/img/aboutUs/sam.jpg";
+import edna from "../../../resources/img/aboutUs/edna.jpg";
+
 const AboutUs = () => {
+  const eventsContent = [
+    {
+      icon: glass,
+      title: "Icon block with text",
+      text: "We think about the convenience of your choice.Our products are supplied with star rating that should help hesitant buyers to take a decision.What’s more, you can search our site if you know exactly what you are looking for or use a bunch of different filters that will considerably save your time and efforts.",
+    },
+    {
+      icon: car,
+      title: "Delivery to all regions",
+      text: "We deliver our goods worldwide. No matter where you live, your order will be shipped in time and delivered right to your door or to any other location you have stated. The packages are handled with utmost care, so the ordered products will be handed to you safe and sound, just like you expect them to be.",
+    },
+    {
+      icon: like,
+      title: "The highest quality of products",
+      text: "We guarantee the highest quality of the products we sell. Several decades of successful operation  and millions of happy customers let us feel certain about that. Besides, all items we sell pass   thorough quality control, so no characteristics  mismatch can escape the eye of our     professionals.",
+    },
+  ];
+  const teamContent = [
+    {
+      name: "John Doe",
+      photo: john,
+      text: "Senior salesman with 15 years of experience. He knows everything about the products he offers.",
+    },
+    {
+      name: "Jessica Priston",
+      photo: jessica,
+      text: "Mega positive shop assistant always ready to help you make the right choice and charm you with a smile.",
+    },
+    {
+      name: "Sam Kromstain",
+      photo: sam,
+      text: "Wholesale manager. Contact him if you want to buy a batch of the products offered at our store.",
+    },
+    {
+      name: "Edna Barton",
+      photo: edna,
+      text: "Quality control manager. Her mission is to check the products we ship and settle quality issues if any.",
+    },
+  ];
+
   return (
     <div className="about">
       <div className="main-container">
         <h1 className="about__title">About us</h1>
-        <h2>
-          Our store offers stylish, premium quality handbags at the lowest
-          possible prices. We have a perfect reputation and great experience in
-          this sphere and that is why our products are so popular and have many
-          faithful fans all over the country. What we sell are not just simple
-          handbags; the products of our shop are the part of a style because
-          nowadays handbag is the essential detail of the women’s wardrobe. We
-          know how important it is for the modern women to have several
-          interesting and trendy bags. Nowadays fashion is an integral part of
-          the culture and social relations. It has a great influence on our
-          psychological condition and we often find ourselves the hostages of
-          some brands. Nevertheless trend things give a feeling of prosperity
-          and well-being and we obtain complete satisfaction with the help of
-          some stylish things. So that is why we want to mark out that the goods
-          of our store are universal because they can satisfy clients with
-          different demands. You know that our commodities are the perfect
-          combination of the original design, fair price, brilliant durability
-          and high quality. What can be better? Only our handbags have such
-          unbelievable advantages and this fact proves that we are the true
-          leaders in this sphere. We provide only branded goods - that's a part
-          of our official policy. Even if you are not the biggest fan of
-          fashion, our shop can still offer you some special propositions.
-        </h2>
+
+        {/* -------------requirements */}
+        <div className="requirements">
+          <h2 className="requirements__title">
+            Catering to your requirements, handling your needs with care
+          </h2>
+          <p className="requirements__text">
+            Our store is more than just another average online retailer. We sell
+            not only top quality products, but give our customers a positive
+            online shopping experience. Forget about struggling to do everything
+            at once: taking care of the family, running your business, walking
+            your dog, cleaning the house, doing the shopping, etc. Purchase the
+            goods you need every day or just like in a few clicks or taps,
+            depending on the device you use to access the Internet. We work to
+            make your life more enjoyable.
+          </p>
+        </div>
+
+        {/* ------------events */}
+        <div className="events">
+          <h2 className="events__title">Store events</h2>
+          <div className="events__card-container">
+            {eventsContent.map(({ icon, title, text }) => (
+              <EventsCard key={title} icon={icon} title={title} text={text} />
+            ))}
+          </div>
+        </div>
+
+        {/* --------------OurTeam */}
+        <div className="team">
+          <h2 className="team__title">Store events</h2>
+          <div className="team__card-container">
+            {teamContent.map(({ name, photo, text }) => (
+              <OurTeamCard name={name} photo={photo} text={text} key={name} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+const EventsCard = ({ icon, title, text }) => (
+  <div className="events__events-block">
+    <div className="events__icon">
+      <img src={icon} alt={title} />
+    </div>
+    <div className="events__info-container">
+      <h3>{title}</h3>
+      <p>{text}</p>
+    </div>
+  </div>
+);
+
+const OurTeamCard = ({ name, photo, text }) => (
+  <div className="team__card">
+    <div className="team__img">
+      <img src={photo} alt={name} />
+    </div>
+    <div className="team__info-container">
+      <h3>{name}</h3>
+      <p>{text}</p>
+    </div>
+  </div>
+);
 
 export default AboutUs;

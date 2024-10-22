@@ -1,10 +1,10 @@
 .sale {
-  background-color: rgb(155, 94, 20);
   width: 100%;
   min-height: 100vh;
-}
-.sale-title {
-  display: inline-block;
-  color: black;
-  margin-top: 250px;
+  &__title {
+    display: inline-block;
+    margin-top: 213px;
+    position: absolute;
+    left: 30%;
+  }
 }

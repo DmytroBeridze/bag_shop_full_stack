@@ -12,12 +12,13 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
 import BlogNavbarDropdown from "../blogPage/BlogNavbarDropdown";
+import CatalogDropdown from "../catalogPage/CatalogDropdown";
+import SaleNavbarDropdown from "../salePage/SaleNavbarDropdown";
 
 import {
   scrollbarHide,
   scrollbarShow,
 } from "../../features/scrollbarToggle/scrollBarToggle";
-import CatalogDropdown from "../catalogPage/CatalogDropdown";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(null);
@@ -151,7 +152,9 @@ const Header = () => {
                     onMouseOver={() => showDropdown(4)}
                   >
                     <NavLink
-                      to="/sale"
+                      to="/sale/backpacks"
+                      // to="/sale/:mainType"
+                      // to="/sale"
                       className="d-flex gap-1 align-items-center"
                       style={({ isActive }) => ({
                         color: isActive ? "#bb7311" : "#ffffff",
@@ -202,7 +205,10 @@ const Header = () => {
                         : "dropdown-child dropdown-child__catalog "
                     }
                   >
-                    <CatalogDropdown dataType="dropdown" />
+                    <CatalogDropdown
+                      dataType="dropdown"
+                      setDropdown={setDropdown}
+                    />
                   </div>
 
                   {/* blog dropdown */}
@@ -220,10 +226,7 @@ const Header = () => {
                       dropdown === 4 ? "dropdown-child show" : "dropdown-child "
                     }
                   >
-                    <a href="http://www.вашдомен.ru/page1.html">HOME4</a>
-                    <a href="http://www.вашдомен.ru/page2.html">ABOUT US</a>
-                    <a href="http://www.вашдомен.ru/page3.html">CATALOG</a>
-                    <a href="http://www.вашдомен.ru/page4.html">BLOG</a>
+                    <SaleNavbarDropdown setDropdown={setDropdown} />
                   </div>
                 </div>
               </Nav>

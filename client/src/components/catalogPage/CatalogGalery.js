@@ -1,7 +1,7 @@
 import "./catalogGalery.scss";
 
 import { useDispatch, useSelector } from "react-redux";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import { fetchAllGoods } from "../gallery/gallerySlice";
@@ -9,21 +9,25 @@ import Gallery from "../gallery/Gallery";
 import PromoProducts from "../promoProducts/PromoProducts";
 import pageUp from "../../features/PageUp";
 import { getAllPosts } from "../adminPanel/addPostsForm/postSlice";
+import SortComponent from "./SortComponent";
 import CatalogDropdown from "./CatalogDropdown";
 import catalogGaleryDescription from "./catalogGaleryDescription";
-import Sort from "./Sort";
 import GalleryNavigation from "../galleryNavigation/GalleryNavigation";
 import CustomScrollToTop from "../../features/CustomScrollToTop";
 import Preloader from "../preloader/Preloader";
+import sort from "./sort";
 
-const CatalogGalery = () => {
+const CatalogGalery = ({ goods, isloading, status, title }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const galeryRef = useRef(null);
+  // const sortRef = useRef(null);
 
-  const { goods, isloading, status } = useSelector(
-    (state) => state.galleryReducer
-  );
+  // console.log(sortRef.current);
+
+  // const { goods, isloading, status } = useSelector(
+  //   (state) => state.galleryReducer
+  // );
 
   const [description, setDescription] = useState();
   const [collectionsName, setCollectionsName] = useState(false);
@@ -34,26 +38,48 @@ const CatalogGalery = () => {
   const filter = location.state?.filter;
 
   const [quantity, setQuantity] = useState(6);
-  const [sortByPrice, setSortByPrice] = useState("low");
+  const [sortProducts, setSortProducts] = useState("low");
+  const [sortAttr, setSortAttr] = useState("price");
 
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(quantity);
-  const [sortedArray, setSortedArray] = useState([]);
   const [stringNbr, setStringNbr] = useState(1);
-  const [distanceFromTop, setDistanceFromTop] = useState(0);
+  // const [sortedArray, setSortedArray] = useState([]);
+  // const [distanceFromTop, setDistanceFromTop] = useState(0);
+
+  const sortedArray = useMemo(() => {
+    return products && products.slice(firstIndex, lastIndex);
+  }, [lastIndex, firstIndex, products]);
 
   const displayBtns = sortedArray.length < goods.length ? true : false;
 
-  // --sorted  by date array
-  const sortedByPriceArr = [...goods].sort((a, b) => {
-    const price1 = JSON.parse(a.parameters).price;
-    const price2 = JSON.parse(b.parameters).price;
+  // --sort
+  const sortedProductsArr = sort(goods, sortAttr, sortProducts);
 
-    return sortByPrice == "high" ? price2 - price1 : price1 - price2;
-  });
+  // const sortedByPriceArr = [...goods].sort((a, b) => {
+  //   // price
+  //   const price1 = JSON.parse(a.parameters).price;
+  //   const price2 = JSON.parse(b.parameters).price;
+  //   // name
+  //   const name1 = a.name.toLowerCase();
+  //   const name2 = b.name.toLowerCase();
+
+  //   switch (sortAttr) {
+  //     case "price":
+  //       return sortProducts === "high" ? price2 - price1 : price1 - price2;
+  //     case "name": {
+  //       if (sortProducts === "a-z") {
+  //         return name1.localeCompare(name2);
+  //       } else if (sortProducts === "z-a") return name2.localeCompare(name1);
+  //     }
+
+  //     default:
+  //       break;
+  //   }
+  // });
 
   const filteredProducts = () => {
-    const filteredMainType = sortedByPriceArr.filter(
+    const filteredMainType = sortedProductsArr.filter(
       (elem) => elem.mainType === mainType
     );
 
@@ -64,16 +90,39 @@ const CatalogGalery = () => {
 
   // --------quantity posts per page
   const onChangeQuantityGoodsToPage = (e) => {
-    setQuantity(Number(e.target.value));
-    setFirstIndex(0);
-    setStringNbr(1);
-  };
-  const sortGoodsByPrice = (e) => {
-    setSortByPrice(e.target.value);
+    if (e.target.value === "all") {
+      setQuantity(products.length);
+    } else setQuantity(Number(e.target.value));
+
+    // setQuantity(Number(e.target.value));
     setFirstIndex(0);
     setStringNbr(1);
   };
 
+  const sortGoods = (e) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const dataInfo = selectedOption.getAttribute("data-attr");
+    setSortAttr(dataInfo);
+
+    setSortProducts(e.target.value);
+    setFirstIndex(0);
+    setStringNbr(1);
+  };
+
+  const scrollGalleryIntoView = () => {
+    const galleryElement = galeryRef.current;
+
+    if (galleryElement) {
+      const { top } = galleryElement.getBoundingClientRect();
+      const offset = 200;
+      console.log(window.scrollY + top);
+
+      window.scrollTo({
+        top: window.scrollY + top - offset,
+        behavior: "smooth",
+      });
+    }
+  };
   // ---------next page
   const nextPage = () => {
     if (lastIndex < products.length) {
@@ -81,8 +130,9 @@ const CatalogGalery = () => {
       setStringNbr((stringNbr) => stringNbr + 1);
 
       setTimeout(() => {
-        setFirstIndex(lastIndex);
-        setLastIndex(Math.min(lastIndex + quantity, products.length));
+        setFirstIndex(+lastIndex);
+        setLastIndex(Math.min(+lastIndex + quantity, products.length));
+        scrollGalleryIntoView();
 
         setTransition(false);
       }, 500);
@@ -98,6 +148,7 @@ const CatalogGalery = () => {
       setTimeout(() => {
         setLastIndex(firstIndex);
         setFirstIndex(Math.max(firstIndex - quantity, 0));
+        scrollGalleryIntoView();
 
         setTransition(false);
       }, 500);
@@ -108,21 +159,21 @@ const CatalogGalery = () => {
     setLastIndex(quantity);
   }, [quantity, products]);
 
-  useEffect(() => {
-    setSortedArray(products && products.slice(firstIndex, lastIndex));
-  }, [lastIndex, products]);
+  // useEffect(() => {
+  //   setSortedArray(products && products.slice(firstIndex, lastIndex));
+  // }, [lastIndex, firstIndex, products]);
 
-  useEffect(() => {
-    pageUp(distanceFromTop + 133);
-  }, [firstIndex, lastIndex]);
+  // const sortedArray = useMemo(() => {
+  //   return products && products.slice(firstIndex, lastIndex);
+  // }, [lastIndex, firstIndex, products]);
 
   useEffect(() => {
     pageUp();
     dispatch(getAllPosts());
     dispatch(fetchAllGoods());
-    const { top } =
-      galeryRef.current && galeryRef.current.getBoundingClientRect();
-    setDistanceFromTop(top);
+    // const { top } = galeryRef.current?.getBoundingClientRect();
+    // const { top = 0 } = galeryRef.current?.getBoundingClientRect() || {};
+    // setDistanceFromTop(top);
   }, [dispatch]);
 
   useEffect(() => {
@@ -135,11 +186,11 @@ const CatalogGalery = () => {
         setTransition(false);
       }, 500);
     }
-  }, [goods, mainType, sortByPrice]);
+  }, [goods, mainType, sortProducts]);
 
   useEffect(() => {
     setProducts(filteredProducts());
-  }, [filter, sortByPrice]);
+  }, [filter, sortProducts]);
 
   useEffect(() => {
     setFirstIndex(0);
@@ -148,14 +199,14 @@ const CatalogGalery = () => {
 
   if (isloading) {
     return (
-      <div style={{ paddingTop: "150px", height: "100vh" }}>
+      <div style={{ paddingTop: "200px", height: "100vh" }}>
         <Preloader />
       </div>
     );
   }
   if (status) {
     return (
-      <div style={{ paddingTop: "150px", height: "100vh" }}>
+      <div style={{ paddingTop: "200px", height: "100vh" }}>
         <h5 className="text-center mt-5 mb-5 text-danger">Loading error...</h5>
       </div>
     );
@@ -174,71 +225,57 @@ const CatalogGalery = () => {
           <PromoProducts elemQuantity={3} />
         </div>
         {/* ----------main */}
-        <div>
-          <main
-            className={
-              transition
-                ? `catalog-galery__main loading`
-                : `catalog-galery__main`
-            }
-          >
-            <header className="catalog-galery__header">
-              <div
-                className="catalog-galery__header-image"
-                style={{
-                  backgroundImage: `url(${description && description.image})`,
-                }}
-              >
-                <h2>{collectionsName}</h2>
-              </div>
-            </header>
-            <p className="catalog-galery__description">
-              {description && description.text}
-            </p>
-            {/* -----------sort */}
-            <Sort
-              onChangeQuantityGoodsToPage={onChangeQuantityGoodsToPage}
-              sortGoodsByPrice={sortGoodsByPrice}
-              quantity={quantity}
-              sortByPrice={sortByPrice}
-            />
-            {/* -----------gallery */}
-            <Gallery goodsArray={sortedArray} columns={3} ref={galeryRef} />
-          </main>
-          {/*------------- navigation */}
-          {displayBtns && (
-            <GalleryNavigation
-              firstIndex={firstIndex}
-              lastIndex={lastIndex}
-              stringNbr={stringNbr}
-              arr={products}
-              quantity={quantity}
-              prevPage={prevPage}
-              nextPage={nextPage}
-            />
+        {description && (
+          // {products.length > 0 && description && (
+          <div>
+            <main
+              className={
+                transition
+                  ? `catalog-galery__main loading`
+                  : `catalog-galery__main`
+              }
+            >
+              <h2 className="catalog-galery__title">{title}</h2>
+              <header className="catalog-galery__header">
+                <div
+                  className="catalog-galery__header-image"
+                  style={{
+                    backgroundImage: `url(${description && description.image})`,
+                  }}
+                >
+                  <h2>{collectionsName}</h2>
+                </div>
+              </header>
+              <p className="catalog-galery__description">
+                {description && description.text}
+              </p>
+              {/* -----------sort */}
+              <SortComponent
+                onChangeQuantityGoodsToPage={onChangeQuantityGoodsToPage}
+                sortGoods={sortGoods}
+                quantity={quantity}
+                sortProducts={sortProducts}
+              />
+              {/* -----------gallery */}
+              <Gallery goodsArray={sortedArray} columns={3} ref={galeryRef} />
+            </main>
 
-            // <div className="blog__nav">
-            //   <Button
-            //     className="grey-stroke__black-hover"
-            //     label="prev"
-            //     disabled={firstIndex === 0}
-            //     onclick={() => prevPage()}
-            //   />
-
-            //   <div style={{ color: "#9fa3a7" }}>{`${stringNbr}/${Math.ceil(
-            //     products.length / quantity
-            //   )}`}</div>
-
-            //   <Button
-            //     className="grey-stroke__black-hover"
-            //     label="next"
-            //     disabled={lastIndex >= products.length}
-            //     onclick={() => nextPage()}
-            //   />
-            // </div>
-          )}
-        </div>
+            {/*------------- navigation */}
+            {displayBtns && (
+              <GalleryNavigation
+                firstIndex={firstIndex}
+                lastIndex={lastIndex}
+                stringNbr={stringNbr}
+                arr={products}
+                quantity={quantity}
+                prevPage={prevPage}
+                nextPage={nextPage}
+              />
+            )}
+          </div>
+        )}
       </div>
+
       {/* ------scroll to top */}
       <CustomScrollToTop />
     </div>
