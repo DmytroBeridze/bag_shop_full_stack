@@ -6,6 +6,9 @@ import { useState } from "react";
 // import { dropdownMenuScrollbarShow } from "../../features/scrollbarToggle/scrollBarToggle";
 
 import { Scrollbar } from "react-scrollbars-custom";
+import CatalogSublist from "./CatalogSublist";
+import BlogSublist from "./BlogSublist";
+import SaleSublist from "./SaleSublist";
 
 const BurgerMenu = ({ modalToggle, popupMenueHendler }) => {
   const [home, setHome] = useState(false);
@@ -125,54 +128,13 @@ const BurgerMenu = ({ modalToggle, popupMenueHendler }) => {
                 }}
               ></i>
             </NavLink>
-            {/* sublist */}
-            <ul className={`burger__list_sublist ${catalog && "open-catalog"}`}>
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/about"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  About us
-                </NavLink>
-              </li>
 
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/catalog"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  Catalog
-                </NavLink>
-              </li>
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/blog"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  Blog
-                </NavLink>
-              </li>
-            </ul>
+            {/*Catalog sublist */}
+            <CatalogSublist
+              catalog={catalog}
+              popupMenueHendler={popupMenueHendler}
+              clearMenuState={clearMenuState}
+            />
           </li>
 
           {/* Blog */}
@@ -193,60 +155,19 @@ const BurgerMenu = ({ modalToggle, popupMenueHendler }) => {
                 }}
               ></i>
             </NavLink>
-            {/* sublist */}
-            <ul className={`burger__list_sublist ${blog && "open-blog"}`}>
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/about"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  About us
-                </NavLink>
-              </li>
 
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/catalog"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  Catalog
-                </NavLink>
-              </li>
-              <li className="burger__list_subelement">
-                <NavLink
-                  to="/blog"
-                  onClick={() => {
-                    popupMenueHendler();
-                    clearMenuState();
-                  }}
-                >
-                  Blog
-                </NavLink>
-              </li>
-            </ul>
+            {/*Blog sublist */}
+            <BlogSublist
+              blog={blog}
+              popupMenueHendler={popupMenueHendler}
+              clearMenuState={clearMenuState}
+            />
           </li>
 
           {/* Sale */}
           <li className="burger__element">
             <NavLink
-              to="/sale"
+              to="/sale/backpacks"
               onClick={popupMenueHendler}
               style={({ isActive }) => ({
                 color: isActive ? "#bb7311" : "#292929",
@@ -262,7 +183,14 @@ const BurgerMenu = ({ modalToggle, popupMenueHendler }) => {
               ></i>
             </NavLink>
             {/* sublist */}
-            <ul className={`burger__list_sublist ${sale && "open-sale"}`}>
+
+            <SaleSublist
+              sale={sale}
+              popupMenueHendler={popupMenueHendler}
+              clearMenuState={clearMenuState}
+            />
+
+            {/* <ul className={`burger__list_sublist ${sale && "open-sale"}`}>
               <li className="burger__list_subelement">
                 <NavLink
                   to="/"
@@ -308,7 +236,7 @@ const BurgerMenu = ({ modalToggle, popupMenueHendler }) => {
                   Blog
                 </NavLink>
               </li>
-            </ul>
+            </ul> */}
           </li>
 
           {/* About us */}

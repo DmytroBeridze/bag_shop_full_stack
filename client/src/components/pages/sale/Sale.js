@@ -6,6 +6,7 @@ import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import { fetchAllGoods } from "../../gallery/gallerySlice";
 import { useDispatch, useSelector } from "react-redux";
 import CatalogGalery from "../../catalogPage/CatalogGalery";
+import pageUp from "../../../features/PageUp";
 
 const Sale = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Sale = () => {
   useEffect(() => {
     dispatch(fetchAllGoods());
     dispatch(getAllPosts());
+    pageUp();
   }, []);
 
   return (

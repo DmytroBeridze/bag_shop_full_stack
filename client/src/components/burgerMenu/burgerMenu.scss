@@ -61,13 +61,16 @@
       }
       &.open-blog {
         // height: min-content;
-        height: 200px;
+        height: 320px;
         opacity: 1;
       }
       &.open-sale {
         // height: min-content;
-        height: 300px;
         opacity: 1;
+        height: 850px;
+        @media (max-width: 500px) {
+          height: 1350px;
+        }
       }
     }
     &_subelement {

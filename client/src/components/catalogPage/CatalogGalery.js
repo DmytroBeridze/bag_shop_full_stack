@@ -168,13 +168,17 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
   // }, [lastIndex, firstIndex, products]);
 
   useEffect(() => {
-    pageUp();
+    // pageUp();
     dispatch(getAllPosts());
     dispatch(fetchAllGoods());
     // const { top } = galeryRef.current?.getBoundingClientRect();
     // const { top = 0 } = galeryRef.current?.getBoundingClientRect() || {};
     // setDistanceFromTop(top);
   }, [dispatch]);
+
+  useEffect(() => {
+    pageUp();
+  }, [mainType, dispatch]);
 
   useEffect(() => {
     if (goods.length > 0) {

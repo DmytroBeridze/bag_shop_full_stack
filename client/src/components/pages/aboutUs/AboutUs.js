@@ -48,14 +48,27 @@ const AboutUs = () => {
       text: "Quality control manager. Her mission is to check the products we ship and settle quality issues if any.",
     },
   ];
-
+  const messages = [
+    {
+      name: "Mary Taba",
+      text: "Guys, you rock! Made a purchase at your store recently. The order has been shipped and delivered on time. The quality is superb! The price is quite reasonable. Told all my friends about your excellent service and the variety of choice. I think I’ll be your loyal customer in future as well. I wish your store many more years of prosperity.",
+    },
+    {
+      name: "Virginia Ubert",
+      text: "Thank you again and again! I have experienced the fastest support ever. My order arrived on my door step the following day. Your team is always, friendly and very helpful. You managed to exceed my expectations!",
+    },
+    {
+      name: "Alex Kim",
+      text: "Testimonials come in different formats, but there are a few distinct qualities that all good testimonials have. Let's explore the elements you should look for when considering which testimonials to use. Each of these qualities can inspire readers and motivate them to take action.",
+    },
+  ];
   return (
     <div className="about">
       <div className="main-container">
         <h1 className="about__title">About us</h1>
 
         {/* -------------requirements */}
-        <div className="requirements">
+        <section className="requirements">
           <h2 className="requirements__title">
             Catering to your requirements, handling your needs with care
           </h2>
@@ -69,27 +82,37 @@ const AboutUs = () => {
             depending on the device you use to access the Internet. We work to
             make your life more enjoyable.
           </p>
-        </div>
+        </section>
 
         {/* ------------events */}
-        <div className="events">
+        <section className="events">
           <h2 className="events__title">Store events</h2>
           <div className="events__card-container">
             {eventsContent.map(({ icon, title, text }) => (
               <EventsCard key={title} icon={icon} title={title} text={text} />
             ))}
           </div>
-        </div>
+        </section>
 
         {/* --------------OurTeam */}
-        <div className="team">
+        <section className="team">
           <h2 className="team__title">Store events</h2>
           <div className="team__card-container">
             {teamContent.map(({ name, photo, text }) => (
               <OurTeamCard name={name} photo={photo} text={text} key={name} />
             ))}
           </div>
-        </div>
+        </section>
+
+        {/*-------------- Testimonials */}
+        <section className="testimonials">
+          <h2 className="testimonials__title">Testimonials</h2>
+          <div className="testimonials__message-container">
+            {messages.map(({ name, text }) => (
+              <Testimonials name={name} text={text} />
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
@@ -116,6 +139,12 @@ const OurTeamCard = ({ name, photo, text }) => (
       <h3>{name}</h3>
       <p>{text}</p>
     </div>
+  </div>
+);
+const Testimonials = ({ name, text }) => (
+  <div className="testimonials__message">
+    <p className="testimonials__text">{text}</p>
+    <p className="testimonials__name">{name}</p>
   </div>
 );
 

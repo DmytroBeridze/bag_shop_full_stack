@@ -22,23 +22,32 @@ const BlogNavbarDropdown = memo(({ setDropdown }) => {
               <li key={_id}>
                 <article className="blogNavbarDropdown__card">
                   <div className="blogNavbarDropdown__picture">
-                    <img src={img} alt="" />
-                  </div>
-                  <div className="blogNavbarDropdown__date">
-                    <Moment format="MMMM DD, YYYY">{createdAt}</Moment>
+                    <img src={img} alt="img" loading="lazy" />
                   </div>
 
-                  <Link to={`/blog/${_id}`} onClick={() => setDropdown(false)}>
-                    <h1 className="blogNavbarDropdown__title">{name}</h1>
-                  </Link>
+                  <div className="blogNavbarDropdown__content">
+                    <div className="blogNavbarDropdown__date">
+                      <Moment format="MMMM DD, YYYY">{createdAt}</Moment>
+                    </div>
 
-                  <p className="blogNavbarDropdown__text">{description}</p>
+                    <Link
+                      to={`/blog/${_id}`}
+                      onClick={() => setDropdown && setDropdown(false)}
+                    >
+                      <h1 className="blogNavbarDropdown__title">{name}</h1>
+                    </Link>
 
-                  <Link to={`/blog/${_id}`} onClick={() => setDropdown(false)}>
-                    <span className="blogNavbarDropdown__read-more">
-                      read more
-                    </span>
-                  </Link>
+                    <p className="blogNavbarDropdown__text">{description}</p>
+
+                    <Link
+                      to={`/blog/${_id}`}
+                      onClick={() => setDropdown && setDropdown(false)}
+                    >
+                      <span className="blogNavbarDropdown__read-more">
+                        read more
+                      </span>
+                    </Link>
+                  </div>
                 </article>
               </li>
             );

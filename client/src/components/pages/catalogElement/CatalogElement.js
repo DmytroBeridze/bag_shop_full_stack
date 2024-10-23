@@ -14,10 +14,12 @@ import ReactMarkdown from "react-markdown";
 
 import {
   clearOneProductState,
+  fetchAllGoods,
   fetchGoodsById,
   productCartOpen,
 } from "../../gallery/gallerySlice";
 import pageUp from "../../../features/PageUp";
+import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 
 const CatalogElement = () => {
   const { id } = useParams();
@@ -44,6 +46,8 @@ const CatalogElement = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
+    dispatch(fetchAllGoods());
+    dispatch(getAllPosts());
     pageUp();
   }, []);
 

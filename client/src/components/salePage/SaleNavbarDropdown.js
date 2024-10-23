@@ -12,7 +12,7 @@ const SaleNavbarDropdown = memo(({ setDropdown }) => {
 
   const toNavigate = (id) => {
     navigate(`/catalog/${id}`);
-    setDropdown(false);
+    setDropdown && setDropdown(false);
   };
   return (
     <main className="saleNavbarDropdown">
@@ -34,17 +34,21 @@ const SaleNavbarDropdown = memo(({ setDropdown }) => {
                   <div className="saleNavbarDropdown__picture">
                     <img src={img} alt="" />
                   </div>
-                  <div className="d-flex align-items-center justify-content-between mt-3 gap-2 ">
-                    <Link
-                      to={`/catalog/${_id}`}
-                      onClick={() => setDropdown(false)}
-                    >
-                      <h1 className="saleNavbarDropdown__title">{name}</h1>
-                    </Link>
-                    <p className="saleNavbarDropdown__price">${price}</p>
-                  </div>
 
-                  <p className="saleNavbarDropdown__text">{description}</p>
+                  <div className="saleNavbarDropdown__content-container">
+                    <div className="saleNavbarDropdown__content">
+                      {/* <div className="d-flex align-items-center justify-content-between mt-3 gap-2 "> */}
+                      <Link
+                        to={`/catalog/${_id}`}
+                        onClick={() => setDropdown && setDropdown(false)}
+                      >
+                        <h1 className="saleNavbarDropdown__title">{name}</h1>
+                      </Link>
+                      <p className="saleNavbarDropdown__price">${price}</p>
+                    </div>
+
+                    <p className="saleNavbarDropdown__text">{description}</p>
+                  </div>
                 </article>
               </li>
             );

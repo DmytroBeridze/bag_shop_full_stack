@@ -58,17 +58,18 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
-    &h1 {
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      gap: 20px;
+      align-items: start;
+    }
+    & h1 {
       font-family: "Arvo";
       font-style: normal;
       font-weight: 400;
       font-size: 32px;
       line-height: 40px;
-    }
-    @media (max-width: 500px) {
-      flex-direction: column;
-      gap: 20px;
-      align-items: start;
     }
   }
 
