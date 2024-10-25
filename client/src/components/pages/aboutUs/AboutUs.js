@@ -8,7 +8,16 @@ import jessica from "../../../resources/img/aboutUs/jessica.jpg";
 import sam from "../../../resources/img/aboutUs/sam.jpg";
 import edna from "../../../resources/img/aboutUs/edna.jpg";
 
+import { fetchAllGoods } from "../../gallery/gallerySlice";
+import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
+import pageUp from "../../../features/PageUp";
+
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 const AboutUs = () => {
+  const dispatch = useDispatch();
+
   const eventsContent = [
     {
       icon: glass,
@@ -62,6 +71,13 @@ const AboutUs = () => {
       text: "Testimonials come in different formats, but there are a few distinct qualities that all good testimonials have. Let's explore the elements you should look for when considering which testimonials to use. Each of these qualities can inspire readers and motivate them to take action.",
     },
   ];
+
+  useEffect(() => {
+    dispatch(fetchAllGoods());
+    dispatch(getAllPosts());
+    pageUp();
+  }, []);
+
   return (
     <div className="about">
       <div className="main-container">
@@ -109,7 +125,7 @@ const AboutUs = () => {
           <h2 className="testimonials__title">Testimonials</h2>
           <div className="testimonials__message-container">
             {messages.map(({ name, text }) => (
-              <Testimonials name={name} text={text} />
+              <Testimonials name={name} text={text} key={name} />
             ))}
           </div>
         </section>

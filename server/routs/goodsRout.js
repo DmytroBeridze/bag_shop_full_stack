@@ -1,5 +1,6 @@
 import { Router } from "express";
 const router = new Router();
+
 import {
   deleteGoods,
   getAllGoods,
@@ -10,6 +11,7 @@ import {
   adminLogin,
   getMe,
 } from "../controllers/goodsController.js";
+
 import {
   createPost,
   deletePost,
@@ -19,6 +21,11 @@ import {
 } from "../controllers/postController.js";
 
 import { checkAuth } from "../utils/checkAuth.js";
+
+import {
+  getAllContacts,
+  postContacts,
+} from "../controllers/contactsController.js";
 
 // register
 router.post("/admin/register", adminRegister);
@@ -38,5 +45,9 @@ router.get("/posts", getAllPosts);
 router.get("/posts/:id", getPostsId);
 router.put("/posts/:id", editPost);
 router.delete("/posts/:id", deletePost);
+
+// contacts
+router.post("/userContact", postContacts);
+router.get("/userContact", getAllContacts);
 
 export default router;

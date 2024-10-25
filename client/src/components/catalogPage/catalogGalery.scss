@@ -30,6 +30,7 @@
 
   &__sidebar {
     max-width: 300px;
+
     @media (max-width: 800px) {
       max-width: 100%;
     }
@@ -44,7 +45,7 @@
     }
   }
   &__title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 10px;
   }
 
@@ -97,7 +98,8 @@
       font-family: "Arvo";
       font-style: normal;
       font-weight: 400;
-      font-size: 32px;
+      font-size: 28px;
+      // font-size: 32px;
       line-height: 40px;
       margin-bottom: 15px;
     }

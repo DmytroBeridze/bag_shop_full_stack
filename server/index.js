@@ -9,7 +9,7 @@ import GoodsSchema from "./models/goods.js";
 const app = express();
 dotenv.config();
 
-// Constatns
+// Constants
 const PORT = process.env.PORT || 3003;
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
@@ -25,6 +25,7 @@ app.use(fileUpload({}));
 app.use("/api", router);
 app.use("/api/auth", router);
 app.use("/api/blog", router);
+app.use("/api/contacts", router);
 
 // Endpoints
 // app.get("/api/goods", async (req, res) => {
