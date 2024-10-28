@@ -10,7 +10,8 @@ export const postContacts = async (req, res) => {
     // ---відправка на адмін пошту
     sendMail(contact);
 
-    //------ nodemailer
+    // ------ nodemailer
+
     // const message = {
     //   from: "Bag shop <exadverso@ukr.net>",
     //   to: "contentmanager150@gmail.com",
@@ -26,11 +27,13 @@ export const postContacts = async (req, res) => {
     // };
     // mailer(message);
 
-    return res.status(200).json(contact);
+    return res.status(200).json({
+      message: "Sending successfull.",
+      contact,
+    });
   } catch (error) {
-    console.log(error);
-
-    res.status(500).json(error);
+    console.log(error.message);
+    res.status(500).json({ message: "Sending error." });
   }
 };
 // export const postContacts = async (req, res) => {

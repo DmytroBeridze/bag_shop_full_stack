@@ -19,7 +19,7 @@ const sendMail = async (contact) => {
     from: " Bag shop <ber_dev17@outlook.com>", // Use the email address or domain you verified above
     to: "contentmanager150@gmail.com",
     subject: "User contact",
-    html: `<h2>The user sent his contact:</h2>
+    html: `<h2> User ${contact.name} sent his contact:</h2>
     <ul>
     <li>Name: ${contact.name ? contact.name : "no name"}</li>
     <li>Email: ${contact.email ? contact.email : "no email"}</li>

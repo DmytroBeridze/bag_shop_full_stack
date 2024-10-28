@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
 import "./adminLogin.scss";
+
+import React, { useEffect } from "react";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
 import { useNavigate } from "react-router-dom";
-import { loginFetch } from "../../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import toastPopupService from "../../../services/toastPopupService";
+
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+
+import { loginFetch } from "../../../features/auth/authSlice";
 
 const AdminLogin = () => {
   const [validated, setValidated] = useState(false);
