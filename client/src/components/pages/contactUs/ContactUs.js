@@ -3,6 +3,7 @@ import "./contactUs.scss";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import toastPopupService from "../../../services/toastPopupService";
 
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -14,7 +15,6 @@ import { useDispatch, useSelector } from "react-redux";
 import pageUp from "../../../features/PageUp";
 import Button from "../../buttons/Buttons";
 import { sendContacts } from "./contactSlice";
-import toastPopupService from "../../../services/toastPopupService";
 
 const ContactUs = () => {
   const dispatch = useDispatch();
@@ -41,6 +41,10 @@ const ContactUs = () => {
   //       position: "bottom-right",
   //     });
   // };
+
+  // useEffect(() => {
+  //   toastPopupService(contactStatus);
+  // }, [contactStatus]);
 
   useEffect(() => {
     if (contactStatus && !isNotified) {
@@ -104,7 +108,7 @@ const ContactUs = () => {
 
   return (
     <div className="contact">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
 
       <div className="main-container">
         <h1 className="contact__title">Contact us</h1>
