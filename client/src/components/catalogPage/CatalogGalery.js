@@ -15,7 +15,7 @@ import catalogGaleryDescription from "./catalogGaleryDescription";
 import GalleryNavigation from "../galleryNavigation/GalleryNavigation";
 import CustomScrollToTop from "../../features/CustomScrollToTop";
 import Preloader from "../preloader/Preloader";
-import sort from "./sort";
+import sort from "./Sort";
 
 const CatalogGalery = ({ goods, isloading, status, title }) => {
   const dispatch = useDispatch();
