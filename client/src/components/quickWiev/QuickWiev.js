@@ -12,7 +12,7 @@ import { Navigation } from "swiper/modules";
 
 import { useState } from "react";
 import useCounter from "../../hooks/counter.hook";
-import getToLocalStorage from "../../features/getToLocalStorage";
+import setToLocalStorage from "../../features/setToLocalStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { productCartOpen } from "../gallery/gallerySlice";
 import Counter from "../counter/Counter";
@@ -31,7 +31,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
     handleClose();
     // dispatch(productCartOpen(counter));
     productCartOpen(valueCounter);
-    getToLocalStorage("goods", oneProduct._id, valueCounter);
+    setToLocalStorage("goods", oneProduct._id, valueCounter);
   };
 
   if (oneProduct) {

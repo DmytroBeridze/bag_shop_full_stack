@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 import Admin from "../pages/admin/Admin";
@@ -14,7 +15,7 @@ import CatalogElement from "../pages/catalogElement/CatalogElement";
 import Footer from "../footer/Footer";
 import Post from "../pages/post/Post";
 import CatalogGalery from "../catalogPage/CatalogGalery";
-import { useSelector } from "react-redux";
+import ShoppingCart from "../pages/shoppingCart/ShoppingCart";
 
 function App() {
   const { goods, isloading, status } = useSelector(
@@ -43,9 +44,7 @@ function App() {
               />
             }
           /> */}
-          {/* <Route path="/sale" element={<Sale />} /> */}
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/contact" element={<ContactUs />} />
+
           <Route path="/catalog/:id" element={<CatalogElement />} />
           <Route
             path="/catalog/galery/:mainType"
@@ -60,6 +59,9 @@ function App() {
           />
 
           <Route path="/blog/:id" element={<Post />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/cart" element={<ShoppingCart />} />
 
           {/* Admin panel */}
           <Route path="/admin/panel" element={<Admin />} />

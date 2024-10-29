@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Button from "../buttons/Buttons";
 import ImageError from "../error/imageError/ImageError";
-import getToLocalStorage from "../../features/getToLocalStorage";
+import setToLocalStorage from "../../features/setToLocalStorage";
 import SaleLabel from "../saleLabel/SaleLabel";
 import { NavLink } from "react-router-dom";
 // import { productCartOpenFromGalleryCard } from "./gallerySlice";
@@ -73,7 +73,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
             onclick={() => {
               // dispatch(productCartOpenFromGalleryCard(id));
               productCartOpen(id);
-              getToLocalStorage("goods", id);
+              setToLocalStorage("goods", id);
             }}
           />
         </div>
@@ -99,7 +99,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
           onclick={() => {
             // dispatch(productCartOpenFromGalleryCard(id));
             productCartOpen(id);
-            getToLocalStorage("goods", id);
+            setToLocalStorage("goods", id);
           }}
         />
       </div>
