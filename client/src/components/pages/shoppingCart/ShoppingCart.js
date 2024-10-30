@@ -1,7 +1,7 @@
 import "./shoppingCart.scss";
 import textPicture from "../../../resources/img/catalog/catalog-desc-handbag.jpg";
 
-import { useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import CustomScrollToTop from "../../../features/CustomScrollToTop";
@@ -11,45 +11,71 @@ import Button from "../../buttons/Buttons";
 import { fetchGoodsById } from "../../gallery/gallerySlice";
 
 const ShoppingCart = () => {
-  const [valueCounter, setValueCounter] = useState(0);
+  // const [valueCounter, setValueCounter] = useState(0);
   const [productsData, setProductsData] = useState([]);
   const [products, setProducts] = useState([]);
+  const [totalParams, setTotalParams] = useState({ totalPrice: 0 });
+  console.log(totalParams);
 
   const [middleResize, setMiddleResize] = useState(window.innerWidth <= 980);
   const [smallResize, setSmallResize] = useState(window.innerWidth <= 460);
   let width = useResize()[0];
 
-  const { oneProduct } = useSelector((state) => state.galleryReducer);
+  // const { oneProduct } = useSelector((state) => state.galleryReducer);
   const dispatch = useDispatch();
 
+  // const totalParam = () => {
+  //   products.map(({ parameters }) => {
+  //     const {weight,}=parameters
+  //     console.log(parameters);
+  //   });
+  // };
+
   useEffect(() => {
-    setProductsData(JSON.parse(localStorage.getItem("goods")));
+    setProductsData(JSON.parse(localStorage.getItem("goods")) || []);
+    // totalParam();
   }, []);
 
-  // const showProductArr = useCallback(() => {
-  //   productsData &&
-  //     productsData.map(({ id, counter }) => {
-  //       dispatch(fetchGoodsById(id)).then((elem) =>
-  //         setProducts((products) => [...products, { ...elem.payload, counter }])
-  //       );
-  //     });
-  // }, [productsData]);
-
-  // !-----мемоізувати
-  useEffect(() => {
-    productsData &&
-      productsData.map(({ id, counter }) => {
-        dispatch(fetchGoodsById(id)).then((elem) =>
-          setProducts((products) => [...products, { ...elem.payload, counter }])
-        );
+  const getProducts = () => {
+    if (productsData && productsData.length) {
+      const promises = productsData.map(({ id, counter }) => {
+        return dispatch(fetchGoodsById(id)).then((data) => ({
+          ...data.payload,
+          counter,
+        }));
       });
+      Promise.all(promises).then((data) => setProducts(data));
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+    // console.log("productsData изменился", productsData);
+    // if (
+    //   productsData &&
+    //   Array.isArray(productsData) &&
+    //   productsData.length > 0
+    // ) {
+    //   const promises = productsData.map(({ id, counter }) => {
+    //     return dispatch(fetchGoodsById(id)).then((data) => ({
+    //       ...data.payload,
+    //       counter,
+    //     }));
+    //   });
+    //   Promise.all(promises).then((data) => {
+    //     console.log("Полученные данные", data);
+
+    //     setProducts(data);
+    //   });
+    // }
   }, [productsData]);
-  console.log(products);
 
   useEffect(() => {
     setMiddleResize(width <= 980);
     setSmallResize(width <= 460);
   }, [width]);
+
+  // console.log(products);
 
   return (
     <div className="cart">
@@ -69,12 +95,19 @@ const ShoppingCart = () => {
           </thead>
           {/* --------body */}
           <tbody>
-            <View
-              middleResize={middleResize}
-              smallResize={smallResize}
-              valueCounter={valueCounter}
-              setValueCounter={setValueCounter}
-            />
+            {products.map((elem) => {
+              // console.log(elem);
+
+              return (
+                <View
+                  element={elem}
+                  key={elem._id}
+                  middleResize={middleResize}
+                  smallResize={smallResize}
+                  setTotalParams={setTotalParams}
+                />
+              );
+            })}
           </tbody>
           {/*--------- footer */}
           <tfoot>
@@ -133,7 +166,30 @@ const ShoppingCart = () => {
   );
 };
 
-const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
+const View = memo(({ middleResize, smallResize, setTotalParams, element }) => {
+  const { counter, name, picture, mainType, parameters } = element;
+  const { color, weight, price } = JSON.parse(parameters);
+  const image = `http://localhost:3002/${picture[0]}`;
+
+  const [quantity, setQuantity] = useState(counter);
+  // const[total,setTotal]=useState(0)
+  console.log(+price);
+
+  let total = quantity * price;
+  useEffect(() => {
+    setTotalParams((totalParams) => ({
+      ...totalParams,
+      totalPrice: +price + totalParams.totalPrice,
+    }));
+  }, [quantity]);
+
+  useEffect(() => {
+    setTotalParams((totalParams) => ({
+      ...totalParams,
+      totalPrice: totalParams.totalPrice + total,
+    }));
+  }, []);
+
   return (
     <>
       {/* -----width 460px */}
@@ -142,7 +198,7 @@ const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
           {/* -----picture */}
           <td className="table__product-cell ps-0" colSpan="5">
             <div className="table__card-picture">
-              <img src={textPicture} alt="test" />
+              <img src={image} alt="test" />
             </div>
           </td>
         </tr>
@@ -154,7 +210,7 @@ const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
         {!smallResize && (
           <td className="table__product-cell ps-0">
             <div className="table__card-picture">
-              <img src={textPicture} alt="test" />
+              <img src={image} alt="test" />
             </div>
           </td>
         )}
@@ -165,14 +221,21 @@ const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
           colSpan={smallResize ? "3" : ""}
         >
           <div className="table__card-desc mb-3">
-            <h3 className="table__card-title">
-              Alexander McQueen Padlock Shopper Small
-            </h3>
-            <div className="table__card-type">{`Product type: ${"Vintage"}`}</div>
+            <h3 className="table__card-title">{name}</h3>
             <div className="table__card-type">
-              {`Product color: ${"Tellow"}`}
+              <span>Product type:</span>{" "}
+              <span className="ms-2 table__data">{mainType}</span>
             </div>
-            <div className="table__card-type">{`Product Weight: ${"9"} kg`}</div>
+            {/* <div className="table__card-type">{`Product type: ${mainType}`}</div> */}
+            <div className="table__card-type">
+              <span>Product color:</span>
+              <span className="ms-2 table__data">{color}</span>
+            </div>
+            <div className="table__card-type">
+              <span>Product Weight:</span>
+              <span className="ms-2 table__data">{weight} kg</span>
+            </div>
+            {/* <div className="table__card-type">{`Product Weight: ${weight} kg`}</div> */}
           </div>
           <Button
             className="main-yellow table__button"
@@ -182,16 +245,17 @@ const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
         </td>
 
         {/* ---------price */}
-        <td className={`${middleResize ? "ps-3" : "ps-0"} table__price`}>
-          $154.00
+        <td
+          className={`${
+            middleResize ? "ps-3" : "ps-0"
+          } table__price table__data`}
+        >
+          ${price}
         </td>
         {/* ------counter */}
         <td className="table__counter">
           <div className="d-flex flex-column align-items-center gap-2">
-            <Counter
-              valueCounter={valueCounter}
-              setValueCounter={setValueCounter}
-            />
+            <Counter valueCounter={quantity} setValueCounter={setQuantity} />
             <Button
               className="main-yellow table__button"
               label="update"
@@ -200,7 +264,7 @@ const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
           </div>
         </td>
         {/* ------total */}
-        <td className="text-end pe-0 table__total">300</td>
+        <td className="text-end pe-0 table__total table__data">${total}</td>
       </tr>
 
       {/*----------width 980px*/}
@@ -213,10 +277,7 @@ const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
             colSpan={smallResize ? "3" : ""}
           >
             <div className="d-flex flex-column align-items-start gap-2">
-              <Counter
-                valueCounter={valueCounter}
-                setValueCounter={setValueCounter}
-              />
+              <Counter valueCounter={quantity} setValueCounter={setQuantity} />
               <Button
                 className="main-yellow table__button"
                 label="update"
@@ -225,11 +286,11 @@ const View = ({ middleResize, smallResize, valueCounter, setValueCounter }) => {
             </div>
           </td>
           {/* ----total */}
-          <td className="text-end pe-0 ">300</td>
+          <td className="text-end pe-0 table__data">${total}</td>
         </tr>
       )}
     </>
   );
-};
+});
 
 export default ShoppingCart;

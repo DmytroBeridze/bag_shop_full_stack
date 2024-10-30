@@ -108,6 +108,10 @@
       line-height: 24px;
       margin-bottom: 10px;
     }
+    &__data {
+      color: $clr-text-grey;
+    }
+
     &__button {
       padding: 10px 20px;
       max-width: 105px;
