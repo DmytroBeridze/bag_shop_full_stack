@@ -6,6 +6,7 @@ import adminReducer from "../components/pages/admin/adminSlice";
 import postsReducer from "../components/adminPanel/addPostsForm/postSlice";
 import galleryReducer from "../components/gallery/gallerySlice";
 import mainFilterReducer from "../components/filters/mainFilters.slice";
+import shoppingCartReducer from "../components/pages/shoppingCart/shoppingCartSlice.js";
 import contacts from "../components/pages/contactUs/contactSlice";
 
 export default configureStore({
@@ -15,6 +16,7 @@ export default configureStore({
     postsReducer,
     galleryReducer,
     mainFilterReducer,
+    shoppingCartReducer,
     contacts,
   },
   devTools: process.env.NODE_ENV !== "production",

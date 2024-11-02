@@ -80,15 +80,18 @@ const gallerySlice = createSlice({
     // get goods by id
     builder
       .addCase(fetchGoodsById.pending, (state) => {
+        // console.log("Загрузка продукта началась");
         state.oneProductisloading = true;
         state.oneProductStatus = null;
       })
       .addCase(fetchGoodsById.fulfilled, (state, action) => {
+        // console.log("Продукт загружен:", action.payload);
         state.oneProductisloading = false;
         state.oneProductStatus = null;
         state.oneProduct = action.payload;
       })
       .addCase(fetchGoodsById.rejected, (state, action) => {
+        // console.log("Ошибка загрузки продукта:", action.payload);
         state.oneProductisloading = false;
         state.oneProductStatus = action.payload;
       });

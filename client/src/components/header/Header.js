@@ -19,12 +19,18 @@ import {
   scrollbarHide,
   scrollbarShow,
 } from "../../features/scrollbarToggle/scrollBarToggle";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(null);
   const [modalToggle, setModalToggle] = useState(false);
+  const [basketCount, setBasketCount] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const { productsQuantity } = useSelector(
+    (state) => state.shoppingCartReducer
+  );
 
   const showDropdown = (value) => {
     setDropdown(value);
@@ -43,7 +49,6 @@ const Header = () => {
   };
 
   const headerRef = useRef(null);
-
   useEffect(() => {
     const handleScroll = () => {
       if (headerRef.current) {
@@ -235,7 +240,8 @@ const Header = () => {
                 onClick={() => navigate("/cart")}
               >
                 <img src={basket} alt="basket" />
-                <div className="basket-count">0</div>
+
+                <div className="basket-count">{productsQuantity}</div>
               </div>
               {modalToggle ? (
                 <CgClose className="burger-icon" onClick={popupMenueHendler} />
