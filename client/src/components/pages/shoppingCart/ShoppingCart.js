@@ -1,6 +1,6 @@
 import "./shoppingCart.scss";
 
-import { memo, useCallback, useEffect, useState, useRef } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import CustomScrollToTop from "../../../features/CustomScrollToTop";
@@ -10,33 +10,26 @@ import Button from "../../buttons/Buttons";
 import { fetchAllGoods, fetchGoodsById } from "../../gallery/gallerySlice";
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Preloader from "../../preloader/Preloader";
-import {
-  setMessage,
-  setProducts,
-  setTotalQuantity,
-  totalParam,
-} from "./shoppingCartSlice";
+import { setMessage, setProducts, setTotalQuantity } from "./shoppingCartSlice";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
-  const { oneProductisloading, oneProductStatus } = useSelector(
-    (state) => state.galleryReducer
-  );
-  // -------elements to render
-  const { products } = useSelector((state) => state.shoppingCartReducer);
+
   //-------- resize
   const [middleResize, setMiddleResize] = useState(window.innerWidth <= 980);
   const [smallResize, setSmallResize] = useState(window.innerWidth <= 460);
   let width = useResize()[0];
 
+  const { oneProductisloading, oneProductStatus } = useSelector(
+    (state) => state.galleryReducer
+  );
+  // -------elements to render
+  const { products } = useSelector((state) => state.shoppingCartReducer);
+
   // -------elements  from local storage
   const [elementsFromLocal, setElementsFromLocal] = useState([]);
 
-  // const [totalParam, setTotalParam] = useState({
-  //   totalWeight: 0,
-  //   totalPrice: 0,
-  // });
-
+  // --------total parameters
   const [totalParams, setTotalParams] = useState(products);
   console.log(totalParams);
 
@@ -53,6 +46,7 @@ const ShoppingCart = () => {
     });
   };
 
+  // -----delete elements
   const deleteElement = (id) => {
     const elements = JSON.parse(localStorage.getItem("goods"));
     const updatedElements = elements.filter((elem) => elem.id !== id);
@@ -61,29 +55,6 @@ const ShoppingCart = () => {
     const res = JSON.parse(localStorage.getItem("goods"));
     setElementsFromLocal(res);
   };
-
-  // Use refs to store the previous total values and avoid unnecessary updates
-  const prevTotalRef = useRef({ totalWeight: 0, totalPrice: 0 });
-
-  // ---------total params
-  // Функция для пересчета общей массы и цены
-  // const updateTotalParams = () => {
-  //   const newTotals = products.reduce(
-  //     (acc, curr) => {
-  //       const { price, weight } = JSON.parse(curr.parameters);
-  //       acc.totalPrice += curr.counter * price; // Общая цена
-  //       acc.totalWeight += curr.counter * weight; // Общий вес
-  //       return acc;
-  //     },
-  //     { totalPrice: 0, totalWeight: 0 } // Начальные значения
-  //   );
-
-  //   setTotalParam(newTotals); // Обновляем состояние, только если значения изменились
-  // };
-  // !---------!
-  // useEffect(() => {
-  //   updateTotalParams();
-  // }, [products]);
 
   useEffect(() => {
     getElements();
@@ -95,7 +66,7 @@ const ShoppingCart = () => {
     if (elements) {
       const parsedElements = JSON.parse(elements);
       setElementsFromLocal(parsedElements);
-      getElements(); // Получите продукты на основе начального локального хранилища
+      getElements();
     }
   }, []);
 
@@ -152,9 +123,6 @@ const ShoppingCart = () => {
                   smallResize={smallResize}
                   product={product}
                   deleteElement={deleteElement}
-                  getElements={getElements}
-                  // setTotalParam={setTotalParam}
-                  // updateTotalParams={updateTotalParams}
                   setTotalParams={setTotalParams}
                 />
               ))}
@@ -227,20 +195,15 @@ const View = memo(
     middleResize,
     product,
     deleteElement,
-    setTotalParam,
-    // updateTotalParams,
-    getElements,
-    setTest,
+
     setTotalParams,
   }) => {
     const { counter, name, picture, mainType, parameters, _id } = product;
-
     const image = `http://localhost:3002/${picture[0]}`;
     const { color, weight, price } = JSON.parse(parameters);
 
     // --------quantity
     const [quantity, setQuantity] = useState(counter);
-
     let totalPrice = quantity * price;
     let totalWeight = quantity * weight;
 
@@ -251,35 +214,46 @@ const View = memo(
 
       const updatedElements = [
         ...updated,
-        { id: _id, counter: quantity, totalPrice, totalWeight },
+        { id: _id, counter: quantity, totalPrice, totalWeight, name },
       ];
       localStorage.setItem("goods", JSON.stringify(updatedElements));
     };
 
     useEffect(() => {
       if (quantity !== counter) {
-        updateProductsData(); // Обновляем данные в localStorage
-
-        // updateTotalParams(); // Пересчитываем общие значения
-
-        setTotalParams((totalParams) => {
-          const res = totalParams.filter((elem) => elem.name !== name);
-          return [...res, { totalPrice, totalWeight, quantity, name }];
-          // return [...totalParams, { totalPrice, totalWeight, quantity, name }];
-        });
+        updateProductsData();
       }
-    }, [quantity, counter]);
+    }, [quantity]);
+
     useEffect(() => {
-      if (quantity !== counter) {
-        updateProductsData(); // Обновляем данные в localStorage
+      setTotalParams((totalParams) => {
+        const res = totalParams.filter((elem) => elem.name !== name);
+        // console.log(res);
 
-        setTotalParams((totalParams) => {
-          const res = totalParams.filter((elem) => elem.name !== name);
-          return [...res, { totalPrice, totalWeight, quantity, name }];
-          // return [...totalParams, { totalPrice, totalWeight, quantity, name }];
-        });
-      }
-    }, []);
+        return [
+          ...res,
+          {
+            totalPrice,
+            totalWeight,
+            quantity,
+            name,
+            _id,
+          },
+        ];
+      });
+    }, [quantity]);
+    // useEffect(() => {
+    //   setTotalParams((totalParams) => ({
+    //     ...totalParams,
+    //     [name]: {
+    //       totalPrice,
+    //       totalWeight,
+    //       quantity,
+    //       name,
+    //       _id,
+    //     },
+    //   }));
+    // }, [quantity]);
 
     return (
       <>

@@ -4,7 +4,6 @@ const initialState = {
   productsQuantity: JSON.parse(localStorage.getItem("totalQuantity")) || 0,
   products: [],
   message: "",
-  // param: {},
 };
 
 const shoppingCartSlice = createSlice({
