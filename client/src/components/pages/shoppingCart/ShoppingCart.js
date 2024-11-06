@@ -24,7 +24,6 @@ const ShoppingCart = () => {
   );
   // -------elements to render
   const { products } = useSelector((state) => state.shoppingCartReducer);
-  const [test, setTest] = useState(0);
   //-------- resize
   const [middleResize, setMiddleResize] = useState(window.innerWidth <= 980);
   const [smallResize, setSmallResize] = useState(window.innerWidth <= 460);
@@ -33,12 +32,13 @@ const ShoppingCart = () => {
   // -------elements  from local storage
   const [elementsFromLocal, setElementsFromLocal] = useState([]);
 
-  const [totalParam, setTotalParam] = useState({
-    totalWeight: 0,
-    totalPrice: 0,
-  });
+  // const [totalParam, setTotalParam] = useState({
+  //   totalWeight: 0,
+  //   totalPrice: 0,
+  // });
 
-  console.log(totalParam);
+  const [totalParams, setTotalParams] = useState(products);
+  console.log(totalParams);
 
   // ------ getting from backend
   const getElements = () => {
@@ -67,23 +67,23 @@ const ShoppingCart = () => {
 
   // ---------total params
   // Функция для пересчета общей массы и цены
-  const updateTotalParams = () => {
-    const newTotals = products.reduce(
-      (acc, curr) => {
-        const { price, weight } = JSON.parse(curr.parameters);
-        acc.totalPrice += curr.counter * price; // Общая цена
-        acc.totalWeight += curr.counter * weight; // Общий вес
-        return acc;
-      },
-      { totalPrice: 0, totalWeight: 0 } // Начальные значения
-    );
+  // const updateTotalParams = () => {
+  //   const newTotals = products.reduce(
+  //     (acc, curr) => {
+  //       const { price, weight } = JSON.parse(curr.parameters);
+  //       acc.totalPrice += curr.counter * price; // Общая цена
+  //       acc.totalWeight += curr.counter * weight; // Общий вес
+  //       return acc;
+  //     },
+  //     { totalPrice: 0, totalWeight: 0 } // Начальные значения
+  //   );
 
-    setTotalParam(newTotals); // Обновляем состояние, только если значения изменились
-  };
+  //   setTotalParam(newTotals); // Обновляем состояние, только если значения изменились
+  // };
   // !---------!
-  useEffect(() => {
-    updateTotalParams();
-  }, [products, test]);
+  // useEffect(() => {
+  //   updateTotalParams();
+  // }, [products]);
 
   useEffect(() => {
     getElements();
@@ -153,9 +153,9 @@ const ShoppingCart = () => {
                   product={product}
                   deleteElement={deleteElement}
                   getElements={getElements}
-                  setTotalParam={setTotalParam}
-                  updateTotalParams={updateTotalParams}
-                  setTest={setTest}
+                  // setTotalParam={setTotalParam}
+                  // updateTotalParams={updateTotalParams}
+                  setTotalParams={setTotalParams}
                 />
               ))}
             </tbody>
@@ -228,9 +228,10 @@ const View = memo(
     product,
     deleteElement,
     setTotalParam,
-    updateTotalParams,
+    // updateTotalParams,
     getElements,
     setTest,
+    setTotalParams,
   }) => {
     const { counter, name, picture, mainType, parameters, _id } = product;
 
@@ -259,11 +260,26 @@ const View = memo(
       if (quantity !== counter) {
         updateProductsData(); // Обновляем данные в localStorage
 
-        updateTotalParams(); // Пересчитываем общие значения
-      }
+        // updateTotalParams(); // Пересчитываем общие значения
 
-      setTest(counter);
+        setTotalParams((totalParams) => {
+          const res = totalParams.filter((elem) => elem.name !== name);
+          return [...res, { totalPrice, totalWeight, quantity, name }];
+          // return [...totalParams, { totalPrice, totalWeight, quantity, name }];
+        });
+      }
     }, [quantity, counter]);
+    useEffect(() => {
+      if (quantity !== counter) {
+        updateProductsData(); // Обновляем данные в localStorage
+
+        setTotalParams((totalParams) => {
+          const res = totalParams.filter((elem) => elem.name !== name);
+          return [...res, { totalPrice, totalWeight, quantity, name }];
+          // return [...totalParams, { totalPrice, totalWeight, quantity, name }];
+        });
+      }
+    }, []);
 
     return (
       <>
