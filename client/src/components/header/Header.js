@@ -28,9 +28,7 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { productsQuantity } = useSelector(
-    (state) => state.shoppingCartReducer
-  );
+  const { totalParams } = useSelector((state) => state.shoppingCartReducer);
 
   const showDropdown = (value) => {
     setDropdown(value);
@@ -241,7 +239,7 @@ const Header = () => {
               >
                 <img src={basket} alt="basket" />
 
-                <div className="basket-count">{productsQuantity}</div>
+                <div className="basket-count">{totalParams.quantity}</div>
               </div>
               {modalToggle ? (
                 <CgClose className="burger-icon" onClick={popupMenueHendler} />
