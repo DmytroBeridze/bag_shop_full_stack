@@ -30,10 +30,11 @@ const CatalogElement = () => {
   const [valueCounter, setValueCounter] = useState(1);
 
   // add to local storage
-  const addToCart = () => {
+  const addToCart = (data) => {
     dispatch(productCartOpen(valueCounter));
 
-    setToLocalStorage("goods", oneProduct._id, valueCounter);
+    setToLocalStorage("goods", data);
+    // setToLocalStorage("goods", oneProduct._id, valueCounter);
   };
 
   const productCartClose = () => {

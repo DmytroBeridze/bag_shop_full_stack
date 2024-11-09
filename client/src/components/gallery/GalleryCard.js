@@ -9,6 +9,7 @@ import SaleLabel from "../saleLabel/SaleLabel";
 import { NavLink } from "react-router-dom";
 // import { productCartOpenFromGalleryCard } from "./gallerySlice";
 import { useDispatch } from "react-redux";
+import { setProducts } from "../pages/shoppingCart/shoppingCartSlice";
 
 // const GalleryCard = ({ id, handleModal, ...params }) => {
 const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
@@ -71,9 +72,8 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
             className={"grey-stroke__black-hover"}
             label={"add to cart"}
             onclick={() => {
-              // dispatch(productCartOpenFromGalleryCard(id));
               productCartOpen(id);
-              setToLocalStorage("goods", id);
+              setToLocalStorage("goods", { ...params, _id: id, counter: 1 });
             }}
           />
         </div>
@@ -99,7 +99,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
           onclick={() => {
             // dispatch(productCartOpenFromGalleryCard(id));
             productCartOpen(id);
-            setToLocalStorage("goods", id);
+            setToLocalStorage("goods", { ...params, _id: id, counter: 1 });
           }}
         />
       </div>

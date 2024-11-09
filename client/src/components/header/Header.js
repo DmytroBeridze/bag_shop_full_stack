@@ -15,20 +15,25 @@ import BlogNavbarDropdown from "../blogPage/BlogNavbarDropdown";
 import CatalogDropdown from "../catalogPage/CatalogDropdown";
 import SaleNavbarDropdown from "../salePage/SaleNavbarDropdown";
 
+import { useSelector } from "react-redux";
+
 import {
   scrollbarHide,
   scrollbarShow,
 } from "../../features/scrollbarToggle/scrollBarToggle";
-import { useSelector } from "react-redux";
 
 const Header = () => {
+  // const [basketCount, setBasketCount] = useState(0);
+
   const [dropdown, setDropdown] = useState(null);
   const [modalToggle, setModalToggle] = useState(false);
-  const [basketCount, setBasketCount] = useState(0);
+
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { totalParams } = useSelector((state) => state.shoppingCartReducer);
+  const { productsQuantity } = useSelector(
+    (state) => state.shoppingCartReducer
+  );
 
   const showDropdown = (value) => {
     setDropdown(value);
@@ -239,7 +244,7 @@ const Header = () => {
               >
                 <img src={basket} alt="basket" />
 
-                <div className="basket-count">{totalParams.quantity}</div>
+                <div className="basket-count">{productsQuantity}</div>
               </div>
               {modalToggle ? (
                 <CgClose className="burger-icon" onClick={popupMenueHendler} />
