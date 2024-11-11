@@ -68,198 +68,198 @@ const Header = () => {
   }, []);
 
   return (
-    !location.pathname.includes("admin") && (
-      <div className="header-wrapper">
-        <div
-          className="header"
-          onMouseLeave={() => setDropdown("")}
-          ref={headerRef}
-        >
-          <div className="main-container">
-            <Navbar
-              expand="lg"
-              className="d-flex justify-content-between align-items-center p-0 h-100 position-relative"
+    // !location.pathname.includes("admin") && (
+    <div className="header-wrapper">
+      <div
+        className="header"
+        onMouseLeave={() => setDropdown("")}
+        ref={headerRef}
+      >
+        <div className="main-container">
+          <Navbar
+            expand="lg"
+            className="d-flex justify-content-between align-items-center p-0 h-100 position-relative"
+          >
+            <Navbar.Brand
+              href="/"
+              className="header__logo"
+              style={{ maxWidth: "200px" }}
             >
-              <Navbar.Brand
-                href="/"
-                className="header__logo"
-                style={{ maxWidth: "200px" }}
-              >
-                <img src={logo} alt="img" className="w-100" />
-              </Navbar.Brand>
+              <img src={logo} alt="img" className="w-100" />
+            </Navbar.Brand>
 
-              <Nav className={`nav ${modalToggle && "show"}`}>
-                {/* --------------dropdown */}
-                <ul className="nav-list d-flex align-items-center justify-content-between ">
-                  <li
-                    className="nav-link dropdown"
-                    onMouseOver={() => showDropdown(1)}
+            <Nav className={`nav ${modalToggle && "show"}`}>
+              {/* --------------dropdown */}
+              <ul className="nav-list d-flex align-items-center justify-content-between ">
+                <li
+                  className="nav-link dropdown"
+                  onMouseOver={() => showDropdown(1)}
+                >
+                  <NavLink
+                    to="/"
+                    className="d-flex gap-1 align-items-center"
+                    style={({ isActive }) => ({
+                      color: isActive ? "#bb7311" : "#ffffff",
+                    })}
+                    onClick={() => setDropdown(false)}
                   >
-                    <NavLink
-                      to="/"
-                      className="d-flex gap-1 align-items-center"
-                      style={({ isActive }) => ({
-                        color: isActive ? "#bb7311" : "#ffffff",
-                      })}
-                      onClick={() => setDropdown(false)}
-                    >
-                      <h4>HOME</h4>
-                      <IoIosArrowDown className="arrow-down" />
-                    </NavLink>
-                    {/* home dropdown */}
-                    <div
-                      className={
-                        dropdown === 1
-                          ? "dropdown-child dropdown-child__home show"
-                          : "dropdown-child dropdown-child__home"
-                      }
-                    >
-                      <NavLink to="/">HOME</NavLink>
-                      <NavLink to="/about">ABOUT US</NavLink>
-                      <NavLink to="/catalog">CATALOG</NavLink>
-                      <NavLink to="/blog">BLOG</NavLink>
-                    </div>
-                  </li>
-
-                  <li
-                    className="nav-link dropdown"
-                    onMouseOver={() => showDropdown(2)}
-                  >
-                    <NavLink
-                      to="catalog"
-                      className="d-flex gap-1 align-items-center"
-                      style={({ isActive }) => ({
-                        color: isActive ? "#bb7311" : "#ffffff",
-                      })}
-                      onClick={() => setDropdown(false)}
-                    >
-                      <h4>CATALOG</h4>
-                      <IoIosArrowDown className="arrow-down" />
-                    </NavLink>
-                  </li>
-
-                  <li
-                    className="nav-link dropdown"
-                    onMouseOver={() => showDropdown(3)}
-                  >
-                    <NavLink
-                      to="/blog"
-                      className="d-flex gap-1 align-items-center"
-                      style={({ isActive }) => ({
-                        color: isActive ? "#bb7311" : "#ffffff",
-                      })}
-                      onClick={() => setDropdown(false)}
-                    >
-                      <h4>BLOG</h4>
-                      <IoIosArrowDown className="arrow-down" />
-                    </NavLink>
-                  </li>
-
-                  <li
-                    className="nav-link dropdown"
-                    onMouseOver={() => showDropdown(4)}
-                  >
-                    <NavLink
-                      to="/sale/backpacks"
-                      // to="/sale/:mainType"
-                      // to="/sale"
-                      className="d-flex gap-1 align-items-center"
-                      style={({ isActive }) => ({
-                        color: isActive ? "#bb7311" : "#ffffff",
-                      })}
-                      onClick={() => setDropdown(false)}
-                    >
-                      <h4>SALE</h4>
-                      <IoIosArrowDown className="arrow-down" />
-                    </NavLink>
-                  </li>
-
-                  <li
-                    className="nav-link dropdown"
-                    onMouseEnter={() => setDropdown("")}
-                  >
-                    <NavLink
-                      to="/about"
-                      style={({ isActive }) => ({
-                        color: isActive ? "#bb7311" : "#ffffff",
-                      })}
-                    >
-                      <h4>ABOUT US</h4>
-                    </NavLink>
-                  </li>
-
-                  <li
-                    className="nav-link dropdown"
-                    onMouseEnter={() => setDropdown("")}
-                  >
-                    <NavLink
-                      to="/contact"
-                      style={({ isActive }) => ({
-                        color: isActive ? "#bb7311" : "#ffffff",
-                      })}
-                    >
-                      <h4>CONTACT US</h4>
-                    </NavLink>
-                  </li>
-                </ul>
-
-                {/* --------------dropdown-content */}
-                <div className="dropdown-content">
-                  {/* catalog dropdown */}
+                    <h4>HOME</h4>
+                    <IoIosArrowDown className="arrow-down" />
+                  </NavLink>
+                  {/* home dropdown */}
                   <div
                     className={
-                      dropdown === 2
-                        ? "dropdown-child dropdown-child__catalog show"
-                        : "dropdown-child dropdown-child__catalog "
+                      dropdown === 1
+                        ? "dropdown-child dropdown-child__home show"
+                        : "dropdown-child dropdown-child__home"
                     }
                   >
-                    <CatalogDropdown
-                      dataType="dropdown"
-                      setDropdown={setDropdown}
-                    />
+                    <NavLink to="/">HOME</NavLink>
+                    <NavLink to="/about">ABOUT US</NavLink>
+                    <NavLink to="/catalog">CATALOG</NavLink>
+                    <NavLink to="/blog">BLOG</NavLink>
                   </div>
+                </li>
 
-                  {/* blog dropdown */}
-                  <div
-                    className={
-                      dropdown === 3 ? "dropdown-child show" : "dropdown-child "
-                    }
+                <li
+                  className="nav-link dropdown"
+                  onMouseOver={() => showDropdown(2)}
+                >
+                  <NavLink
+                    to="catalog"
+                    className="d-flex gap-1 align-items-center"
+                    style={({ isActive }) => ({
+                      color: isActive ? "#bb7311" : "#ffffff",
+                    })}
+                    onClick={() => setDropdown(false)}
                   >
-                    <BlogNavbarDropdown setDropdown={setDropdown} />
-                  </div>
+                    <h4>CATALOG</h4>
+                    <IoIosArrowDown className="arrow-down" />
+                  </NavLink>
+                </li>
 
-                  {/* sale dropdown */}
-                  <div
-                    className={
-                      dropdown === 4 ? "dropdown-child show" : "dropdown-child "
-                    }
+                <li
+                  className="nav-link dropdown"
+                  onMouseOver={() => showDropdown(3)}
+                >
+                  <NavLink
+                    to="/blog"
+                    className="d-flex gap-1 align-items-center"
+                    style={({ isActive }) => ({
+                      color: isActive ? "#bb7311" : "#ffffff",
+                    })}
+                    onClick={() => setDropdown(false)}
                   >
-                    <SaleNavbarDropdown setDropdown={setDropdown} />
-                  </div>
+                    <h4>BLOG</h4>
+                    <IoIosArrowDown className="arrow-down" />
+                  </NavLink>
+                </li>
+
+                <li
+                  className="nav-link dropdown"
+                  onMouseOver={() => showDropdown(4)}
+                >
+                  <NavLink
+                    to="/sale/backpacks"
+                    // to="/sale/:mainType"
+                    // to="/sale"
+                    className="d-flex gap-1 align-items-center"
+                    style={({ isActive }) => ({
+                      color: isActive ? "#bb7311" : "#ffffff",
+                    })}
+                    onClick={() => setDropdown(false)}
+                  >
+                    <h4>SALE</h4>
+                    <IoIosArrowDown className="arrow-down" />
+                  </NavLink>
+                </li>
+
+                <li
+                  className="nav-link dropdown"
+                  onMouseEnter={() => setDropdown("")}
+                >
+                  <NavLink
+                    to="/about"
+                    style={({ isActive }) => ({
+                      color: isActive ? "#bb7311" : "#ffffff",
+                    })}
+                  >
+                    <h4>ABOUT US</h4>
+                  </NavLink>
+                </li>
+
+                <li
+                  className="nav-link dropdown"
+                  onMouseEnter={() => setDropdown("")}
+                >
+                  <NavLink
+                    to="/contact"
+                    style={({ isActive }) => ({
+                      color: isActive ? "#bb7311" : "#ffffff",
+                    })}
+                  >
+                    <h4>CONTACT US</h4>
+                  </NavLink>
+                </li>
+              </ul>
+
+              {/* --------------dropdown-content */}
+              <div className="dropdown-content">
+                {/* catalog dropdown */}
+                <div
+                  className={
+                    dropdown === 2
+                      ? "dropdown-child dropdown-child__catalog show"
+                      : "dropdown-child dropdown-child__catalog "
+                  }
+                >
+                  <CatalogDropdown
+                    dataType="dropdown"
+                    setDropdown={setDropdown}
+                  />
                 </div>
-              </Nav>
-              <div
-                className="basket d-flex gap-2"
-                onClick={() => navigate("/cart")}
-              >
-                <img src={basket} alt="basket" />
 
-                <div className="basket-count">{productsQuantity}</div>
+                {/* blog dropdown */}
+                <div
+                  className={
+                    dropdown === 3 ? "dropdown-child show" : "dropdown-child "
+                  }
+                >
+                  <BlogNavbarDropdown setDropdown={setDropdown} />
+                </div>
+
+                {/* sale dropdown */}
+                <div
+                  className={
+                    dropdown === 4 ? "dropdown-child show" : "dropdown-child "
+                  }
+                >
+                  <SaleNavbarDropdown setDropdown={setDropdown} />
+                </div>
               </div>
-              {modalToggle ? (
-                <CgClose className="burger-icon" onClick={popupMenueHendler} />
-              ) : (
-                <BiMenu className="burger-icon" onClick={popupMenueHendler} />
-              )}
-            </Navbar>
-          </div>
+            </Nav>
+            <div
+              className="basket d-flex gap-2"
+              onClick={() => navigate("/cart")}
+            >
+              <img src={basket} alt="basket" />
+
+              <div className="basket-count">{productsQuantity}</div>
+            </div>
+            {modalToggle ? (
+              <CgClose className="burger-icon" onClick={popupMenueHendler} />
+            ) : (
+              <BiMenu className="burger-icon" onClick={popupMenueHendler} />
+            )}
+          </Navbar>
         </div>
-        <BurgerMenu
-          modalToggle={modalToggle}
-          popupMenueHendler={popupMenueHendler}
-        />
       </div>
-    )
+      <BurgerMenu
+        modalToggle={modalToggle}
+        popupMenueHendler={popupMenueHendler}
+      />
+    </div>
+    // )
   );
 };
 

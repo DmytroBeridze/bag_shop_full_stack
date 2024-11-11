@@ -23,7 +23,6 @@ const shoppingCartSlice = createSlice({
 
     //----- set message
     setMessage(state, action) {
-      // console.log(action);
       state.message = action.payload;
     },
   },

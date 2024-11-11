@@ -205,7 +205,7 @@ const ContactUs = () => {
 
                 {phoneLengthValidation ? (
                   <Form.Control.Feedback type="invalid">
-                    "Please enter a valid number with at least 10 digits."
+                    Please enter a valid number with at least 10 digits.
                   </Form.Control.Feedback>
                 ) : (
                   <Form.Control.Feedback type="invalid">

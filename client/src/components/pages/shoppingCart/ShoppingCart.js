@@ -1,20 +1,22 @@
 import "./shoppingCart.scss";
-import testImg from "../../../resources/img/blog/blog-img-placeholder.jpg";
 
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import CustomScrollToTop from "../../../features/CustomScrollToTop";
 import useResize from "../../../hooks/resize.hook";
 import Counter from "../../counter/Counter";
 import Button from "../../buttons/Buttons";
-import { fetchAllGoods, fetchGoodsById } from "../../gallery/gallerySlice";
-import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Preloader from "../../preloader/Preloader";
+
+import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
+import { fetchAllGoods } from "../../gallery/gallerySlice";
 import { setMessage, setProducts, setTotalQuantity } from "./shoppingCartSlice";
 
 const ShoppingCart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   //-------- resize
   const [middleResize, setMiddleResize] = useState(window.innerWidth <= 980);
   const [smallResize, setSmallResize] = useState(window.innerWidth <= 460);
@@ -157,19 +159,28 @@ const ShoppingCart = () => {
                     <Button
                       className="main-yellow cart__button"
                       label="continue shopping"
-                      onclick={() => console.log("!!!")}
+                      onclick={() => navigate("/catalog")}
                     />
+                    {/* ------------------------------------------------------ */}
                     <Button
                       className="grey-stroke cart__button"
                       label="Proceed to checkout"
-                      onclick={() => console.log("!!!")}
+                      onclick={() => navigate("/checkout")}
                     />
                   </div>
                 </td>
               </tr>
             </tfoot>
           </table>
-        ) : null}
+        ) : (
+          // --------empty cart
+          <div className="cart__empty">
+            <span>It appears that your cart is currently empty.</span>
+            <Link to="/catalog">
+              Browse collections to find the products you are interested.
+            </Link>
+          </div>
+        )}
       </div>
       {/* ------scroll to top */}
       <CustomScrollToTop />
@@ -187,7 +198,7 @@ const View = memo(({ smallResize, middleResize, product, deleteElement }) => {
   let totalPrice = quantity * price;
   let totalWeight = quantity * weight;
 
-  // ----------update products
+  // -------update products
   const updateProducts = () => {
     const localElem = JSON.parse(localStorage.getItem("goods"));
 
