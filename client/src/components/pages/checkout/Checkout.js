@@ -2,32 +2,104 @@ import { useEffect } from "react";
 import "./checkout.scss";
 
 import { RiShoppingBag4Line } from "react-icons/ri";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 
 import pageUp from "../../../features/PageUp";
-import { fetchAllGoods } from "../../gallery/gallerySlice";
-import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import Button from "../../buttons/Buttons";
+import { setMessage } from "../shoppingCart/shoppingCartSlice";
+import { getCities, getCountries, submitOrder } from "./checkoutSlice";
+import toastPopupService from "../../../services/toastPopupService";
+import Suggested from "./Suggested";
 
 const Checkout = () => {
   const dispatch = useDispatch();
+  const { message } = useSelector((state) => state.shoppingCartReducer);
+  const { isLoading, status, cities, countries } = useSelector(
+    (state) => state.checkoutReducer
+  );
+  //! ----replace to environment variables
+  const apikey = "razrab";
 
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("+380");
-  const [selectedCountry, setSelectedCountry] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [apartment, setApartment] = useState("");
   const [zip, setZip] = useState("");
+
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [suggestedCountries, setSuggestedCountries] = useState([]);
+
   const [city, setCity] = useState("");
+  const [suggestedCities, setSuggestedCities] = useState([]);
+
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isToastDisable, setToastDisable] = useState(false);
+
+  // ------search country
+  const searchCountry = (e) => {
+    setSelectedCountry(e.target.value);
+    const query = e.target.value;
+    fetchCountries(query);
+  };
+
+  // ----set country to input
+  const setCountryToInput = (city) => {
+    setSelectedCountry(city);
+    setSuggestedCountries([]);
+  };
+
+  // -----fetch countries
+  const fetchCountries = async (searchQuery) => {
+    if (searchQuery.length < 2) {
+      return setSuggestedCountries([]);
+    }
+    dispatch(getCountries({ searchQuery, apikey }));
+    if (countries.geonames) {
+      // const resp = await fetch(
+      //   `https://secure.geonames.org/searchJSON?name_startsWith=${searchQuery}&maxRows=10&username=${apikey}&featureCode=PCLI`
+      // );
+      // const data = await resp.json();
+      // setSuggestedCountries(data.geonames);
+
+      console.log(countries);
+      console.log(searchQuery.length);
+      setSuggestedCountries(countries.geonames);
+    }
+  };
+
+  // console.log(countries);
+  // console.log(suggestedCountries);
+  //  --------fetch cities
+  const fetchCities = async (searchQuery) => {
+    if (searchQuery.length < 2) {
+      return setSuggestedCities([]);
+    }
+    dispatch(getCities({ searchQuery, apikey }));
+    if (cities.geonames) {
+      setSuggestedCities(cities.geonames);
+    }
+  };
+
+  // --------search city
+  const searchCity = (e) => {
+    setCity(e.target.value);
+    const query = e.target.value;
+    fetchCities(query);
+  };
+
+  //--------- set city to input
+  const setCityToInput = (city) => {
+    setCity(city);
+    setSuggestedCities([]);
+  };
 
   // ---validation
   const phoneLengthValidation =
@@ -38,7 +110,6 @@ const Checkout = () => {
     const input = e.target.value.replace(/[^0-9]/g, ""); // Оставляем только цифры
     if (input.length > 0) {
       // Если вводится хотя бы одна цифра
-
       setPhone(`+${input}`); // Устанавливаем + с введёнными цифрами
     } else {
       setPhone("+380"); // Если ничего не введено, возвращаем только +380
@@ -60,14 +131,16 @@ const Checkout = () => {
       const formdata = new FormData();
       formdata.append("email", email);
       formdata.append("phone", phone);
-      formdata.append("selectedCountry", selectedCountry);
+      formdata.append("country", selectedCountry);
       formdata.append("name", name);
       formdata.append("lastName", lastName);
       formdata.append("apartment", apartment);
       formdata.append("zip", zip);
       formdata.append("city", city);
-      console.log(Object.fromEntries(formdata));
+      formdata.append("message", message);
 
+      // ----submit
+      dispatch(submitOrder(formdata));
       // ---clear form
       setEmail("");
       setPhone("+380");
@@ -77,16 +150,26 @@ const Checkout = () => {
       setApartment("");
       setZip("");
       setCity("");
-    }
 
+      // ----clear message
+      dispatch(setMessage(""));
+      setToastDisable(true);
+    }
     setValidated(true);
   };
 
   useEffect(() => {
-    dispatch(fetchAllGoods());
-    dispatch(getAllPosts());
+    if (isToastVisible) {
+      toastPopupService(status, setToastDisable);
+    }
+  }, [status]);
+
+  useEffect(() => {
+    dispatch(setMessage(JSON.parse(localStorage.getItem("message"))));
+    setIsToastVisible(true);
     pageUp();
   }, []);
+
   return (
     <div className="checkout">
       {/* -----header */}
@@ -121,6 +204,7 @@ const Checkout = () => {
                     placeholder="Email"
                     pattern="([A-z])+([0-9\-_\+\.])*([A-z0-9\-_\+\.])*@([A-z])+([0-9\-_\+\.])*([A-z0-9\-_\+\.])*[\.]([A-z])+"
                     onChange={(e) => setEmail(e.target.value)}
+                    disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -137,6 +221,7 @@ const Checkout = () => {
                     value={phone}
                     onChange={(e) => phoneCheck(e)}
                     pattern="^\+380\d{9}$"
+                    disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 
@@ -154,22 +239,31 @@ const Checkout = () => {
                 {/* -------delivery */}
                 <Form.Label>Delivery</Form.Label>
                 <Form.Group className="mb-3" controlId="country">
-                  <Form.Select
+                  <Form.Control
                     required
                     value={selectedCountry}
-                    onChange={(e) => setSelectedCountry(e.target.value)}
-                  >
-                    <option value="" disabled hidden>
-                      Country/Region
-                    </option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </Form.Select>
+                    disabled={isToastDisable}
+                    onChange={(e) => searchCountry(e)}
+                  />
+
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
                     Please select country.
                   </Form.Control.Feedback>
+
+                  {/* suggested countries */}
+                  {suggestedCountries.length > 0 && (
+                    <ul className="list-group checkout__suggested-list">
+                      {suggestedCountries &&
+                        suggestedCountries.map((elem) => (
+                          <Suggested
+                            key={elem.geonameId}
+                            elem={elem}
+                            setCityToInput={setCountryToInput}
+                          />
+                        ))}
+                    </ul>
+                  )}
                 </Form.Group>
 
                 {/*------- name */}
@@ -189,6 +283,7 @@ const Checkout = () => {
                     }}
                     minLength="3"
                     pattern="^[^0-9]+$"
+                    disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 
@@ -220,6 +315,7 @@ const Checkout = () => {
                     }
                     minLength="3"
                     pattern="^[^0-9]+$"
+                    disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   {nameLengthValidation ? (
@@ -246,6 +342,7 @@ const Checkout = () => {
                     placeholder="Apartment"
                     value={apartment}
                     onChange={(e) => setApartment(e.target.value)}
+                    disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -263,6 +360,7 @@ const Checkout = () => {
                     onChange={(e) =>
                       setZip(e.target.value.replace(/[^0-9]/g, ""))
                     }
+                    disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
@@ -277,22 +375,36 @@ const Checkout = () => {
                     type="text"
                     placeholder="City"
                     value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    onChange={(e) => searchCity(e)}
+                    // onChange={(e) => setCity(e.target.value)}
+                    disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
                     Please enter city.
                   </Form.Control.Feedback>
+                  {/* suggested cities */}
+                  {suggestedCities.length > 0 && (
+                    <ul className="list-group checkout__suggested-list">
+                      {suggestedCities &&
+                        suggestedCities.map((elem) => (
+                          <Suggested
+                            key={elem.geonameId}
+                            elem={elem}
+                            setCityToInput={setCityToInput}
+                            index="city"
+                          />
+                        ))}
+                    </ul>
+                  )}
                 </Form.Group>
               </Row>
 
               <Button
                 type="submit"
                 className={"main-yellow checkout__submit-btn"}
-                label=" Pay now"
-                // onclick={() => {
-                //   console.log("!!!!");
-                // }}
+                label="Pay now"
+                disabled={isToastDisable}
               />
             </Form>
           </div>

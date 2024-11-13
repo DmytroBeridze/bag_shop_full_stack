@@ -64,4 +64,21 @@
   & .valid-feedback {
     font-size: 14px;
   }
+  &__suggested-list {
+    border: 1px solid rgba(225, 224, 222, 0.614);
+  }
+
+  &__suggested {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px;
+    border: none;
+    transition: color 0.3s ease;
+    &:hover {
+      color: $clr-maeked-text-brown;
+    }
+    &:nth-child(odd) {
+      background-color: rgba(225, 224, 222, 0.272);
+    }
+  }
 }

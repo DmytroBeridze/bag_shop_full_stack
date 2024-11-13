@@ -26,6 +26,11 @@ import {
   getAllContacts,
   postContacts,
 } from "../controllers/contactsController.js";
+import {
+  createOrder,
+  getAllOrders,
+  orderDelete,
+} from "../controllers/orderController.js";
 
 // register
 router.post("/admin/register", adminRegister);
@@ -49,5 +54,10 @@ router.delete("/posts/:id", deletePost);
 // contacts
 router.post("/userContact", postContacts);
 router.get("/userContact", getAllContacts);
+
+// orders
+router.post("/userOrder", createOrder);
+router.get("/userOrder", getAllOrders);
+router.delete("/userOrder/:id", orderDelete);
 
 export default router;

@@ -26,6 +26,7 @@ app.use("/api", router);
 app.use("/api/auth", router);
 app.use("/api/blog", router);
 app.use("/api/contacts", router);
+app.use("/api/orders", router);
 
 // Endpoints
 // app.get("/api/goods", async (req, res) => {

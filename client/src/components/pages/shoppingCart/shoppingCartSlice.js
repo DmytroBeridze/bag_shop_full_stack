@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   productsQuantity: JSON.parse(localStorage.getItem("totalQuantity")) || 0,
   products: JSON.parse(localStorage.getItem("goods")) || [],
-  message: "",
+  message: JSON.parse(localStorage.getItem("message")) || "",
 };
 
 const shoppingCartSlice = createSlice({
@@ -24,6 +24,7 @@ const shoppingCartSlice = createSlice({
     //----- set message
     setMessage(state, action) {
       state.message = action.payload;
+      localStorage.setItem("message", JSON.stringify(action.payload));
     },
   },
 });

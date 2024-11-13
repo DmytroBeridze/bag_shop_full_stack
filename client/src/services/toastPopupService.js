@@ -20,6 +20,7 @@ const toastPopupService = (status, close) => {
       case "Goods edited":
       case "Post created":
       case "Sending successfull.":
+      case "Order created":
         return toast.success(status, {
           position: "bottom-right",
           onClose: () => {
