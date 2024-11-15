@@ -18,30 +18,34 @@
       font-weight: 600;
       text-decoration: none;
       color: inherit;
+
+      &:hover {
+        & .bagIcon {
+          color: $clr-maeked-text-brown;
+        }
+      }
     }
   }
   & .bagIcon {
     width: 24px;
     height: 24px;
     color: $clr-yellow-main;
+    transition: color 0.3s ease;
   }
 
   // main
-
   &__main {
     display: flex;
+    // align-items: stretch;
     // justify-content: space-between;
   }
   &__confirmation {
     flex-basis: 55%;
     border-right: 1px solid $clr-porcelain-main;
     padding: 38px 38px 38px 0;
-    height: 100vh;
+    min-height: 100vh;
   }
-  &__preview {
-    flex-basis: 45%;
-    height: 100vh;
-  }
+
   & input,
   & select {
     padding: 14px 12px;

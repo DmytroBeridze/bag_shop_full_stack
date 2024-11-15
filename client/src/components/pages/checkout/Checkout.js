@@ -1,10 +1,10 @@
-import { useEffect } from "react";
 import "./checkout.scss";
 
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { useEffect } from "react";
 import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -16,15 +16,17 @@ import { setMessage } from "../shoppingCart/shoppingCartSlice";
 import { getCities, getCountries, submitOrder } from "./checkoutSlice";
 import toastPopupService from "../../../services/toastPopupService";
 import Suggested from "./Suggested";
+import Preview from "./Preview";
 
 const Checkout = () => {
+  const apikey = process.env.REACT_APP_GEO__APIKEY;
   const dispatch = useDispatch();
-  const { message } = useSelector((state) => state.shoppingCartReducer);
+  const { message, products, allGoodsPrice, productsQuantity } = useSelector(
+    (state) => state.shoppingCartReducer
+  );
   const { isLoading, status, cities, countries } = useSelector(
     (state) => state.checkoutReducer
   );
-  //! ----replace to environment variables
-  const apikey = "razrab";
 
   const [validated, setValidated] = useState(false);
   const [email, setEmail] = useState("");
@@ -33,6 +35,7 @@ const Checkout = () => {
   const [lastName, setLastName] = useState("");
   const [apartment, setApartment] = useState("");
   const [zip, setZip] = useState("");
+  const [order, setOrder] = useState([]);
 
   const [selectedCountry, setSelectedCountry] = useState("");
   const [suggestedCountries, setSuggestedCountries] = useState([]);
@@ -47,12 +50,13 @@ const Checkout = () => {
   const searchCountry = (e) => {
     setSelectedCountry(e.target.value);
     const query = e.target.value;
+
     fetchCountries(query);
   };
 
   // ----set country to input
-  const setCountryToInput = (city) => {
-    setSelectedCountry(city);
+  const setCountryToInput = (country) => {
+    setSelectedCountry(country);
     setSuggestedCountries([]);
   };
 
@@ -63,20 +67,10 @@ const Checkout = () => {
     }
     dispatch(getCountries({ searchQuery, apikey }));
     if (countries.geonames) {
-      // const resp = await fetch(
-      //   `https://secure.geonames.org/searchJSON?name_startsWith=${searchQuery}&maxRows=10&username=${apikey}&featureCode=PCLI`
-      // );
-      // const data = await resp.json();
-      // setSuggestedCountries(data.geonames);
-
-      console.log(countries);
-      console.log(searchQuery.length);
       setSuggestedCountries(countries.geonames);
     }
   };
 
-  // console.log(countries);
-  // console.log(suggestedCountries);
   //  --------fetch cities
   const fetchCities = async (searchQuery) => {
     if (searchQuery.length < 2) {
@@ -99,6 +93,23 @@ const Checkout = () => {
   const setCityToInput = (city) => {
     setCity(city);
     setSuggestedCities([]);
+  };
+
+  const createOrder = () => {
+    const res = products.map(
+      ({ name, mainType, counter, parameters, totalPrice }) => {
+        const { price } = JSON.parse(parameters);
+        return {
+          name,
+          mainType,
+          counter,
+          price,
+          totalPrice,
+        };
+      }
+    );
+
+    setOrder(res);
   };
 
   // ---validation
@@ -128,6 +139,7 @@ const Checkout = () => {
     } else {
       event.preventDefault();
       event.stopPropagation();
+
       const formdata = new FormData();
       formdata.append("email", email);
       formdata.append("phone", phone);
@@ -138,6 +150,8 @@ const Checkout = () => {
       formdata.append("zip", zip);
       formdata.append("city", city);
       formdata.append("message", message);
+      formdata.append("allGoodsPrice", allGoodsPrice);
+      formdata.append("order", JSON.stringify(order));
 
       // ----submit
       dispatch(submitOrder(formdata));
@@ -153,6 +167,7 @@ const Checkout = () => {
 
       // ----clear message
       dispatch(setMessage(""));
+
       setToastDisable(true);
     }
     setValidated(true);
@@ -166,6 +181,7 @@ const Checkout = () => {
 
   useEffect(() => {
     dispatch(setMessage(JSON.parse(localStorage.getItem("message"))));
+    createOrder();
     setIsToastVisible(true);
     pageUp();
   }, []);
@@ -238,8 +254,11 @@ const Checkout = () => {
 
                 {/* -------delivery */}
                 <Form.Label>Delivery</Form.Label>
+
                 <Form.Group className="mb-3" controlId="country">
                   <Form.Control
+                    type="text"
+                    placeholder="Country"
                     required
                     value={selectedCountry}
                     disabled={isToastDisable}
@@ -252,18 +271,19 @@ const Checkout = () => {
                   </Form.Control.Feedback>
 
                   {/* suggested countries */}
-                  {suggestedCountries.length > 0 && (
-                    <ul className="list-group checkout__suggested-list">
-                      {suggestedCountries &&
-                        suggestedCountries.map((elem) => (
-                          <Suggested
-                            key={elem.geonameId}
-                            elem={elem}
-                            setCityToInput={setCountryToInput}
-                          />
-                        ))}
-                    </ul>
-                  )}
+                  {suggestedCountries.length > 0 &&
+                    selectedCountry.length > 2 && (
+                      <ul className="list-group checkout__suggested-list">
+                        {suggestedCountries &&
+                          suggestedCountries.map((elem) => (
+                            <Suggested
+                              key={elem.geonameId}
+                              elem={elem}
+                              setToInput={setCountryToInput}
+                            />
+                          ))}
+                      </ul>
+                    )}
                 </Form.Group>
 
                 {/*------- name */}
@@ -384,14 +404,14 @@ const Checkout = () => {
                     Please enter city.
                   </Form.Control.Feedback>
                   {/* suggested cities */}
-                  {suggestedCities.length > 0 && (
+                  {suggestedCities.length > 0 && city.length > 2 && (
                     <ul className="list-group checkout__suggested-list">
                       {suggestedCities &&
                         suggestedCities.map((elem) => (
                           <Suggested
                             key={elem.geonameId}
                             elem={elem}
-                            setCityToInput={setCityToInput}
+                            setToInput={setCityToInput}
                             index="city"
                           />
                         ))}
@@ -408,7 +428,8 @@ const Checkout = () => {
               />
             </Form>
           </div>
-          <div className="checkout__preview"></div>
+          <Preview />
+          {/* ---------preview */}
         </main>
       </div>
     </div>

@@ -35,6 +35,12 @@ const OrderSchema = new mongoose.Schema({
   message: {
     type: String,
   },
+  allGoodsPrice: {
+    type: String,
+  },
+  order: {
+    type: String,
+  },
 });
 
 export default mongoose.model("Orders", OrderSchema);

@@ -1,13 +1,15 @@
 import OrderService from "../services/orderService.js";
+import sendMail from "../utils/sandGreed.js";
 
 // create
 export const createOrder = async (req, res) => {
   try {
     const order = await OrderService.orderCreate(req.body);
+
+    sendMail(order, "order");
     res.status(200).json({ message: "Order created", order });
   } catch (error) {
     console.log(error);
-
     res.status(500);
     //   .json({ message: error.message || "Error fetching orders." });
     res.status(500).json({ message: "Sending error." });

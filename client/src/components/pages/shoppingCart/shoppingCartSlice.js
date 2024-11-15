@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   productsQuantity: JSON.parse(localStorage.getItem("totalQuantity")) || 0,
+  allGoodsPrice: JSON.parse(localStorage.getItem("allGoodsPrice")) || 0,
   products: JSON.parse(localStorage.getItem("goods")) || [],
   message: JSON.parse(localStorage.getItem("message")) || "",
 };
@@ -20,6 +21,11 @@ const shoppingCartSlice = createSlice({
       state.productsQuantity = action.payload;
       localStorage.setItem("totalQuantity", JSON.stringify(action.payload));
     },
+    // ----set all goods price
+    setAllGoodsPrice(state, action) {
+      state.allGoodsPrice = action.payload;
+      localStorage.setItem("allGoodsPrice", JSON.stringify(action.payload));
+    },
 
     //----- set message
     setMessage(state, action) {
@@ -30,5 +36,6 @@ const shoppingCartSlice = createSlice({
 });
 
 const { reducer, actions } = shoppingCartSlice;
-export const { setProducts, setMessage, setTotalQuantity } = actions;
+export const { setProducts, setMessage, setTotalQuantity, setAllGoodsPrice } =
+  actions;
 export default reducer;
