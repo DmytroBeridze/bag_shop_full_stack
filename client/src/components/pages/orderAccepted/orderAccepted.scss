@@ -1,0 +1,44 @@
+@import "../../../style/variables.scss";
+
+.accepted {
+  font-family: "Open Sans";
+  font-size: 20px;
+  width: 100%;
+  padding: 100px 0;
+  & .main-container {
+    border-radius: 5px;
+    // height: auto;
+  }
+  &__message {
+    border: 2px solid $clr-yellow-main;
+    max-width: 800px;
+    padding: 20px 50px;
+    // border-radius: 5px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin: auto;
+    height: fit-content;
+  }
+  &__header {
+    max-width: 800px;
+    background-color: $clr-yellow-main;
+    color: white;
+    margin: auto;
+    padding: 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    & h2 {
+      text-align: center;
+    }
+    & p {
+      text-align: center;
+    }
+  }
+  & .checkout__preview {
+    padding: 30px 0 50px;
+    min-height: auto;
+  }
+  & button {
+    padding: 10px 20px;
+  }
+}

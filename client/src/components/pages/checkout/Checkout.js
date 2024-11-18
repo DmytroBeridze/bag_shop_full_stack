@@ -2,7 +2,7 @@ import "./checkout.scss";
 
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useEffect } from "react";
 import { useState } from "react";
@@ -21,6 +21,7 @@ import Preview from "./Preview";
 const Checkout = () => {
   const apikey = process.env.REACT_APP_GEO__APIKEY;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { message, products, allGoodsPrice, productsQuantity } = useSelector(
     (state) => state.shoppingCartReducer
   );
@@ -164,10 +165,10 @@ const Checkout = () => {
       setApartment("");
       setZip("");
       setCity("");
-
       // ----clear message
       dispatch(setMessage(""));
-
+      // ----navigate
+      navigate("/accepted");
       setToastDisable(true);
     }
     setValidated(true);

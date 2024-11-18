@@ -21,11 +21,13 @@ const ProductCard = memo(
     const updateProducts = () => {
       const localElem = JSON.parse(localStorage.getItem("goods"));
 
-      const filteredElem = localElem.map((elem) => {
-        if (elem._id === _id) {
-          return { ...elem, totalPrice, totalWeight, counter: quantity };
-        } else return elem;
-      });
+      const filteredElem =
+        localElem &&
+        localElem.map((elem) => {
+          if (elem._id === _id) {
+            return { ...elem, totalPrice, totalWeight, counter: quantity };
+          } else return elem;
+        });
       localStorage.setItem("goods", JSON.stringify(filteredElem));
 
       dispatch(setProducts(filteredElem));

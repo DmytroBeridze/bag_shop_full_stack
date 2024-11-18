@@ -34,7 +34,7 @@ export const orderDelete = async (req, res) => {
 
   try {
     const deletedOrder = await OrderService.deleteOrder(id);
-    console.log(deletedOrder);
+    // console.log(deletedOrder);
     res.status(200).json({ message: `Order ${id} deleted`, deletedOrder });
   } catch (error) {
     res.status(500).json(error.message);

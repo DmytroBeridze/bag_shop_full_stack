@@ -17,6 +17,7 @@ import Post from "../pages/post/Post";
 import CatalogGalery from "../catalogPage/CatalogGalery";
 import ShoppingCart from "../pages/shoppingCart/ShoppingCart";
 import Checkout from "../pages/checkout/Checkout";
+import OrderAccepted from "../pages/orderAccepted/OrderAccepted";
 
 function App() {
   const { goods, isloading, status } = useSelector(
@@ -24,7 +25,12 @@ function App() {
   );
 
   const location = useLocation();
-  const noHeaderFooterPath = ["/admin", "/admin/panel", "/checkout"];
+  const noHeaderFooterPath = [
+    "/admin",
+    "/admin/panel",
+    "/checkout",
+    "/accepted",
+  ];
   const showHeaderFooter = !noHeaderFooterPath.includes(location.pathname);
 
   return (
@@ -69,6 +75,7 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/accepted" element={<OrderAccepted />} />
 
             {/* Admin panel */}
             <Route path="/admin/panel" element={<Admin />} />

@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const MAIL_PASS = process.env.MAIL_PASS;
-console.log(process.env);
 sgMail.setApiKey(MAIL_PASS);
 
 // const msg = {

@@ -20,6 +20,10 @@ export const submitOrder = createAsyncThunk(
       orderData,
       { "Content-type": "multipart/form-data" }
     );
+    // localStorage.removeItem("goods");
+    // localStorage.removeItem("allGoodsPrice");
+    // localStorage.removeItem("totalQuantity");
+    // localStorage.removeItem("message");
     return response.data;
   }
 );
