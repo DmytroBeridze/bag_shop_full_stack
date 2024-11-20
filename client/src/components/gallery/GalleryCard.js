@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 // import { productCartOpenFromGalleryCard } from "./gallerySlice";
 import { useDispatch } from "react-redux";
 import { setProducts } from "../pages/shoppingCart/shoppingCartSlice";
+import NewLabel from "../newLabel/NewLabel";
 
 // const GalleryCard = ({ id, handleModal, ...params }) => {
 const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
@@ -28,6 +29,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
     picture,
     promo,
     sale,
+
     new: newGoods,
   } = params;
 
@@ -42,6 +44,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
   // const handleClose = () => {
   //   setGoodsId(false);
   // };
+
   return (
     <div
       className="gallery-card"
@@ -77,6 +80,8 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
             }}
           />
         </div>
+        {JSON.parse(newGoods) && <NewLabel />}
+        {JSON.parse(sale) && <SaleLabel />}
       </div>
 
       <div className="gallery-card__content">
@@ -105,7 +110,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
       </div>
 
       {/* sale label */}
-      {JSON.parse(sale) && <SaleLabel />}
+      {/* {JSON.parse(sale) && <SaleLabel />} */}
     </div>
   );
 };

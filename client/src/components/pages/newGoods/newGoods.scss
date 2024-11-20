@@ -1,0 +1,10 @@
+.newGoods {
+  width: 100%;
+  min-height: 100vh;
+  &__title {
+    display: inline-block;
+    margin-top: 213px;
+    position: absolute;
+    left: 30%;
+  }
+}

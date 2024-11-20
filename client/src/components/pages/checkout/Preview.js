@@ -39,7 +39,7 @@ const View = ({ product }) => {
   return (
     <div className="checkout__product-summary">
       {/* image block */}
-      <div className="d-flex align-items-center justify-content-between">
+      <div className="d-flex align-items-center justify-content-between gap-2">
         <div className="d-flex align-items-center">
           <div className="checkout__product-img">
             <img src={`http://localhost:3002/${picture[0]}`} alt="img" />

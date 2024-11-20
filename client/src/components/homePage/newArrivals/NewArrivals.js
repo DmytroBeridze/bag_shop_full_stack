@@ -16,16 +16,18 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import Button from "../../buttons/Buttons";
 import { useState } from "react";
 
 const NewArrivals = () => {
-  const [navigate, setNavigate] = useState(false);
-  const navigateToNewArrivals = () => {
-    setNavigate((navigate) => !navigate);
-  };
+  const navigate = useNavigate();
+  // const [navigate, setNavigate] = useState(false);
+
+  // const navigateToNewArrivals = () => {
+  //   setNavigate((navigate) => !navigate);
+  // };
 
   return (
     <section className="new-arrivals">
@@ -41,13 +43,21 @@ const NewArrivals = () => {
               other gear you need on your back.
             </p>
 
-            <Link to="/newGoods" replace={true}>
+            {/* <Link to="/newGoods" replace={true}> */}
+            <Button
+              label={"Shop now"}
+              className={"main-white"}
+              onclick={() => navigate("/newGoods/backpacks")}
+            />
+            {/* </Link> */}
+
+            {/* <Link to="/newGoods" replace={true}>
               <Button
                 label={"Shop now"}
                 className={"main-white"}
                 onclick={navigateToNewArrivals}
               />
-            </Link>
+            </Link> */}
 
             {/* {navigate && <Navigate to="/newArrivals" replace={true} />} */}
           </div>

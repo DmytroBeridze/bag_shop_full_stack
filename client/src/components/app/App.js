@@ -18,6 +18,7 @@ import CatalogGalery from "../catalogPage/CatalogGalery";
 import ShoppingCart from "../pages/shoppingCart/ShoppingCart";
 import Checkout from "../pages/checkout/Checkout";
 import OrderAccepted from "../pages/orderAccepted/OrderAccepted";
+import NewGoods from "../pages/newGoods/NewGoods";
 
 function App() {
   const { goods, isloading, status } = useSelector(
@@ -76,6 +77,7 @@ function App() {
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/accepted" element={<OrderAccepted />} />
+            <Route path="/newGoods/:mainType" element={<NewGoods />} />
 
             {/* Admin panel */}
             <Route path="/admin/panel" element={<Admin />} />

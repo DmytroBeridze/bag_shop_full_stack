@@ -5,6 +5,7 @@ import Counter from "../../counter/Counter";
 import Button from "../../buttons/Buttons";
 
 import { setProducts } from "./shoppingCartSlice";
+import pageUp from "../../../features/PageUp";
 
 const ProductCard = memo(
   ({ smallResize, middleResize, product, deleteElement }) => {
@@ -36,6 +37,10 @@ const ProductCard = memo(
     useEffect(() => {
       updateProducts();
     }, [quantity]);
+
+    useEffect(() => {
+      pageUp();
+    }, []);
 
     return (
       <>

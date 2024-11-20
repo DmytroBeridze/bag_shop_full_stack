@@ -8,6 +8,10 @@
     padding: 38px 0 38px 38px;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
+    @media (max-width: 520px) {
+      padding: 0 0 38px;
+      min-height: fit-content;
+    }
   }
 
   //   image block

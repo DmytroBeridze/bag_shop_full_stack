@@ -4,7 +4,7 @@ import { RiShoppingBag4Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -22,6 +22,7 @@ const Checkout = () => {
   const apikey = process.env.REACT_APP_GEO__APIKEY;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const formRef = useRef(null);
   const { message, products, allGoodsPrice, productsQuantity } = useSelector(
     (state) => state.shoppingCartReducer
   );
@@ -210,7 +211,12 @@ const Checkout = () => {
         <main className="checkout__main">
           <div className="checkout__confirmation">
             {/* ----------form */}
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form
+              noValidate
+              validated={validated}
+              onSubmit={handleSubmit}
+              ref={formRef}
+            >
               <Row className="mb-3">
                 {/* -----mail */}
                 <Form.Label>Contact</Form.Label>
@@ -429,8 +435,20 @@ const Checkout = () => {
               />
             </Form>
           </div>
-          <Preview />
           {/* ---------preview */}
+          <Preview />
+
+          <Button
+            type="submit"
+            className={"main-yellow checkout__submit-btn_small-screen"}
+            label="Pay now"
+            disabled={isToastDisable}
+            /*
+            оскільки кнопка знаходиться не в формі, то для коректної відправки
+            та валідації, викликаємо метод submit самоЇ форми 
+            */
+            onclick={() => formRef.current.requestSubmit()}
+          />
         </main>
       </div>
     </div>
