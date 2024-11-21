@@ -80,13 +80,14 @@ const Header = () => {
             expand="lg"
             className="d-flex justify-content-between align-items-center p-0 h-100 position-relative"
           >
-            <Navbar.Brand
-              href="/"
-              className="header__logo"
-              style={{ maxWidth: "200px" }}
-            >
-              <img src={logo} alt="img" className="w-100" />
-            </Navbar.Brand>
+            <NavLink to="/">
+              <Navbar.Brand
+                className="header__logo"
+                style={{ maxWidth: "200px" }}
+              >
+                <img src={logo} alt="img" className="w-100" />
+              </Navbar.Brand>
+            </NavLink>
 
             <Nav className={`nav ${modalToggle && "show"}`}>
               {/* --------------dropdown */}

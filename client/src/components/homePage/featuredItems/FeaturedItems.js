@@ -7,12 +7,15 @@ import classicBag from "../../../resources/img/home/classic-bag.jpg";
 
 import { useEffect, useRef } from "react";
 import useResize from "../../../hooks/resize.hook";
+import { useNavigate } from "react-router-dom";
+
 import Button from "../../buttons/Buttons";
 
 const FeaturedItems = () => {
   const ref = useRef([]);
-  const promoRef = useRef();
+  const navigate = useNavigate();
   const size = useResize();
+  // const promoRef = useRef();
 
   // ---Динамічне зменшення висоти блока
   useEffect(() => {
@@ -68,7 +71,11 @@ const FeaturedItems = () => {
               <h4 className="arrivals__subtitle">New arrivals</h4>
               <h2 className="arrivals__title">Get an Extra</h2>
               <p>10% off</p>
-              <Button className={"main-yellow"} label={"Shop now"} />
+              <Button
+                className={"main-yellow"}
+                label={"Shop now"}
+                onclick={() => navigate("/catalog/galery/backpacks")}
+              />
             </div>
           </div>
           <div className="arrivals__photo position-relative">
@@ -78,7 +85,15 @@ const FeaturedItems = () => {
                 Women's Bags <br />
                 from Top Brands
               </h2>
-              <Button className={"main-yellow"} label={"Shop now"} />
+              <Button
+                className={"main-yellow"}
+                label={"Shop now"}
+                onclick={() =>
+                  navigate("/catalog/galery/handbags", {
+                    state: { filter: "crossbody" },
+                  })
+                }
+              />
             </div>
           </div>
           <div className="arrivals__photo">
@@ -105,7 +120,15 @@ const FeaturedItems = () => {
                 Brit high-street favourites Faith channel a love of fast fashion
                 across their trend-led collections of shoes and accessories
               </p>
-              <Button className={"yellow-stroke"} label={"Shop now"} />
+              <Button
+                className={"yellow-stroke"}
+                label={"Shop now"}
+                onclick={() =>
+                  navigate("/newGoods/handbags", {
+                    state: { filter: "shoulder bags" },
+                  })
+                }
+              />
             </div>
           </div>
 
@@ -115,7 +138,15 @@ const FeaturedItems = () => {
             <div className="promo__content promo__content_sale">
               <p>Up to 50%</p>
               <h2 className="promo__title">on Select Styles</h2>
-              <Button className={"white-stroke"} label={"Shop now"} />
+              <Button
+                className={"white-stroke"}
+                label={"Shop now"}
+                onclick={() =>
+                  navigate("/sale/bags", {
+                    state: { filter: "travel bags" },
+                  })
+                }
+              />
             </div>
           </div>
           <div className="promo__photo">
@@ -124,7 +155,15 @@ const FeaturedItems = () => {
             <div className="promo__content promo__content_classic">
               <h2 className="promo__title">New</h2>
               <p>Classic Items</p>
-              <Button className={"grey-stroke"} label={"Shop now"} />
+              <Button
+                className={"grey-stroke"}
+                label={"Shop now"}
+                onclick={() =>
+                  navigate("/catalog/galery/bags", {
+                    state: { filter: "travel bags" },
+                  })
+                }
+              />
             </div>
           </div>
         </div>
