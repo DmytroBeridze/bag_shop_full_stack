@@ -21,6 +21,8 @@ const CatalogDropdown = memo(
       navigate(`/catalog/galery/${link}`, { state: { filter: filterName } });
     };
     const handleFilterSaleClick = (link, filterName) => {
+      console.log(`${navigateLink}/${link}`, { state: { filter: filterName } });
+
       navigate(`${navigateLink}/${link}`, { state: { filter: filterName } });
     };
 

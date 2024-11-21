@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 
 import Admin from "../pages/admin/Admin";
@@ -14,26 +15,39 @@ import CatalogElement from "../pages/catalogElement/CatalogElement";
 import Footer from "../footer/Footer";
 import Post from "../pages/post/Post";
 import CatalogGalery from "../catalogPage/CatalogGalery";
-import { useSelector } from "react-redux";
+import ShoppingCart from "../pages/shoppingCart/ShoppingCart";
+import Checkout from "../pages/checkout/Checkout";
+import OrderAccepted from "../pages/orderAccepted/OrderAccepted";
+import NewGoods from "../pages/newGoods/NewGoods";
 
 function App() {
   const { goods, isloading, status } = useSelector(
     (state) => state.galleryReducer
   );
-  // const saleItems = goods.filter((elem) => elem.sale !== "false");
+
+  const location = useLocation();
+  const noHeaderFooterPath = [
+    "/admin",
+    "/admin/panel",
+    "/checkout",
+    "/accepted",
+  ];
+  const showHeaderFooter = !noHeaderFooterPath.includes(location.pathname);
 
   return (
     <>
       <div className="app">
-        <Header />
+        {showHeaderFooter && <Header />}
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/blog" element={<Blog />} />
+        {/* заключаю весь контент в .content для того, щоб притиснути футер донизу  */}
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/blog" element={<Blog />} />
 
-          <Route path="/sale/:mainType" element={<Sale />} />
-          {/* <Route
+            <Route path="/sale/:mainType" element={<Sale />} />
+            {/* <Route
             path="/sale/:mainType"
             element={
               <CatalogGalery
@@ -43,30 +57,35 @@ function App() {
               />
             }
           /> */}
-          {/* <Route path="/sale" element={<Sale />} /> */}
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/contact" element={<ContactUs />} />
-          <Route path="/catalog/:id" element={<CatalogElement />} />
-          <Route
-            path="/catalog/galery/:mainType"
-            element={
-              <CatalogGalery
-                goods={goods}
-                isloading={isloading}
-                status={status}
-                title="Catalog"
-              />
-            }
-          />
 
-          <Route path="/blog/:id" element={<Post />} />
+            <Route path="/catalog/:id" element={<CatalogElement />} />
+            <Route
+              path="/catalog/galery/:mainType"
+              element={
+                <CatalogGalery
+                  goods={goods}
+                  isloading={isloading}
+                  status={status}
+                  title="Catalog"
+                />
+              }
+            />
 
-          {/* Admin panel */}
-          <Route path="/admin/panel" element={<Admin />} />
-          <Route path="/admin" element={<AdminLogin />} />
-        </Routes>
+            <Route path="/blog/:id" element={<Post />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/cart" element={<ShoppingCart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/accepted" element={<OrderAccepted />} />
+            <Route path="/newGoods/:mainType" element={<NewGoods />} />
+
+            {/* Admin panel */}
+            <Route path="/admin/panel" element={<Admin />} />
+            <Route path="/admin" element={<AdminLogin />} />
+          </Routes>
+        </div>
         <ToastContainer autoClose={5000} />
-        <Footer />
+        {showHeaderFooter && <Footer />}
       </div>
     </>
   );

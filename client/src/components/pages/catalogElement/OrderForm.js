@@ -54,7 +54,7 @@ const OrderForm = ({ product, valueCounter, setValueCounter, addToCart }) => {
 
               <button
                 className="custom-button main-yellow catalogElement__button"
-                onClick={addToCart}
+                onClick={() => addToCart({ ...product, counter: valueCounter })}
                 disabled={valueCounter < 1}
               >
                 Add to cart

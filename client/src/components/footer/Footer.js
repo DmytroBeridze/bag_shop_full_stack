@@ -1,11 +1,14 @@
 import "./footer.scss";
 
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const Footer = () => {
-  const location = useLocation();
+  // const location = useLocation();
   return (
+    <div className="footer">footer</div>
+    /**
     !location.pathname.includes("admin") && <div className="footer">footer</div>
+    */
   );
 };
 

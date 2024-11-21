@@ -57,6 +57,15 @@ select {
   min-height: 100vh;
   margin: 0 auto;
   position: relative;
+
+  // --для притискання футера донизу
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  & .content {
+    flex: 1;
+  }
 }
 .main-container {
   max-width: 1230px;

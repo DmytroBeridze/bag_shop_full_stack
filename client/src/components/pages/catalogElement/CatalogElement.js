@@ -2,7 +2,7 @@ import "./catalogElement.scss";
 
 import ModalPopup from "../../modal/Modal";
 import AddedToCart from "../../addedToCart/AddedToCart";
-import getToLocalStorage from "../../../features/getToLocalStorage";
+import setToLocalStorage from "../../../features/setToLocalStorage";
 import Preloader from "../../preloader/Preloader";
 import OrderForm from "./OrderForm";
 import CatalogSlider from "./CatalogSlider";
@@ -30,10 +30,11 @@ const CatalogElement = () => {
   const [valueCounter, setValueCounter] = useState(1);
 
   // add to local storage
-  const addToCart = () => {
+  const addToCart = (data) => {
     dispatch(productCartOpen(valueCounter));
 
-    getToLocalStorage("goods", oneProduct._id, valueCounter);
+    setToLocalStorage("goods", data);
+    // setToLocalStorage("goods", oneProduct._id, valueCounter);
   };
 
   const productCartClose = () => {

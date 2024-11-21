@@ -4,11 +4,13 @@ import { useState } from "react";
 
 import Button from "../buttons/Buttons";
 import ImageError from "../error/imageError/ImageError";
-import getToLocalStorage from "../../features/getToLocalStorage";
+import setToLocalStorage from "../../features/setToLocalStorage";
 import SaleLabel from "../saleLabel/SaleLabel";
 import { NavLink } from "react-router-dom";
 // import { productCartOpenFromGalleryCard } from "./gallerySlice";
 import { useDispatch } from "react-redux";
+import { setProducts } from "../pages/shoppingCart/shoppingCartSlice";
+import NewLabel from "../newLabel/NewLabel";
 
 // const GalleryCard = ({ id, handleModal, ...params }) => {
 const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
@@ -27,6 +29,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
     picture,
     promo,
     sale,
+
     new: newGoods,
   } = params;
 
@@ -41,6 +44,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
   // const handleClose = () => {
   //   setGoodsId(false);
   // };
+
   return (
     <div
       className="gallery-card"
@@ -71,12 +75,13 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
             className={"grey-stroke__black-hover"}
             label={"add to cart"}
             onclick={() => {
-              // dispatch(productCartOpenFromGalleryCard(id));
               productCartOpen(id);
-              getToLocalStorage("goods", id);
+              setToLocalStorage("goods", { ...params, _id: id, counter: 1 });
             }}
           />
         </div>
+        {JSON.parse(newGoods) && <NewLabel />}
+        {JSON.parse(sale) && <SaleLabel />}
       </div>
 
       <div className="gallery-card__content">
@@ -99,13 +104,13 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
           onclick={() => {
             // dispatch(productCartOpenFromGalleryCard(id));
             productCartOpen(id);
-            getToLocalStorage("goods", id);
+            setToLocalStorage("goods", { ...params, _id: id, counter: 1 });
           }}
         />
       </div>
 
       {/* sale label */}
-      {JSON.parse(sale) && <SaleLabel />}
+      {/* {JSON.parse(sale) && <SaleLabel />} */}
     </div>
   );
 };

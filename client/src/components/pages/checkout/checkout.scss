@@ -1,0 +1,117 @@
+@import "../../../style/variables.scss";
+
+.checkout {
+  font-family: "Open Sans";
+  font-size: 20px;
+
+  // header
+  &__header {
+    border-bottom: 1px solid $clr-porcelain-main;
+  }
+  &__nav {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & a {
+      font-size: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        & .bagIcon {
+          color: $clr-maeked-text-brown;
+        }
+      }
+    }
+  }
+  & .bagIcon {
+    width: 24px;
+    height: 24px;
+    color: $clr-yellow-main;
+    transition: color 0.3s ease;
+  }
+
+  // main
+  &__main {
+    display: flex;
+    @media (max-width: 520px) {
+      flex-direction: column;
+    }
+  }
+  &__confirmation {
+    flex-basis: 55%;
+    border-right: 1px solid $clr-porcelain-main;
+    padding: 38px 38px 38px 0;
+    min-height: 100vh;
+    position: relative;
+    @media (max-width: 520px) {
+      border: none;
+      padding: 38px 0;
+      min-height: fit-content;
+    }
+    @media (max-width: 400px) {
+      padding: 15px 0;
+    }
+  }
+
+  & form {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    padding: 20px 0;
+  }
+  & input,
+  & select {
+    padding: 14px 12px;
+    font-size: 14px;
+    // color: $clr-text-grey;
+    &:focus {
+      border-color: $clr-yellow-main;
+      box-shadow: 0 0 0 0.2rem #fed0384e;
+    }
+    &::placeholder {
+      color: $clr-text-grey;
+    }
+  }
+
+  &__submit-btn {
+    width: 100%;
+    @media (max-width: 520px) {
+      display: none;
+    }
+  }
+
+  &__submit-btn_small-screen {
+    display: none;
+    @media (max-width: 520px) {
+      margin-bottom: 50px;
+      display: block;
+    }
+  }
+
+  & .invalid-feedback,
+  & .valid-feedback {
+    font-size: 14px;
+  }
+  &__suggested-list {
+    border: 1px solid rgba(225, 224, 222, 0.614);
+  }
+
+  &__suggested {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px;
+    border: none;
+    transition: color 0.3s ease;
+    &:hover {
+      color: $clr-maeked-text-brown;
+    }
+    &:nth-child(odd) {
+      background-color: rgba(225, 224, 222, 0.272);
+    }
+  }
+}

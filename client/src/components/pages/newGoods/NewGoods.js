@@ -1,20 +1,20 @@
-import "./sale.scss";
+import "./newGoods.scss";
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
-import { fetchAllGoods } from "../../gallery/gallerySlice";
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
+import { fetchAllGoods } from "../../gallery/gallerySlice";
+import { useDispatch, useSelector } from "react-redux";
 import pageUp from "../../../features/PageUp";
 import CatalogGalery from "../../catalogPage/CatalogGalery";
 
-const Sale = () => {
+const NewGoods = () => {
   const dispatch = useDispatch();
 
   const { goods, isloading, status } = useSelector(
     (state) => state.galleryReducer
   );
-  const saleItems = goods.filter((elem) => elem.sale !== "false");
+  const saleItems = goods.filter((elem) => elem.new !== "false");
 
   useEffect(() => {
     dispatch(fetchAllGoods());
@@ -23,18 +23,15 @@ const Sale = () => {
   }, []);
 
   return (
-    <div className="sale">
-      {/* <div className="main-container"> */}
-
+    <div className="newGoods">
       <CatalogGalery
         goods={saleItems}
         isloading={isloading}
         status={status}
-        title="Sale"
+        title="New Arrivals"
       />
-      {/* </div> */}
     </div>
   );
 };
 
-export default Sale;
+export default NewGoods;

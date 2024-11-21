@@ -54,6 +54,13 @@
       margin: 0;
     }
   }
+  & input,
+  & textarea {
+    &:focus {
+      border-color: $clr-yellow-main;
+      box-shadow: 0 0 0 0.2rem #fed0384e;
+    }
+  }
   & .custom-button {
     padding: 15px 30px;
   }

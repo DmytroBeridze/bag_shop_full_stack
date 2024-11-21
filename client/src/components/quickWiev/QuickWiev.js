@@ -12,7 +12,7 @@ import { Navigation } from "swiper/modules";
 
 import { useState } from "react";
 import useCounter from "../../hooks/counter.hook";
-import getToLocalStorage from "../../features/getToLocalStorage";
+import setToLocalStorage from "../../features/setToLocalStorage";
 import { useDispatch, useSelector } from "react-redux";
 import { productCartOpen } from "../gallery/gallerySlice";
 import Counter from "../counter/Counter";
@@ -21,7 +21,6 @@ import Counter from "../counter/Counter";
 const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [valueCounter, setValueCounter] = useState(1);
-  // const { decrement, increment, counter } = useCounter();
   const dispatch = useDispatch();
 
   // const { oneProduct } = useSelector((state) => state.galleryReducer);
@@ -31,7 +30,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
     handleClose();
     // dispatch(productCartOpen(counter));
     productCartOpen(valueCounter);
-    getToLocalStorage("goods", oneProduct._id, valueCounter);
+    setToLocalStorage("goods", { ...oneProduct, counter: valueCounter });
   };
 
   if (oneProduct) {
@@ -96,7 +95,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
                 </div> */}
                 <button
                   className="custom-button main-yellow quickPreview__button"
-                  onClick={addToCart}
+                  onClick={() => addToCart(valueCounter)}
                   disabled={valueCounter < 1}
                 >
                   Add to cart

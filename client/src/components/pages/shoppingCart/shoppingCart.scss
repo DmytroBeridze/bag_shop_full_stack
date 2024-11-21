@@ -1,0 +1,203 @@
+@import "../../../style/variables.scss";
+
+.cart {
+  padding: 213px 0 80px;
+  font-family: "Open Sans" !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+
+  @media (max-width: 600px) {
+    padding: 180px 0 60px;
+
+    & h1,
+    & h2 {
+      font-size: 22px !important;
+    }
+    & td {
+      font-size: 16px;
+    }
+  }
+
+  & h1 {
+    font-family: "Arvo";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  // ---table
+  & table,
+  th,
+  td {
+    text-align: start;
+  }
+
+  & th,
+  td {
+    padding: 15px;
+  }
+
+  & .table {
+    width: 100%;
+    margin-top: 30px;
+    // ---head
+    & thead {
+      border-bottom: 3px solid rgba(0, 0, 0, 0.086);
+      font-size: 16px;
+    }
+    & tr {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.086);
+    }
+
+    @media (max-width: 980px) {
+      &__total,
+      &__quantity,
+      &__counter,
+      &__total {
+        display: none;
+      }
+      &__title-price,
+      &__price {
+        text-align: end;
+        padding-right: 0;
+      }
+    }
+
+    //---- body
+    &__product-cell {
+      width: 215px;
+      @media (max-width: 600px) {
+        width: 180px;
+        padding-right: 0;
+      }
+    }
+
+    &__counter,
+    &__note {
+      font-size: 14px;
+    }
+    & textarea {
+      width: 100%;
+      height: 100px;
+      border: var(--bs-border-width) solid var(--bs-border-color);
+      outline: none;
+      &:focus {
+        border-radius: 2px;
+        border-color: $clr-yellow-main;
+        box-shadow: 0 0 0 0.2rem #fed0384e;
+      }
+    }
+
+    &__card-picture {
+      max-width: 200px;
+      height: 200px;
+      object-fit: contain;
+      overflow: hidden;
+      @media (max-width: 460px) {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      & img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+    &__card-title {
+      font-family: "Arvo";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 24px;
+      margin-bottom: 10px;
+    }
+    &__data {
+      color: $clr-text-grey;
+    }
+
+    &__button {
+      padding: 10px 20px;
+      max-width: 105px;
+    }
+
+    // -------counter and resize counter
+    &__counter .order-counter__quantity {
+      width: fit-content;
+      margin: auto;
+    }
+
+    &__resize .order-counter__quantity {
+      width: fit-content;
+    }
+
+    &__counter .order-counter__couner,
+    &__resize .order-counter__couner {
+      max-width: 100px;
+      height: 30px;
+      display: flex;
+      & input {
+        order: 2;
+        width: 44px;
+        padding: 0;
+      }
+    }
+    &__counter .order-counter__decrement,
+    &__resize .order-counter__decrement {
+      order: 1;
+      width: 30px;
+      margin: 0;
+      border-right: none;
+    }
+    &__counter .order-counter__increment,
+    &__resize .order-counter__increment {
+      width: 30px;
+      order: 3;
+      margin: 0;
+      border-left: none;
+    }
+  }
+
+  &__button-container {
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 460px) {
+      flex-direction: column;
+      gap: 1px;
+    }
+  }
+
+  &__button {
+    padding: 20px 45px;
+    &:last-child {
+      background-color: $clr-blue;
+      border-color: $clr-blue;
+      color: $clr-text-white;
+      &:hover {
+        background-color: $clr-text-grey;
+        border-color: $clr-text-grey;
+      }
+    }
+    @media (max-width: 600px) {
+      padding: 10px 20px;
+    }
+  }
+
+  // empty card
+  &__empty {
+    padding: 10px 15px;
+    margin-top: 26px;
+    background-color: #fff5c3;
+    border: 1px solid #edd870;
+    color: #85741f;
+    & a {
+      color: inherit;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

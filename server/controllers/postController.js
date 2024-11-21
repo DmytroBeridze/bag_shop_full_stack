@@ -21,7 +21,6 @@ export const getAllPosts = async (req, res) => {
 };
 
 // get to id
-
 export const getPostsId = async (req, res) => {
   try {
     const { id } = req.params;
