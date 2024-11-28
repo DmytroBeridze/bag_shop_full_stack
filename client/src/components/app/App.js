@@ -32,6 +32,7 @@ function App() {
     "/admin/panel",
     "/admin/panel/posts",
     "/admin/panel/usersContacts",
+    "/admin/panel/usersOrders",
     "/admin/panel/goods",
     "/checkout",
     "/accepted",

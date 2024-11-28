@@ -53,12 +53,26 @@ export const postContacts = async (req, res) => {
 // };
 
 // get
-
 export const getAllContacts = async (req, res) => {
   try {
     const contacts = await ContactsService.getContacts();
     return res.status(200).json(contacts);
   } catch (error) {
     res.status(500).json(error.message);
+  }
+};
+
+// delete
+export const deleteContact = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const contact = await ContactsService.removeContact(id);
+    return res.json({
+      contact: contact,
+      message: `Contact id: ${id} deleted`,
+    });
+    // console.log(contact);
+  } catch (error) {
+    res.json(error.massage);
   }
 };

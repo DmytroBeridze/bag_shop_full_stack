@@ -13,15 +13,33 @@
   &__description {
     width: 30%;
 
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
       display: none;
     }
   }
 
   &__pictures {
     width: 30%;
-    @media (max-width: 645px) {
+    @media (max-width: 700px) {
       display: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    & th,
+    & td {
+      font-size: 14px;
+      font-weight: 400;
+      // display: none;
+    }
+  }
+
+  @media (max-width: 420px) {
+    & th,
+    & td {
+      font-size: 12px;
+      font-weight: 400;
+      // display: none;
     }
   }
 }
@@ -43,7 +61,7 @@
     max-width: 100px;
   }
   &__description-wrapper {
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
       display: none;
     }
   }
@@ -54,7 +72,7 @@
   &__img-wrapper {
     // overflow-y: auto;
     // max-height: 150px;
-    @media (max-width: 645px) {
+    @media (max-width: 700px) {
       display: none;
     }
   }

@@ -14,7 +14,7 @@ sgMail.setApiKey(MAIL_PASS);
 // };
 
 const sendMail = async (contact, type) => {
-  console.log(contact);
+  // console.log(contact);
   const deserialisedOrder = contact.order && JSON.parse(contact.order);
 
   const tableRows =

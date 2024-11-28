@@ -1,0 +1,72 @@
+@import "../../../style/variables.scss";
+.display-orders {
+  font-size: 14px;
+  padding: 20px;
+  &:nth-child(odd) {
+    background-color: $clr-porcelain-main;
+  }
+  &__contacts {
+    // & h3 {
+    //   border-bottom: 1px solid $clr-text-grey;
+    // }
+    & span {
+      font-style: italic;
+      font-weight: 400;
+      color: $clr-maeked-text-brown;
+    }
+  }
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $clr-text-grey;
+    @media (max-width: 490px) {
+      flex-direction: column-reverse;
+      align-items: start;
+      gap: 10px;
+    }
+    & svg {
+      cursor: pointer;
+      color: rgb(178, 70, 70);
+      position: relative;
+      &:hover {
+        color: rgb(172, 14, 14);
+      }
+    }
+  }
+  & table {
+    width: 100%;
+  }
+  & td,
+  & th {
+    border: 1px solid grey;
+    text-align: start;
+    padding: 10px;
+  }
+  & th {
+    text-transform: uppercase;
+    @media (max-width: 490px) {
+      display: none;
+    }
+  }
+  & td {
+    @media (max-width: 490px) {
+      // display: flex;
+      font-size: 12px;
+    }
+    @media (max-width: 360px) {
+      font-size: 10px;
+    }
+  }
+  & tfoot td {
+    font-weight: 600;
+  }
+  & h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    @media (max-width: 490px) {
+      // display: flex;
+      font-size: 16px;
+    }
+  }
+}

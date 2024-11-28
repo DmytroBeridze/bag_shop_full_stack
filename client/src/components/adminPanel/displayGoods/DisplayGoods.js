@@ -5,20 +5,25 @@ import { FiTrash2 } from "react-icons/fi";
 
 import Table from "react-bootstrap/Table";
 import NoImage from "../noImage/NoImage";
-import { deleteGoods } from "../../pages/admin/adminSlice";
+import { deleteGoods, getGoods } from "../../pages/admin/adminSlice";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
 import ModalPopup from "../../modal/Modal";
 import EditeForm from "../../adminPanel/editeForm/EditeForm";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 const DisplayGoods = ({ imageModal, getTargetId }) => {
-  const { goods } = useSelector((state) => state.adminReducer);
+  const { goods, status } = useSelector((state) => state.adminReducer);
 
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
+
+  useEffect(() => {
+    dispatch(getGoods());
+  }, [dispatch, status]);
+
   return (
     <section className="display-goods ">
       <h2 className="mb-3">Added goods</h2>
@@ -51,7 +56,7 @@ const DisplayGoods = ({ imageModal, getTargetId }) => {
             })
           ) : (
             <tr>
-              <td colSpan={6}>
+              <td colSpan={7}>
                 <h4 className="text-center text-warning">No elements...</h4>
               </td>
             </tr>

@@ -1,0 +1,124 @@
+@import "../../../style/variables.scss";
+
+.display-contacts {
+  //   width: 65%;
+  //   max-width: 100%;
+  //   border: 1px solid red;
+  // max-width: clamp(6.25rem, -7.5rem + 68.75vw, 75rem);
+  @media (max-width: 1000px) {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &__id {
+    // width: 10%;
+    @media (max-width: 880px) {
+      display: none;
+    }
+  }
+  //   &__name {
+  //     width: 15%;
+  //   }
+  &__message {
+    width: 30%;
+
+    @media (max-width: 880px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    & thead {
+      display: none;
+    }
+
+    & tbody,
+    tr {
+      display: block;
+      width: 100%;
+    }
+
+    & td {
+      display: flex;
+      // justify-content: space-between;
+      width: 100%;
+      border-bottom: 1px solid $clr-porcelain-main;
+      font-size: 14px;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  @media (max-width: 420px) {
+    & td {
+      font-size: 14px;
+    }
+  }
+}
+.contacts-table {
+  &__id-wrapper {
+    max-width: 100px;
+    @media (max-width: 880px) {
+      display: none !important;
+    }
+  }
+  &__email-wrapper {
+    max-width: 150px;
+    @media (max-width: 640px) {
+      max-width: 100%;
+    }
+  }
+  &__message-wrapper {
+    @media (max-width: 880px) {
+      display: none;
+    }
+  }
+
+  &__id {
+    overflow-x: auto;
+    @media (max-width: 880px) {
+      display: none;
+    }
+  }
+
+  &__date {
+    overflow-x: auto;
+    // max-width: 80px;
+    // max-height: 158px;
+    @media (max-width: 365px) {
+      width: 50px;
+    }
+  }
+  &__name {
+    overflow-x: auto;
+    // max-width: 100px;
+  }
+
+  &__email {
+    overflow-x: auto;
+    // max-height: 150px;
+  }
+  &__message {
+    max-height: 200px;
+    overflow-y: auto;
+    // max-width: 350px;
+    // @media (max-width:880px) {
+    //     display: none;
+    // }
+  }
+  &__icon-wrapper {
+    @media (max-width: 640px) {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &__delete {
+    cursor: pointer;
+    color: rgb(178, 70, 70);
+    position: relative;
+    &:hover {
+      color: rgb(172, 14, 14);
+    }
+  }
+}

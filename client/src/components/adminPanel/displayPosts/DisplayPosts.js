@@ -8,20 +8,23 @@ import NoImage from "../noImage/NoImage";
 
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 import Moment from "react-moment";
 
 import ModalPopup from "../../modal/Modal";
-import { deletePost } from "../addPostsForm/postSlice";
+import { deletePost, getAllPosts } from "../addPostsForm/postSlice";
 import EditPost from "../editPost/EditPost";
 
 const DisplayPosts = ({ imageModal, getTargetId }) => {
-  const { posts } = useSelector((state) => state.postsReducer);
-  // useSelector((state) => console.log(state.postsReducer));
+  const { posts, postStatus } = useSelector((state) => state.postsReducer);
 
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch, postStatus]);
 
   return (
     <section className="display-posts">
@@ -55,7 +58,7 @@ const DisplayPosts = ({ imageModal, getTargetId }) => {
             })
           ) : (
             <tr>
-              <td colSpan={6}>
+              <td colSpan={7}>
                 <h4 className="text-center text-warning">No elements...</h4>
               </td>
             </tr>

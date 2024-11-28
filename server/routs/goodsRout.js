@@ -25,6 +25,7 @@ import { checkAuth } from "../utils/checkAuth.js";
 import {
   getAllContacts,
   postContacts,
+  deleteContact,
 } from "../controllers/contactsController.js";
 import {
   createOrder,
@@ -54,6 +55,7 @@ router.delete("/posts/:id", deletePost);
 // contacts
 router.post("/userContact", postContacts);
 router.get("/userContact", getAllContacts);
+router.delete("/userContact/:id", deleteContact);
 
 // orders
 router.post("/userOrder", createOrder);

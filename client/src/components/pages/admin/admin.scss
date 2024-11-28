@@ -1,15 +1,91 @@
+@import "../../../style/variables.scss";
 .admin {
   // background-color: #ffc80a;
   width: 100%;
   min-height: 100vh;
+  position: relative;
 
   &__container {
     max-width: 1840px;
     max-height: 100%;
     padding: 50px 20px;
     margin: 0 auto;
-    // height: 100vh;
+    @media (max-width: 420px) {
+      padding: 30px 20px;
+    }
   }
+  & h2 {
+    @media (max-width: 550px) {
+      // flex-direction: column;
+      // justify-content: st;
+      font-size: 20px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media (max-width: 420px) {
+      flex-direction: column-reverse;
+      align-items: start;
+    }
+    & h1 {
+      @media (max-width: 550px) {
+        // flex-direction: column;
+        // justify-content: st;
+        font-size: 22px;
+      }
+    }
+  }
+  &__nav {
+    display: flex;
+    @media (max-width: 880px) {
+      display: none;
+    }
+    & a {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: $clr-text-grey;
+      transition: color 0.3s;
+
+      border: 1px solid #dee2e600;
+      padding: 5px 10px 14px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+
+      &:hover {
+        color: $clr-maeked-text-brown;
+      }
+    }
+    & .active {
+      color: $clr-maeked-text-brown;
+      border: 1px solid #dee2e6;
+      padding: 5px 10px 14px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        top: 24px;
+        left: 0;
+        height: 20px;
+        background-color: rgb(255, 255, 255);
+      }
+    }
+  }
+  &__burger {
+    display: none;
+    cursor: pointer;
+    @media (max-width: 880px) {
+      display: block;
+    }
+  }
+
   &__goods-container,
   &__posts-container {
     position: relative;
@@ -22,15 +98,17 @@
       // flex-direction: column-reverse;
     }
   }
-  &__posts-container {
-    margin-top: 50px;
-    // &::before {
-    //   content: "";
-    //   width: 100%;
-    //   height: 1px;
-    //   background-color: #dee2e6;
-    //   position: absolute;
-    //   top: -20px;
-    // }
+
+  & button {
+    @media (max-width: 880px) {
+      margin-left: auto;
+      margin-right: 20px;
+    }
+    @media (max-width: 550px) {
+      font-size: 12px;
+    }
+    @media (max-width: 420px) {
+      margin: 10px 0;
+    }
   }
 }

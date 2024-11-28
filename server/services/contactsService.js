@@ -13,10 +13,20 @@ class ContactsService {
   }
 
   // get
-
   async getContacts() {
     const allContacts = await ContactsSchema.find();
     return allContacts;
+  }
+
+  // delete
+  async removeContact(id) {
+    // console.log(id);
+
+    if (!id) {
+      throw new Error("Such contact does not exist");
+    }
+    const contact = await ContactsSchema.findByIdAndDelete(id);
+    return contact;
   }
 }
 

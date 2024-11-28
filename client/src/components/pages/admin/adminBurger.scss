@@ -1,0 +1,72 @@
+@import "../../../style/variables.scss";
+
+.admin-burger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.79);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  //   opacity: 0;
+  //   visibility: hidden;
+  &.active {
+    transform: translateX(0);
+    // opacity: 1;
+    // visibility: visible;
+  }
+  &__close {
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    top: 50%;
+    left: 80%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: 0.5s;
+    &:hover {
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: $clr-yellow-main;
+    width: 30%;
+    min-width: 200px;
+    height: 100vh;
+    padding: 50px;
+
+    & a {
+      color: $clr-text-white;
+      text-decoration: none;
+      text-transform: uppercase;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: $clr-text-white;
+        bottom: 0;
+        transition: width 0.3s;
+      }
+      &:hover::before {
+        width: 100%;
+      }
+    }
+
+    & .active {
+      color: $clr-maeked-text-brown;
+      text-decoration: none;
+      position: relative;
+      &::before {
+        content: none;
+      }
+    }
+  }
+}
