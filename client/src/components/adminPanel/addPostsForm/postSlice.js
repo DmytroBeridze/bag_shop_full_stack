@@ -3,7 +3,6 @@ import useHttp from "../../../hooks/http.hooks";
 
 const initialState = {
   posts: [],
-  // filteredPosts: [],
   onePost: {},
   postStatus: null,
   isloading: false,
@@ -86,7 +85,6 @@ const postsSlice = createSlice({
       .addCase(addPosts.fulfilled, (state, action) => {
         return {
           ...state,
-          //   posts: [...state.posts, action.payload.post],
           isLoading: false,
           postStatus: action.payload.message,
         };
@@ -116,13 +114,6 @@ const postsSlice = createSlice({
           const dateB = new Date(b.createdAt);
           return dateB - dateA;
         });
-
-        // return {
-        //   ...state,
-        //   posts: action.payload,
-        //   isloading: false,
-        //   postStatus: null,
-        // };
       })
       .addCase(getAllPosts.rejected, (state, action) => {
         return {
@@ -167,7 +158,6 @@ const postsSlice = createSlice({
         return {
           ...state,
           isloading: false,
-          // posts: action.payload.post,
           postStatus: action.payload.message,
         };
       })
@@ -192,14 +182,6 @@ const postsSlice = createSlice({
         state.isloading = false;
         state.postStatus = action.payload.message;
         state.posts[index] = action.payload.updatedPost;
-
-        // !---можна робити і так, але буде смикатись при перерендингу таблиця з постами
-        // return {
-        //   ...state,
-        //   isloading: false,
-        //   posts: action.payload.updatedPost,
-        //   postStatus: action.payload.message,
-        // };
       })
       .addCase(editPost.rejected, (state, action) => {
         return {
@@ -212,5 +194,4 @@ const postsSlice = createSlice({
 });
 
 const { actions, reducer } = postsSlice;
-// export const { } = actions;
 export default reducer;

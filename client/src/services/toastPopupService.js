@@ -12,7 +12,6 @@ const toastPopupService = (status, close) => {
           position: "bottom-right",
           onClose: () => {
             close && close(false);
-            // console.log("Close");
           },
         });
       case "You are logged in":
@@ -25,7 +24,6 @@ const toastPopupService = (status, close) => {
           position: "bottom-right",
           onClose: () => {
             close && close(false);
-            // console.log("Close");
           },
         });
       default:

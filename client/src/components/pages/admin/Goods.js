@@ -1,4 +1,3 @@
-import React from "react";
 import DisplayGoods from "../../adminPanel/displayGoods/DisplayGoods";
 import AddGoodsForm from "../../adminPanel/addGoodsForm/AddGoodsForm";
 

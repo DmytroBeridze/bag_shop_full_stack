@@ -6,7 +6,6 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import FloatingLabel from "react-bootstrap/esm/FloatingLabel";
 
-import { editGoods } from "../../pages/admin/adminSlice";
 import useHttp from "../../../hooks/http.hooks";
 import { AdminContext } from "../adminContext";
 import { useDispatch } from "react-redux";
@@ -18,7 +17,6 @@ const EditPost = () => {
   const targetId = useContext(AdminContext);
   const [validated, setValidated] = useState(false);
 
-  // const [id, setId] = useState(targetId);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -27,7 +25,6 @@ const EditPost = () => {
 
   // deleted images
   const [deletedPicture, setDeletedPicture] = useState([]);
-  // const [notDeletedPicture, setNotDeletedPicture] = useState([]);
 
   const dispatch = useDispatch();
   const photoInput = useRef(null);
@@ -67,6 +64,7 @@ const EditPost = () => {
       newPicture
         ? newPicture.map((elem) => formData.append("newPicture", elem))
         : formData.append("newPicture", null);
+
       // append not deleted pictures
       formData.append("notDeletedPicture", JSON.stringify(noDelete()));
 
@@ -177,7 +175,6 @@ const EditPost = () => {
               placeholder="Photo"
               onChange={(e) => {
                 const imgArr = Object.values(e.target.files);
-                // setPicture(imgArr);
                 setNewPicture(imgArr);
               }}
             />

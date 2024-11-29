@@ -24,21 +24,6 @@ const AdminLogin = () => {
 
   const { token, status } = useSelector((state) => state.authReducer);
 
-  // popup style
-  // let toastPopup = null;
-  // switch (status) {
-  //   case "Wrong password":
-  //   case "User does not exist":
-  //     toastPopup = () => toast.error(status, { position: "bottom-right" });
-  //     break;
-  //   case "You are logged in":
-  //     toastPopup = () => toast.success(status, { position: "bottom-right" });
-  //     break;
-  //   default:
-  //     toastPopup = () => toast.info(status, { position: "bottom-right" });
-  //     break;
-  // }
-
   useEffect(() => {
     if (status) {
       toastPopupService(status);
@@ -78,7 +63,6 @@ const AdminLogin = () => {
             required
             placeholder="Name"
             value={name}
-            // defaultValue="Mark"
             onChange={(e) => setName(e.target.value)}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -106,25 +90,6 @@ const AdminLogin = () => {
 
       <Button type="submit">Submit form</Button>
     </Form>
-
-    // <Form>
-    //   <Form.Group className="mb-3" controlId="formBasicEmail">
-    //     <Form.Label>User name</Form.Label>
-    //     <Form.Control type="text" placeholder="Name" />
-    //     <Form.Text className="text-muted">
-    //       We'll never share your email with anyone else.
-    //     </Form.Text>
-    //   </Form.Group>
-
-    //   <Form.Group className="mb-3" controlId="formBasicPassword">
-    //     <Form.Label>Password</Form.Label>
-    //     <Form.Control type="password" placeholder="Password" />
-    //   </Form.Group>
-
-    //   <Button variant="primary" type="submit">
-    //     Submit
-    //   </Button>
-    // </Form>
   );
 };
 

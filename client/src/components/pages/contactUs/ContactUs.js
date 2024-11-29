@@ -1,7 +1,6 @@
 import "./contactUs.scss";
 
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { memo, useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import toastPopupService from "../../../services/toastPopupService";
 
@@ -29,42 +28,23 @@ const ContactUs = () => {
   const [active, setActive] = useState(false);
   const { isloading, contactStatus } = useSelector((state) => state.contacts);
 
-  // const notify = () => {
-  //   console.log(contactStatus);
-  //   if (!contactStatus) return;
-  //   if (contactStatus === "Sending successfull.") {
-  //     toast.success(contactStatus, {
-  //       position: "bottom-right",
-  //     });
-  //   } else
-  //     toast.error(contactStatus, {
-  //       position: "bottom-right",
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   toastPopupService(contactStatus);
-  // }, [contactStatus]);
-
   useEffect(() => {
     if (contactStatus && !isNotified) {
       toastPopupService(contactStatus, setActive);
     }
   }, [contactStatus, isNotified]);
 
-  // validation
+  // --------------validation
   const nameLengthValidation = name && name.length <= 2 ? true : false;
   const phoneLengthValidation =
     phone && phone.length > 4 && phone.length < 13 ? true : false;
 
   const phoneCheck = (e) => {
-    const input = e.target.value.replace(/[^0-9]/g, ""); // Оставляем только цифры
+    const input = e.target.value.replace(/[^0-9]/g, "");
     if (input.length > 0) {
-      // Если вводится хотя бы одна цифра
-
-      setPhone(`+${input}`); // Устанавливаем + с введёнными цифрами
+      setPhone(`+${input}`);
     } else {
-      setPhone("+380"); // Если ничего не введено, возвращаем только +380
+      setPhone("+380");
     }
 
     if (input.length > 12) {
@@ -108,7 +88,7 @@ const ContactUs = () => {
 
   return (
     <div className="contact">
-      {/* <ToastContainer /> */}
+      {/*------------ <ToastContainer /> */}
 
       <div className="main-container">
         <h1 className="contact__title">Contact us</h1>

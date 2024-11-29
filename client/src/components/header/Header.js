@@ -1,34 +1,26 @@
 import "./header.scss";
+
 import logo from "../../resources/img/header/logo.png";
 import basket from "../../resources/icons/header/basket.png";
 import { IoIosArrowDown } from "react-icons/io";
 import { BiMenu } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
 
+import { useSelector } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+
 import BurgerMenu from "../burgerMenu/BurgerMenu";
 import BlogNavbarDropdown from "../blogPage/BlogNavbarDropdown";
 import CatalogDropdown from "../catalogPage/CatalogDropdown";
 import SaleNavbarDropdown from "../salePage/SaleNavbarDropdown";
 
-import { useSelector } from "react-redux";
-
-import {
-  scrollbarHide,
-  scrollbarShow,
-} from "../../features/scrollbarToggle/scrollBarToggle";
-
 const Header = () => {
-  // const [basketCount, setBasketCount] = useState(0);
-
   const [dropdown, setDropdown] = useState(null);
   const [modalToggle, setModalToggle] = useState(false);
 
-  const location = useLocation();
   const navigate = useNavigate();
 
   const { productsQuantity } = useSelector(
@@ -41,14 +33,10 @@ const Header = () => {
 
   const popupMenueHendler = () => {
     setModalToggle((modalToggle) => !modalToggle);
-    // !modalToggle
-    //   ? (document.body.style.position = "fixed")
-    //   : (document.body.style.position = "static");
 
     !modalToggle
       ? (document.body.style.overflow = "hidden")
       : (document.body.style.overflow = "visible");
-    // !modalToggle ? scrollbarShow() : scrollbarHide();
   };
 
   const headerRef = useRef(null);
@@ -68,7 +56,6 @@ const Header = () => {
   }, []);
 
   return (
-    // !location.pathname.includes("admin") && (
     <div className="header-wrapper">
       <div
         className="header"
@@ -162,8 +149,6 @@ const Header = () => {
                 >
                   <NavLink
                     to="/sale/backpacks"
-                    // to="/sale/:mainType"
-                    // to="/sale"
                     className="d-flex gap-1 align-items-center"
                     style={({ isActive }) => ({
                       color: isActive ? "#bb7311" : "#ffffff",
@@ -260,7 +245,6 @@ const Header = () => {
         popupMenueHendler={popupMenueHendler}
       />
     </div>
-    // )
   );
 };
 

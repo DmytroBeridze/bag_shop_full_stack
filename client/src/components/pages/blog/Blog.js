@@ -1,4 +1,5 @@
 import "./blog.scss";
+
 import imgPlaceholder from "../../../resources/img/blog/blog-img-placeholder.jpg";
 
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -7,22 +8,23 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Moment from "react-moment";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
+import { fetchAllGoods } from "../../gallery/gallerySlice";
+
 import Button from "../../buttons/Buttons";
 import pageUp from "../../../features/PageUp";
 import Preloader from "../../preloader/Preloader";
-import CustomScrollToTop from "../../../features/CustomScrollToTop";
 import RecentPost from "../../blogPage/RecentPost";
 import Sort from "../../blogPage/Sort";
 import PromoProducts from "../../promoProducts/PromoProducts";
 import GalleryNavigation from "../../galleryNavigation/GalleryNavigation";
-import { fetchAllGoods } from "../../gallery/gallerySlice";
+import CustomScrollToTop from "../../../features/CustomScrollToTop";
 
 const Blog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const postRef = useRef([]);
 
-  // post
+  // -----post
   const { posts, isloading, postStatus } = useSelector(
     (state) => state.postsReducer
   );
@@ -49,7 +51,7 @@ const Blog = () => {
   const sortedArray = sortedByDateArr.slice(firstIndex, lastIndex);
   const displayBtns = sortedArray.length < posts.length ? true : false;
 
-  // ---------next page
+  // ----next page
   const nextPage = () => {
     if (lastIndex < posts.length) {
       setTransition(true);
@@ -64,7 +66,7 @@ const Blog = () => {
     }
   };
 
-  // ---------prev page
+  // -----prev page
   const prevPage = () => {
     if (firstIndex > 0) {
       setTransition(true);
@@ -98,25 +100,6 @@ const Blog = () => {
     setPromoPerPage(res.length);
   }, [step, lastIndex, posts]);
 
-  // ! ---Моє рішення
-  // const nextPage = () => {
-
-  //   if (firstIndex < posts.length - step) {
-  //     setStringNbr((stringNbr) => stringNbr + 1);
-
-  //     setFirstIndex(lastIndex);
-  //     setLastIndex((lastIndex) => lastIndex + step);
-  //   }
-  // };
-  // const prevPage = () => {
-  //   if (firstIndex >= step) {
-  //     setStringNbr((stringNbr) => stringNbr - 1);
-
-  //     setFirstIndex(lastIndex - step * 2);
-  //     setLastIndex((lastIndex) => lastIndex - step);
-  //   }
-  // };
-
   useEffect(() => {
     setFirstIndex(0);
     setLastIndex(step);
@@ -133,7 +116,6 @@ const Blog = () => {
   }, [firstIndex, lastIndex]);
 
   if (isloading || posts.length === 0) {
-    // if (isloading || posts.length === 0 || currentIndex < 0) {
     return (
       <div style={{ paddingTop: "150px", height: "100vh" }}>
         <Preloader />
@@ -214,25 +196,6 @@ const Blog = () => {
               prevPage={prevPage}
               nextPage={nextPage}
             />
-            // <div className="blog__nav">
-            //   <Button
-            //     className="grey-stroke__black-hover"
-            //     label="prev"
-            //     disabled={firstIndex === 0}
-            //     onclick={() => prevPage()}
-            //   />
-
-            //   <div style={{ color: "#9fa3a7" }}>{`${stringNbr}/${Math.ceil(
-            //     posts.length / step
-            //   )}`}</div>
-
-            //   <Button
-            //     className="grey-stroke__black-hover"
-            //     label="next"
-            //     disabled={lastIndex === posts.length}
-            //     onclick={() => nextPage()}
-            //   />
-            // </div>
           )}
         </main>
       </div>
@@ -263,11 +226,6 @@ const View = ({
       ref={(elem) => {
         postRef.current[i] = elem;
       }}
-      // ref={(elem) => {
-      //   if (elem) {
-      //     postRef.current[i] = elem;
-      //   }
-      // }}
     >
       <header className="post__header">
         <div
@@ -284,7 +242,6 @@ const View = ({
       <section className="post__body">
         <NavLink to={`/blog/${id}`}>
           <h2>{truncateText(name)}</h2>
-          {/* <h2>{name.length >= 200 ? name.slice(0, 200) + "..." : name}</h2> */}
         </NavLink>
         <p className="post__text">{desc}</p>
       </section>

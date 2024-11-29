@@ -9,7 +9,6 @@ class GoodsService {
         ? picture
         : [picture]
       : null;
-    // const modifiedPicture = Array.isArray(picture) ? picture : [picture];
     const { name } = goods;
     const isUsed = await GoodsSchema.findOne({ name });
     if (isUsed) {
@@ -17,7 +16,6 @@ class GoodsService {
     }
 
     const fileName = fileService.saveFile(modifiedPicture);
-    // const fileName = fileService.saveFile(picture);
     const createdGoods = await GoodsSchema.create({
       ...goods,
       picture: fileName,
@@ -28,7 +26,6 @@ class GoodsService {
 
   //get
   async getAllGoods() {
-    // throw new Error("Test error");
     const allGoods = await GoodsSchema.find();
     return allGoods;
   }
@@ -60,7 +57,6 @@ class GoodsService {
 
     const updatedGoods = await GoodsSchema.findByIdAndUpdate(element._id, {
       ...element,
-      // newPicture: fileName,
       picture: [...fileName, ...notDeleted],
 
       new: true,
@@ -77,18 +73,6 @@ class GoodsService {
     const element = await GoodsSchema.findByIdAndDelete(id);
     return element;
   }
-  // export const deleteGoods = async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     if (!id) {
-  //       res.status(400).json({ message: "Id not found" });
-  //     }
-  //     const element = await GoodsSchema.findByIdAndDelete(id);
-  //     return res.json(element);
-  //   } catch (error) {
-  //     res.status(500).json(error);
-  //   }
-  // };
 }
 
 export default new GoodsService();

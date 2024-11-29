@@ -1,16 +1,16 @@
 import "./catalogElement.scss";
 
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+
 import ModalPopup from "../../modal/Modal";
 import AddedToCart from "../../addedToCart/AddedToCart";
 import setToLocalStorage from "../../../features/setToLocalStorage";
 import Preloader from "../../preloader/Preloader";
 import OrderForm from "./OrderForm";
 import CatalogSlider from "./CatalogSlider";
-
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
 
 import {
   clearOneProductState,
@@ -34,12 +34,10 @@ const CatalogElement = () => {
     dispatch(productCartOpen(valueCounter));
 
     setToLocalStorage("goods", data);
-    // setToLocalStorage("goods", oneProduct._id, valueCounter);
   };
 
   const productCartClose = () => {
     dispatch(productCartOpen(null));
-    // dispatch(productCartOpenFromGalleryCard(null));
   };
 
   useEffect(() => {
@@ -51,9 +49,6 @@ const CatalogElement = () => {
     dispatch(getAllPosts());
     pageUp();
   }, []);
-
-  // обнулення clearOneProductState в gallerySlice, щоб на секунду
-  //  не показувалася минула карточка при відкритті CatalogElement
 
   useEffect(() => {
     window.addEventListener("beforeunload", dispatch(clearOneProductState()));
@@ -90,32 +85,7 @@ const CatalogElement = () => {
   }
 
   if (oneProduct) {
-    const {
-      picture,
-      name,
-      description,
-      type,
-      new: newest,
-      parameters,
-      sale,
-      _id,
-    } = oneProduct;
-
-    // if (oneProductisloading) {
-    //   return (
-    //     <div style={{ paddingTop: "150px", width: "1000px" }}>
-    //       <Preloader />
-    //     </div>
-    //   );
-    // } else if (oneProductStatus) {
-    //   return (
-    //     <div style={{ paddingTop: "150px" }}>
-    //       <h5 className="text-center mt-5 mb-5 text-danger">
-    //         Loading error...
-    //       </h5>
-    //     </div>
-    //   );
-    // }
+    const { picture, name, description, sale } = oneProduct;
 
     return (
       <section className="catalogElement">
@@ -140,7 +110,6 @@ const CatalogElement = () => {
             <div className="catalogElement__description ">
               <h4>Welcome to the world of fashion.</h4>
               <ReactMarkdown>{description}</ReactMarkdown>
-              {/* <p>{description}</p> */}
             </div>
           </div>
         </div>

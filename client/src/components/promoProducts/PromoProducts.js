@@ -1,15 +1,14 @@
 import "./promoProducts.scss";
+
 import noImage from "../../resources/icons/no-image.png";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../buttons/Buttons";
-import { memo, useEffect } from "react";
-import { fetchAllGoods } from "../gallery/gallerySlice";
+import { memo } from "react";
 import Preloader from "../preloader/Preloader";
 
 const PromoProducts = memo(({ elemQuantity = 1 }) => {
-  const dispatch = useDispatch();
   const { goods, isloading, status } = useSelector(
     (state) => state.galleryReducer
   );
@@ -30,38 +29,6 @@ const PromoProducts = memo(({ elemQuantity = 1 }) => {
       ? elemQuantity
       : promoProducts.length - 1;
   const shufftedProducts = shufftingPromoProducts(promoProducts, quantity);
-
-  // !----------відключив бо в CatalogGalery був постійний ререндер
-  // !----------підключив  dispatch(fetchAllGoods()) в Gallery при загрузці сторінки
-  // useEffect(() => {
-  //   dispatch(fetchAllGoods());
-  // }, [dispatch]);
-
-  // !------simple solution
-  // const promoProducts = goods.filter((elem) => JSON.parse(elem.promo));
-  // promoProducts.sort(() => Math.random() - 0.5);
-  // const sortPromoProducts = promoProducts.slice(0, +elemQuantity);
-
-  //   !--------recursion solution
-  //   const promoProducts = goods.filter((elem) => JSON.parse(elem.promo));
-  //   const sortingPromoProducts = (arr) => {
-  //     if (arr.length > 2) {
-  //       const random1 = arr[Math.floor(Math.random() * arr.length)];
-  //       const random2 = arr[Math.floor(Math.random() * arr.length)];
-  //       const random3 = arr[Math.floor(Math.random() * arr.length)];
-
-  //       if (
-  //         random1._id !== random2._id &&
-  //         random2._id !== random3._id &&
-  //         random1._id !== random2._id
-  //       ) {
-  //         return [random1, random2, random3];
-  //       }
-  //       return sortingPromoProducts(arr);
-  //     }
-  //   };
-
-  //   console.log(sortingPromoProducts(promoProducts));
 
   if (isloading) {
     return (
@@ -100,7 +67,6 @@ const View = ({ id, name, description, parameters, picture }) => {
       </div>
       <div className="promoProducts__information">
         <h4 className="promoProducts__name">{name}</h4>
-        {/* <div className="promoProducts__type">handbags</div> */}
         <p className="promoProducts__description">{description}</p>
         <div className="promoProducts__price">
           <span>Price:</span>

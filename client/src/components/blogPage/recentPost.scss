@@ -41,7 +41,6 @@
   &__content {
     flex-basis: 60%;
     max-width: 300px;
-    // border: 1px solid red;
     @media (max-width: 740px) {
       flex-basis: auto;
     }
@@ -64,13 +63,12 @@
       line-height: 20px;
       color: $clr-text-black;
 
-      // @media (max-width: 1000px) {
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      // }
+
       @media (max-width: 400px) {
         -webkit-line-clamp: 2;
       }

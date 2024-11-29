@@ -1,6 +1,5 @@
 import ScrollToTop from "react-scroll-to-top";
 import ArrowTop from "../resources/icons/up-arrow.png";
-// import ArrowTop from "../../../resources/icons/up-arrow.png";
 
 const CustomScrollToTop = () => {
   return (

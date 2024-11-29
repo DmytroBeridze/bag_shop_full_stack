@@ -41,10 +41,8 @@ export const contactSlice = createSlice({
       .addCase(sendContacts.rejected, (state, action) => {
         state.isloading = false;
         state.contactStatus = action.payload?.message || action.error.message;
-        // state.contactStatus = action.error.message;
       });
   },
 });
-const { actions, reducer } = contactSlice;
-// export const { } = actions;
+const { reducer } = contactSlice;
 export default reducer;

@@ -4,35 +4,22 @@ import new_arrivals_slide_2 from "../../../resources/img/home/slide2_1170x662_cr
 import new_arrivals_slide_3 from "../../../resources/img/home/slide3_1170x662_crop_center.webp";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  EffectFade,
-  Navigation,
-  Pagination,
-  Scrollbar,
-  Autoplay,
-} from "swiper/modules";
+import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../../buttons/Buttons";
-import { useState } from "react";
 
 const NewArrivals = () => {
   const navigate = useNavigate();
-  // const [navigate, setNavigate] = useState(false);
-
-  // const navigateToNewArrivals = () => {
-  //   setNavigate((navigate) => !navigate);
-  // };
 
   return (
     <section className="new-arrivals">
       <div className="main-container">
-        {/* <div className="new-arrivals__content"> */}
         <div className="d-flex justify-content-center align-items-center gap-3 h-100">
           <div className="new-arrivals__description w-50">
             <h4 className="new-arrivals__subtitle">EVERLANE MODERN BACKPACK</h4>
@@ -43,23 +30,11 @@ const NewArrivals = () => {
               other gear you need on your back.
             </p>
 
-            {/* <Link to="/newGoods" replace={true}> */}
             <Button
               label={"Shop now"}
               className={"main-white"}
               onclick={() => navigate("/newGoods/backpacks")}
             />
-            {/* </Link> */}
-
-            {/* <Link to="/newGoods" replace={true}>
-              <Button
-                label={"Shop now"}
-                className={"main-white"}
-                onclick={navigateToNewArrivals}
-              />
-            </Link> */}
-
-            {/* {navigate && <Navigate to="/newArrivals" replace={true} />} */}
           </div>
           <div className="new-arrivals__slider-container">
             <Swiper
@@ -70,10 +45,6 @@ const NewArrivals = () => {
               pagination={{
                 clickable: true,
               }}
-              // autoplay={{
-              //   delay: 2500,
-              //   disableOnInteraction: false,
-              // }}
               modules={[EffectFade, Navigation, Pagination, Autoplay]}
             >
               <SwiperSlide className="new-arrivals__slide">

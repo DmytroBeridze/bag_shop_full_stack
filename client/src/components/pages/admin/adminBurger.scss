@@ -10,12 +10,9 @@
   background-color: rgba(0, 0, 0, 0.79);
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-  //   opacity: 0;
-  //   visibility: hidden;
+
   &.active {
     transform: translateX(0);
-    // opacity: 1;
-    // visibility: visible;
   }
   &__close {
     position: absolute;

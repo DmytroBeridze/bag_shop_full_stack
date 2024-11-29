@@ -20,16 +20,6 @@ export const loginFetch = createAsyncThunk("auth/loginFetch", async (value) => {
   return data;
 });
 
-// !non-serializeble
-// export const loginFetch = createAsyncThunk("auth/adminLogin", async (data) => {
-//   const { adminRequest } = useHttp();
-//   return await adminRequest(
-//     "http://localhost:3002/api/auth/admin/login",
-//     "post",
-//     data
-//   );
-// });
-
 // getMe
 export const getMe = createAsyncThunk("auth/getMe", async () => {
   const { adminRequest } = useHttp();
@@ -74,18 +64,7 @@ const authSlice = createSlice({
           name: action.payload.user?.name,
         };
       })
-      // !non-serializeble
-      // .addCase(loginFetch.fulfilled, (state, action) => {
-      //   const { data } = action.payload;
-      //   console.log(data.user.name);
-      //   return {
-      //     ...state,
-      //     isLoading: "false",
-      //     token: data.token,
-      //     status: data.message,
-      //     name: data.user.name,
-      //   };
-      // })
+
       .addCase(loginFetch.rejected, (state, action) => {
         return {
           ...state,
@@ -124,7 +103,7 @@ const authSlice = createSlice({
 
 const { actions, reducer } = authSlice;
 
-//перевірка токену при перезавантаженні
+//token verification on reboot
 export const checkIsAuth = (state) => Boolean(state.authReducer.token);
 
 export const { logout } = actions;

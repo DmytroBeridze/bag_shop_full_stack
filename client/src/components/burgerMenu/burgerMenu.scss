@@ -9,7 +9,6 @@
     background-color: rgba(0, 0, 0, 0.629);
     height: 100vh;
     position: fixed;
-    // position: absolute !important;
     top: 0;
     width: 30%;
     right: -120%;
@@ -32,14 +31,12 @@
     background-color: $clr-text-white;
     height: 100vh !important;
     position: fixed !important;
-    // position: absolute !important;
     top: 0;
     width: 70% !important;
     left: -120%;
     padding: 30px !important;
     z-index: 999;
     transition: all 1s;
-    // overflow-y: auto;
 
     &.show {
       left: 0;
@@ -55,17 +52,14 @@
         opacity: 1;
       }
       &.open-catalog {
-        // height: min-content;
         height: 250px;
         opacity: 1;
       }
       &.open-blog {
-        // height: min-content;
         height: 320px;
         opacity: 1;
       }
       &.open-sale {
-        // height: min-content;
         opacity: 1;
         height: 850px;
         @media (max-width: 500px) {

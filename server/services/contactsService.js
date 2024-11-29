@@ -20,8 +20,6 @@ class ContactsService {
 
   // delete
   async removeContact(id) {
-    // console.log(id);
-
     if (!id) {
       throw new Error("Such contact does not exist");
     }

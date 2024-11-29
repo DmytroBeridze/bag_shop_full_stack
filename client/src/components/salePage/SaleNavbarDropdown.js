@@ -1,4 +1,5 @@
 import "./SaleNavbarDropdown.scss";
+
 import imgPlaceholder from "../../resources/img/blog/blog-img-placeholder.jpg";
 
 import { memo } from "react";
@@ -37,7 +38,6 @@ const SaleNavbarDropdown = memo(({ setDropdown }) => {
 
                   <div className="saleNavbarDropdown__content-container">
                     <div className="saleNavbarDropdown__content">
-                      {/* <div className="d-flex align-items-center justify-content-between mt-3 gap-2 "> */}
                       <Link
                         to={`/catalog/${_id}`}
                         onClick={() => setDropdown && setDropdown(false)}

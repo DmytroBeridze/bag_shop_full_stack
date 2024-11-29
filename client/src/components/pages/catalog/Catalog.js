@@ -3,9 +3,10 @@ import "./catalog.scss";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import pageUp from "../../../features/PageUp";
 import { fetchAllGoods } from "../../gallery/gallerySlice";
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
+
+import pageUp from "../../../features/PageUp";
 import Collections from "../../catalogPage/Collections";
 
 const Catalog = () => {

@@ -18,9 +18,6 @@ import CustomScrollToTop from "../../../features/CustomScrollToTop";
 
 const Home = () => {
   const dispatch = useDispatch();
-  // ----posts
-  // const posts = useSelector((state) => state.postsReducer.posts);
-  // const post = useSelector((state) => state.postsReducer.onePost);
 
   // ---memoised goods
   const unsafeSelector = createSelector(
@@ -32,28 +29,12 @@ const Home = () => {
   );
   const filteredGoods = useSelector(unsafeSelector).slice(0, 7);
 
-  // const filteredGoodsToPage =
-  //   location.pathname === "/" ? filteredGoods.slice(0, 7) : filteredGoods;
-  // console.log(filteredGoodsToPage);
-
-  // const latestPost = posts.reduce((acc, curr) => {
-  //   return Date.parse(acc.createdAt) > Date.parse(curr.createdAt) ? acc : curr;
-  // }, 0);
-
   useEffect(() => {
     dispatch(fetchAllGoods());
     dispatch(getAllPosts());
 
     pageUp();
   }, []);
-
-  // const pageUp = () => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     left: 0,
-  //     behavior: "smooth",
-  //   });
-  // };
 
   return (
     <div className="home">

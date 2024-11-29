@@ -1,9 +1,10 @@
 import "./post.scss";
+
 import imgPlaceholder from "../../../resources/img/blog/blog-img-placeholder.jpg";
 
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 
@@ -50,7 +51,6 @@ const Post = () => {
 
   useEffect(() => {
     updateHeight();
-    // setPostHeight(ref.current && ref.current.getBoundingClientRect().height);
   }, [currentIndex]);
 
   if (isloading || posts.length === 0 || currentIndex < 0) {
@@ -68,15 +68,11 @@ const Post = () => {
     );
   }
 
-  // if (posts.length !== 0 && currentIndex >= 0) {
-
   const remainingPosts = posts.filter((elem) => elem._id !== id);
   const recentPosts =
     remainingPosts.length > 3
       ? remainingPosts.slice(0, 3)
       : remainingPosts.slice(0, remainingPosts.length);
-
-  // const recentPosts = posts.filter((elem) => elem._id !== id).slice(0, 3);
 
   const currentPost = posts[currentIndex];
   const { name, description, createdAt, picture } = currentPost;
@@ -108,7 +104,7 @@ const Post = () => {
 
           {/* ---recent posts */}
           <RecentPost recentPosts={recentPosts} />
-          {/* promo products */}
+          {/*---- promo products */}
           <PromoProducts elemQuantity={postHeight > 1600 ? 2 : 1} />
         </aside>
 
@@ -135,12 +131,9 @@ const Post = () => {
               <div className="post-page__text">
                 <ReactMarkdown>{desc}</ReactMarkdown>
               </div>
-              {/* <p className="post-page__text">{desc}</p> */}
             </section>
           </article>
           <nav className="post-page__nav">
-            {/* <button className="post-page__arrow-btn">-</button> */}
-
             <Button
               label="preview post"
               className="main-yellow"
@@ -158,13 +151,11 @@ const Post = () => {
               onclick={() => goToPost(+1)}
               disabled={currentIndex === posts.length - 1}
             />
-            {/* <button className="post-page__arrow-btn">+</button> */}
           </nav>
         </main>
       </div>
     </div>
   );
-  // }
 };
 
 export default Post;

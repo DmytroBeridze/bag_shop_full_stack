@@ -8,7 +8,7 @@ import { deleteOrder, getAllOrders } from "./DisplayUserOrdersSlice";
 
 const DisplayUserOrders = () => {
   const dispatch = useDispatch();
-  const { orders, isLoading, orderStatus } = useSelector(
+  const { orders, orderStatus } = useSelector(
     (state) => state.userOrderReducer
   );
 
@@ -19,10 +19,6 @@ const DisplayUserOrders = () => {
   useEffect(() => {
     dispatch(getAllOrders());
   }, [dispatch, orderStatus]);
-
-  // useEffect(() => {
-  //   dispatch(getAllOrders());
-  // }, []);
 
   return (
     <div>

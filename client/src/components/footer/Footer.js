@@ -3,8 +3,6 @@ import "./footer.scss";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
-  // const location = useLocation();
-
   const information = [
     { label: "home", link: "/" },
     { label: "catalog", link: "/catalog" },
@@ -83,9 +81,6 @@ const Footer = () => {
         </nav>
       </div>
     </footer>
-    /**
-    !location.pathname.includes("admin") && <div className="footer">footer</div>
-    */
   );
 };
 

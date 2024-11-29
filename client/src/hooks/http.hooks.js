@@ -6,7 +6,6 @@ const useHttp = () => {
     method = "get",
     body = null,
     headers = {
-      // "Content-type": "multipart/form-data",
       "Content-Type": "application/json",
       Authorization: `Bearer ${window.localStorage.getItem("token")}`,
     }
@@ -29,48 +28,8 @@ const useHttp = () => {
       if (error.response && error.response.data) {
         throw new Error(error.response.data.message || error.message);
       } else throw new Error(error.message);
-
-      // throw error;
     }
   };
   return { adminRequest };
 };
 export default useHttp;
-
-// !-------старий код.Не приходила кастомна помилка з бекенду
-
-// import axios from "axios";
-
-// const useHttp = () => {
-//   const adminRequest = async (
-//     url,
-//     method = "get",
-//     body = null,
-//     headers = {
-//       // "Content-type": "multipart/form-data",
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-//     }
-//   ) => {
-//     try {
-//       const adminResponse = await axios({
-//         method,
-//         url,
-//         data: body,
-//         headers,
-//       });
-
-//       if (adminResponse.status > 200) {
-//         // if (!adminResponse.status > 200) {
-//         throw new Error(
-//           `Could not fetch ${url}, status: ${adminResponse.status}`
-//         );
-//       }
-//       return adminResponse;
-//     } catch (error) {
-//       throw error;
-//     }
-//   };
-//   return { adminRequest };
-// };
-// export default useHttp;

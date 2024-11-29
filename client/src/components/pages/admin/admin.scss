@@ -1,6 +1,5 @@
 @import "../../../style/variables.scss";
 .admin {
-  // background-color: #ffc80a;
   width: 100%;
   min-height: 100vh;
   position: relative;
@@ -16,8 +15,6 @@
   }
   & h2 {
     @media (max-width: 550px) {
-      // flex-direction: column;
-      // justify-content: st;
       font-size: 20px;
     }
   }
@@ -32,8 +29,6 @@
     }
     & h1 {
       @media (max-width: 550px) {
-        // flex-direction: column;
-        // justify-content: st;
         font-size: 22px;
       }
     }
@@ -95,7 +90,6 @@
 
     @media (max-width: 1000px) {
       flex-direction: column;
-      // flex-direction: column-reverse;
     }
   }
 

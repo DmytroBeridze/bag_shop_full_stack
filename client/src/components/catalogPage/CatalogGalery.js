@@ -1,6 +1,6 @@
 import "./catalogGalery.scss";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
@@ -21,13 +21,6 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const galeryRef = useRef(null);
-  // const sortRef = useRef(null);
-
-  // console.log(sortRef.current);
-
-  // const { goods, isloading, status } = useSelector(
-  //   (state) => state.galleryReducer
-  // );
 
   const [description, setDescription] = useState();
   const [collectionsName, setCollectionsName] = useState(false);
@@ -44,8 +37,6 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
   const [firstIndex, setFirstIndex] = useState(0);
   const [lastIndex, setLastIndex] = useState(quantity);
   const [stringNbr, setStringNbr] = useState(1);
-  // const [sortedArray, setSortedArray] = useState([]);
-  // const [distanceFromTop, setDistanceFromTop] = useState(0);
 
   const sortedArray = useMemo(() => {
     return products && products.slice(firstIndex, lastIndex);
@@ -55,28 +46,6 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
 
   // --sort
   const sortedProductsArr = sort(goods, sortAttr, sortProducts);
-
-  // const sortedByPriceArr = [...goods].sort((a, b) => {
-  //   // price
-  //   const price1 = JSON.parse(a.parameters).price;
-  //   const price2 = JSON.parse(b.parameters).price;
-  //   // name
-  //   const name1 = a.name.toLowerCase();
-  //   const name2 = b.name.toLowerCase();
-
-  //   switch (sortAttr) {
-  //     case "price":
-  //       return sortProducts === "high" ? price2 - price1 : price1 - price2;
-  //     case "name": {
-  //       if (sortProducts === "a-z") {
-  //         return name1.localeCompare(name2);
-  //       } else if (sortProducts === "z-a") return name2.localeCompare(name1);
-  //     }
-
-  //     default:
-  //       break;
-  //   }
-  // });
 
   const filteredProducts = () => {
     const filteredMainType = sortedProductsArr.filter(
@@ -94,7 +63,6 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
       setQuantity(products.length);
     } else setQuantity(Number(e.target.value));
 
-    // setQuantity(Number(e.target.value));
     setFirstIndex(0);
     setStringNbr(1);
   };
@@ -159,21 +127,9 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
     setLastIndex(quantity);
   }, [quantity, products]);
 
-  // useEffect(() => {
-  //   setSortedArray(products && products.slice(firstIndex, lastIndex));
-  // }, [lastIndex, firstIndex, products]);
-
-  // const sortedArray = useMemo(() => {
-  //   return products && products.slice(firstIndex, lastIndex);
-  // }, [lastIndex, firstIndex, products]);
-
   useEffect(() => {
-    // pageUp();
     dispatch(getAllPosts());
     dispatch(fetchAllGoods());
-    // const { top } = galeryRef.current?.getBoundingClientRect();
-    // const { top = 0 } = galeryRef.current?.getBoundingClientRect() || {};
-    // setDistanceFromTop(top);
   }, [dispatch]);
 
   useEffect(() => {
@@ -230,7 +186,6 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
         </div>
         {/* ----------main */}
         {description && (
-          // {products.length > 0 && description && (
           <div>
             <main
               className={

@@ -23,8 +23,6 @@ const Counter = ({ valueCounter, setValueCounter }) => {
 
   return (
     <div className="order-counter__quantity">
-      {/* <p>Choose quantity:</p> */}
-
       <div className="order-counter__couner">
         <input
           type="text"

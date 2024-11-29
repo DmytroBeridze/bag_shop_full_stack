@@ -1,7 +1,5 @@
 import BlogNavbarDropdown from "../blogPage/BlogNavbarDropdown";
 
-import React from "react";
-
 const BlogSublist = ({ blog, popupMenueHendler, clearMenuState }) => {
   return (
     <div

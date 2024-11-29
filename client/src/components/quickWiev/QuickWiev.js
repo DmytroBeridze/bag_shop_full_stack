@@ -1,8 +1,5 @@
 import "./quickWiev.scss";
 
-import { FaPlus } from "react-icons/fa6";
-import { FiMinus } from "react-icons/fi";
-
 // Import Swiper
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,32 +8,23 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
 import { useState } from "react";
-import useCounter from "../../hooks/counter.hook";
 import setToLocalStorage from "../../features/setToLocalStorage";
-import { useDispatch, useSelector } from "react-redux";
-import { productCartOpen } from "../gallery/gallerySlice";
 import Counter from "../counter/Counter";
 
-// const QuickView = ({ oneProduct, handleClose }) => {
 const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [valueCounter, setValueCounter] = useState(1);
-  const dispatch = useDispatch();
-
-  // const { oneProduct } = useSelector((state) => state.galleryReducer);
 
   // add to local storage
   const addToCart = () => {
     handleClose();
-    // dispatch(productCartOpen(counter));
     productCartOpen(valueCounter);
     setToLocalStorage("goods", { ...oneProduct, counter: valueCounter });
   };
 
   if (oneProduct) {
-    const { name, description, type, parameters, picture } = oneProduct;
-    const { color, height, width, length, weight, price } =
-      JSON.parse(parameters);
+    const { name, type, parameters, picture } = oneProduct;
+    const { color, price } = JSON.parse(parameters);
 
     return (
       oneProduct && (
@@ -84,15 +72,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
                   setValueCounter={setValueCounter}
                   valueCounter={valueCounter}
                 />
-                {/* <div className="quickPreview__couner">
-                  <input type="text" value={counter} readOnly />
-                  <span className="quickPreview__decrement" onClick={decrement}>
-                    <FiMinus />
-                  </span>
-                  <span className="quickPreview__increment" onClick={increment}>
-                    <FaPlus />
-                  </span>
-                </div> */}
+
                 <button
                   className="custom-button main-yellow quickPreview__button"
                   onClick={() => addToCart(valueCounter)}

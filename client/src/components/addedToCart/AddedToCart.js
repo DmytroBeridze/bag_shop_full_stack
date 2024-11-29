@@ -46,8 +46,6 @@ const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
                 className={"main-yellow"}
                 onclick={() => {
                   navigate("/cart");
-                  // dispatch(productCartOpen(null));
-                  // dispatch(productCartOpenFromGalleryCard(null));
                   closeModals();
                 }}
               />

@@ -1,8 +1,6 @@
 @import "../../style/variables.scss";
 
 .saleLabel {
-  //   width: 66px;
-  //   height: 66px;
   padding: 32px;
   background-color: $clr-yellow-main;
   border-radius: 50%;
@@ -23,11 +21,5 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    // @media (max-width: 800px) {
-    //   font-size: 10px;
-    // }
-    // @media (max-width: 450px) {
-    //   font-size: 14px;
-    // }
   }
 }

@@ -6,7 +6,6 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { RxCross2 } from "react-icons/rx";
 
 import {
-  BrowserRouter,
   NavLink,
   Outlet,
   Route,
@@ -18,7 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import toastPopupService from "../../../services/toastPopupService";
 import { checkIsAuth, getMe, logout } from "../../../features/auth/authSlice";
-import { clearStatus, getGoods } from "../../pages/admin/adminSlice";
+import { clearStatus } from "../../pages/admin/adminSlice";
 
 import ImagePopup from "../../adminPanel/imagePopup/ImagePopup";
 import { AdminContext } from "../../adminPanel/adminContext";
@@ -27,18 +26,6 @@ import Goods from "./Goods";
 import UsersContacts from "./UsersContacts";
 import UserOrders from "./UserOrders";
 import AdminBurger from "./AdminBurger";
-
-import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
-import AddGoodsForm from "../../adminPanel/addGoodsForm/AddGoodsForm";
-import DisplayGoods from "../../adminPanel/displayGoods/DisplayGoods";
-import AddPostsForm from "../../adminPanel/addPostsForm/AddPostsForm";
-import DisplayPosts from "../../adminPanel/displayPosts/DisplayPosts";
-import ModalPopup from "../../modal/Modal";
-import { getAllOrders } from "../../adminPanel/displayUserOrders/DisplayUserOrdersSlice";
-import { getUsersContacts } from "../../adminPanel/displayUsersContacts/DisplayUsersSlice";
-
-// import ModalPopup from "../../modal/Modal";
-// import EditeForm from "../../adminPanel/editeForm/EditeForm";
 
 const Admin = () => {
   const token = window.localStorage.getItem("token");
@@ -64,8 +51,6 @@ const Admin = () => {
     setTargetId(id);
   };
 
-  // const [modalShow, setModalShow] = React.useState(false);
-
   const { status } = useSelector((state) => state.adminReducer);
   const { postStatus } = useSelector((state) => state.postsReducer);
   const { orderStatus } = useSelector((state) => state.userOrderReducer);
@@ -80,22 +65,6 @@ const Admin = () => {
       navigate("/admin");
     }
   }, [token, navigate]);
-
-  // useEffect(() => {
-  //   dispatch(getGoods());
-  // }, [dispatch, status]);
-
-  // useEffect(() => {
-  //   dispatch(getAllPosts());
-  // }, [dispatch, postStatus]);
-
-  // useEffect(() => {
-  //   dispatch(getAllOrders());
-  // }, [dispatch, orderStatus]);
-
-  // useEffect(() => {
-  //   dispatch(getUsersContacts());
-  // }, [dispatch, contactsStatus]);
 
   useEffect(() => {
     toastPopupService(status);
@@ -122,13 +91,11 @@ const Admin = () => {
 
   // popup modal
   const imageModal = (e) => {
-    // при першому натисканні без затримки
     if (openCoef) {
       setActiveClass(true);
       setImgSrc(e.src);
       setOpenCoef(false);
     } else {
-      // при не перших натисканнях з затримкою
       setActiveClass(false);
       setTimeout(() => {
         setActiveClass(true);
@@ -154,7 +121,6 @@ const Admin = () => {
     <section className="admin">
       <div className="admin__container">
         <header className="admin__header  bd-highlight  border-bottom  mb-2 mb-lg-5 mb-sm-3">
-          {/* <header className="admin__header mb-2 mb-lg-5 mb-sm-3 d-flex flex-row bd-highlight justify-content-between align-items-center border-bottom "> */}
           <h1>Yellow bag admin panel</h1>
           <ul className="admin__nav">
             <li>

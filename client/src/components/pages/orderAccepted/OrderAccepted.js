@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import Preview from "../checkout/Preview";
 import Button from "../../buttons/Buttons";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setTotalQuantity } from "../shoppingCart/shoppingCartSlice";
 import pageUp from "../../../features/PageUp";
 
@@ -13,18 +13,6 @@ const OrderAccepted = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  //   const { productsQuantity } = useSelector(
-  //     (state) => state.shoppingCartReducer
-  //   );
-
-  //   useEffect(() => {
-  //     const handleUnload = () => {
-  //       localStorage.clear();
-  //     };
-
-  //     window.addEventListener("beforeunload", handleUnload);
-  //     return window.addEventListener("beforeunload", handleUnload);
-  //   }, []);
   useEffect(() => {
     pageUp();
   }, []);
@@ -42,7 +30,6 @@ const OrderAccepted = () => {
         </div>
         {/* --------buttons */}
         <div className="accepted__buttons">
-          {/* <div className="accepted__buttons d-flex justify-content-between"> */}
           <Button
             className="white-stroke"
             label="home"
@@ -52,7 +39,6 @@ const OrderAccepted = () => {
               dispatch(setTotalQuantity(0));
             }}
           />
-          {/* <div className="accepted__buttons"> */}
           <Button
             className="white-stroke"
             label="continue shopping"
@@ -62,7 +48,6 @@ const OrderAccepted = () => {
               dispatch(setTotalQuantity(0));
             }}
           />
-          {/* </div> */}
         </div>
       </div>
     </div>

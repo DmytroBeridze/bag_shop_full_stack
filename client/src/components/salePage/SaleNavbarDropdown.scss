@@ -1,7 +1,6 @@
 @import "../../style/variables.scss";
 
 .saleNavbarDropdown {
-  //   padding: 20px 20px;
   font-family: Montserrat;
   &__list {
     display: flex;
@@ -24,7 +23,6 @@
   &__card {
     max-width: 250px;
     height: 350px;
-    // max-width: 338px;
     background-color: $clr-text-white;
     padding: 30px 20px;
     cursor: pointer;
@@ -42,7 +40,6 @@
     }
   }
   &__picture {
-    // border: 1px solid red;
     height: 171px;
     margin-bottom: 50px;
     @media (max-width: 1050px) {
@@ -52,7 +49,6 @@
     @media (max-width: 500px) {
       flex: 1 1 20%;
       height: auto;
-      // height: 70px;
       min-width: 70px;
       width: 200px;
     }
@@ -87,7 +83,6 @@
     transition: color 0.2s;
     letter-spacing: 0.1rem;
 
-    // розмір блока має бути фіксований
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;

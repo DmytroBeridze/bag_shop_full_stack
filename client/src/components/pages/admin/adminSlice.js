@@ -5,7 +5,6 @@ const initialState = {
   goods: [],
   isLoading: false,
   status: null,
-  // editedGoods: null,
 };
 
 // add goods
@@ -33,15 +32,12 @@ export const getGoods = createAsyncThunk("admin/getGoods", async () => {
 export const deleteGoods = createAsyncThunk(
   "admin/deleteGoods",
   async (body) => {
-    // const { id } = Object.fromEntries(body);
     const { id } = body;
     const { adminRequest } = useHttp();
     const { data } = await adminRequest(
       `http://localhost:3002/api/goods/${id}`,
       "delete",
       body
-      // TODO---Чому не передається body, якщо "Content-type": "multipart/form-data", хоча з DisplayGoods.js я формую formdata
-      // { "Content-type": "multipart/form-data" }
     );
     return data;
   }

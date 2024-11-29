@@ -6,9 +6,6 @@
     background-color: $clr-porcelain-main;
   }
   &__contacts {
-    // & h3 {
-    //   border-bottom: 1px solid $clr-text-grey;
-    // }
     & span {
       font-style: italic;
       font-weight: 400;
@@ -51,7 +48,6 @@
   }
   & td {
     @media (max-width: 490px) {
-      // display: flex;
       font-size: 12px;
     }
     @media (max-width: 360px) {
@@ -65,7 +61,6 @@
     font-size: 20px;
     margin-bottom: 5px;
     @media (max-width: 490px) {
-      // display: flex;
       font-size: 16px;
     }
   }

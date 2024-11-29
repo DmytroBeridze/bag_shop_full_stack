@@ -5,7 +5,6 @@ const initialState = {
   userContacts: [],
   isloading: false,
   contactsStatus: false,
-  //   contactsStatus: "loading",
 };
 
 // -----get contacts
@@ -44,21 +43,15 @@ const displayUsersSlice = createSlice({
     builder
       .addCase(getUsersContacts.pending, (state) => {
         state.isloading = true;
-        // state.contactsStatus = null;
-
         state.contactsStatus = false;
-        // state.contactsStatus = "loading";
       })
       .addCase(getUsersContacts.fulfilled, (state, action) => {
         state.userContacts = action.payload;
         state.isloading = false;
-        // state.contactsStatus = "success";
-        // state.contactsStatus = action.payload.message;
       })
       .addCase(getUsersContacts.rejected, (state, action) => {
         state.isloading = false;
         state.contactsStatus = false;
-        // state.contactsStatus = "error";
       });
 
     // -----delete contact
@@ -78,6 +71,6 @@ const displayUsersSlice = createSlice({
   },
 });
 
-const { reducer, actions } = displayUsersSlice;
+const { reducer } = displayUsersSlice;
 export { getUsersContacts, deleteContact };
 export default reducer;

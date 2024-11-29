@@ -1,7 +1,6 @@
 @import "../../style/variables.scss";
 
 .blogNavbarDropdown {
-  //   padding: 20px 20px;
   font-family: Montserrat;
   &__list {
     display: flex;
@@ -33,7 +32,6 @@
   }
 
   &__picture {
-    // border: 1px solid red;
     height: 171px;
     overflow: hidden;
     @media (max-width: 1050px) {
@@ -48,7 +46,6 @@
       height: 100%;
       object-fit: cover;
       @media (max-width: 1050px) {
-        // height: auto;
         height: 100%;
       }
     }
@@ -86,7 +83,6 @@
     color: $clr-text-black;
     transition: color 0.2s;
 
-    // розмір блока має бути фіксований
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;

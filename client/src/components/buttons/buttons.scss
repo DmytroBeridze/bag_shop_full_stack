@@ -1,4 +1,5 @@
 @import "../../style/variables.scss";
+
 .custom-button {
   border: none;
   border-radius: 30px;
@@ -109,7 +110,6 @@
 }
 
 .grey-stroke__black-hover {
-  // display: none;
   border: 2px solid $clr-text-grey;
   color: $clr-text-black;
   padding: 10px 0;
@@ -128,7 +128,6 @@
     }
   }
   @media (max-width: 1150px) {
-    // display: block;
     font-size: 10px;
   }
   @media (max-width: 1000px) {

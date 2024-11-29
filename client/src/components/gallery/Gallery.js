@@ -11,7 +11,6 @@ import { fetchGoodsById, productCartOpen } from "./gallerySlice";
 import QuickView from "../quickWiev/QuickWiev";
 import AddedToCart from "../addedToCart/AddedToCart";
 
-// ----------використовую forwardRef для використання ref в батьківському елементі
 const Gallery = forwardRef(
   ({ goodsArray, columns = 4, seeMore = false }, ref) => {
     const navigate = useNavigate();
@@ -20,7 +19,6 @@ const Gallery = forwardRef(
       (state) => state.galleryReducer
     );
 
-    // const isloading = true;
     // ------quantity columns
     const galleryStyle = {
       gridTemplateColumns: `repeat(${columns}, 1fr)`,
@@ -31,12 +29,12 @@ const Gallery = forwardRef(
 
     const [goodsId, setGoodsId] = useState(false);
 
-    // show modal FromQuickView
+    // ------show modal FromQuickView
     const productCartOpenFromQuickView = (quantity) => {
       setQuontity(quantity);
     };
 
-    // show modal FromGalleryCard
+    // ------show modal FromGalleryCard
     const productCartOpenFromGalleryCard = (id) => {
       setAddedCart(id);
     };
@@ -58,17 +56,16 @@ const Gallery = forwardRef(
       setQuontity(false);
     };
 
-    // show modal Quick view
+    // ---------show modal Quick view
     const handleShow = (id) => {
       setGoodsId(id);
     };
-    // hide modal
+    // ---------hide modal
     const handleClose = () => {
       setGoodsId(false);
     };
 
     if (isloading) {
-      // if (isloading || goods.length === 0) {
       return (
         <div style={{ paddingTop: "150px", height: "100vh" }}>
           <Preloader />

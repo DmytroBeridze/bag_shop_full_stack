@@ -71,13 +71,8 @@ const AddGoodsForm = () => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      // if (form.checkValidity() === false || heightValidation === false) {
       event.preventDefault();
       event.stopPropagation();
-
-      // document
-      //   .querySelectorAll(".invalid-feedback")
-      //   .forEach((elem) => elem.classList.add("test"));
     } else {
       event.preventDefault();
 
@@ -96,15 +91,8 @@ const AddGoodsForm = () => {
         ? picture.map((elem) => formData.append("picture", elem))
         : formData.append("picture", null);
 
-      // !----------Promis?----------------------------------
       dispatch(addGoods(formData));
 
-      // new Promise((resolve, reject) => {
-      //   resolve(dispatch(addGoods(formData)));
-      //   reject((e) => console.log(e.message));
-      // }).then(() => dispatch(getGoods()));
-
-      // !--------------------------------------------
       // clear form after submit
       setName("");
       photoInput.current.value = "";
@@ -113,14 +101,6 @@ const AddGoodsForm = () => {
       setFeatured(false);
       setisNew(false);
       setPromo(false);
-
-      // -------------------
-
-      // document
-      //   .querySelectorAll('input[type="text"]')
-      //   // .closest(".col-sm-9")
-      //   .find(".invalid-feedback")
-      //   .classList.add("test");
     }
 
     setValidated(true);
@@ -151,7 +131,6 @@ const AddGoodsForm = () => {
 
           {/* desc */}
           <Form.Group md="4" controlId="validationCustom01" className="mb-4">
-            {/* <Form.Group md="4" controlId="validationCustom01"> */}
             <Form.Label className="fw-bolder">Enter description</Form.Label>
             <FloatingLabel controlId="floatingTextarea2" label="Description">
               <Form.Control
@@ -181,7 +160,6 @@ const AddGoodsForm = () => {
               onChange={(e) => setMainType(e.target.value)}
               value={mainType}
             >
-              {/* <option>Choose main type</option> */}
               <option></option>
               <option value="backpacks">Backpacks</option>
               <option value="bags">Bags</option>
@@ -206,7 +184,6 @@ const AddGoodsForm = () => {
               value={type}
             >
               <option></option>
-              {/* <option>Choose type</option> */}
               <option value="hiking">Hiking (backpacks)</option>
               <option value="laptop">Laptop (backpacks)</option>
               <option value="scool">Scool (backpacks)</option>
@@ -297,7 +274,6 @@ const AddGoodsForm = () => {
           <Form.Label className="fw-bolder">Enter parameters</Form.Label>
           <Form.Group
             md="4"
-            // controlId="parameters"
             className=" mb-4 d-flex flex-row bd-highlight   justify-content-between  flex-wrap gap-2"
           >
             {/* color */}
@@ -324,7 +300,6 @@ const AddGoodsForm = () => {
                 value={height}
                 name="height"
                 onChange={(e) => setHeight(e.target.value)}
-                // isInvalid={!heightValidation}
                 pattern="^[ 0-9]+$"
               />
 
@@ -425,11 +400,7 @@ const AddGoodsForm = () => {
         </Row>
 
         {/* buttons */}
-        <Button
-          // disabled={!heightValidation}
-          type="submit"
-          className="goods__buttons goods__buttons_submit "
-        >
+        <Button type="submit" className="goods__buttons goods__buttons_submit ">
           Submit form
         </Button>
         <Button

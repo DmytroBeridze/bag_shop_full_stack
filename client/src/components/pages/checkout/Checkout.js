@@ -26,7 +26,7 @@ const Checkout = () => {
   const { message, products, allGoodsPrice, productsQuantity } = useSelector(
     (state) => state.shoppingCartReducer
   );
-  const { isLoading, status, cities, countries } = useSelector(
+  const { status, cities, countries } = useSelector(
     (state) => state.checkoutReducer
   );
 
@@ -122,10 +122,9 @@ const Checkout = () => {
   const phoneCheck = (e) => {
     const input = e.target.value.replace(/[^0-9]/g, ""); // Оставляем только цифры
     if (input.length > 0) {
-      // Если вводится хотя бы одна цифра
-      setPhone(`+${input}`); // Устанавливаем + с введёнными цифрами
+      setPhone(`+${input}`);
     } else {
-      setPhone("+380"); // Если ничего не введено, возвращаем только +380
+      setPhone("+380");
     }
 
     if (input.length > 12) {
@@ -277,7 +276,7 @@ const Checkout = () => {
                     Please select country.
                   </Form.Control.Feedback>
 
-                  {/* suggested countries */}
+                  {/* -------suggested countries */}
                   {suggestedCountries.length > 0 &&
                     selectedCountry.length > 2 && (
                       <ul className="list-group checkout__suggested-list">
@@ -403,14 +402,13 @@ const Checkout = () => {
                     placeholder="City"
                     value={city}
                     onChange={(e) => searchCity(e)}
-                    // onChange={(e) => setCity(e.target.value)}
                     disabled={isToastDisable}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
                     Please enter city.
                   </Form.Control.Feedback>
-                  {/* suggested cities */}
+                  {/*--------- suggested cities */}
                   {suggestedCities.length > 0 && city.length > 2 && (
                     <ul className="list-group checkout__suggested-list">
                       {suggestedCities &&
@@ -443,10 +441,6 @@ const Checkout = () => {
             className={"main-yellow checkout__submit-btn_small-screen"}
             label="Pay now"
             disabled={isToastDisable}
-            /*
-            оскільки кнопка знаходиться не в формі, то для коректної відправки
-            та валідації, викликаємо метод submit самоЇ форми 
-            */
             onclick={() => formRef.current.requestSubmit()}
           />
         </main>

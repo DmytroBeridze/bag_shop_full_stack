@@ -1,4 +1,3 @@
-import React from "react";
 import "./imagePopup.scss";
 import { CgCloseO } from "react-icons/cg";
 

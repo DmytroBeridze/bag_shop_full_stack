@@ -20,7 +20,6 @@ class Postservice {
 
   // get
   async postsGet() {
-    // throw new Error("Test error");
     const allPosts = await PostsSchema.find();
     return allPosts;
   }
@@ -63,7 +62,6 @@ class Postservice {
 
     const updatedGoods = await PostsSchema.findByIdAndUpdate(element._id, {
       ...element,
-      // newPicture: fileName,
       picture: [...fileName, ...notDeleted],
 
       new: true,

@@ -27,9 +27,7 @@
     text-transform: uppercase;
     font-family: Arvo;
     font-weight: 700;
-    // font-size: 90px;
     font-size: clamp(1rem, 0.075rem + 4.63vw, 5.625rem);
-    // line-height: 90px;
     line-height: clamp(1rem, 0.075rem + 4.63vw, 5.625rem);
     color: $clr-text-white;
     margin-bottom: 21px;
@@ -93,7 +91,6 @@
     top: 38% !important;
     width: fit-content;
     left: 97% !important;
-    // right: 50px !important;
     padding-right: 15px;
     display: flex;
     flex-direction: column;

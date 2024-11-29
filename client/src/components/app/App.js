@@ -19,7 +19,6 @@ import ShoppingCart from "../pages/shoppingCart/ShoppingCart";
 import Checkout from "../pages/checkout/Checkout";
 import OrderAccepted from "../pages/orderAccepted/OrderAccepted";
 import NewGoods from "../pages/newGoods/NewGoods";
-import Posts from "../pages/admin/Posts";
 
 function App() {
   const { goods, isloading, status } = useSelector(
@@ -44,25 +43,12 @@ function App() {
       <div className="app">
         {showHeaderFooter && <Header />}
 
-        {/* заключаю весь контент в .content для того, щоб притиснути футер донизу  */}
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/blog" element={<Blog />} />
-
             <Route path="/sale/:mainType" element={<Sale />} />
-            {/* <Route
-            path="/sale/:mainType"
-            element={
-              <CatalogGalery
-                goods={saleItems}
-                isloading={isloading}
-                status={status}
-              />
-            }
-          /> */}
-
             <Route path="/catalog/:id" element={<CatalogElement />} />
             <Route
               path="/catalog/galery/:mainType"
@@ -86,9 +72,7 @@ function App() {
 
             {/* Admin panel */}
             <Route path="/admin" element={<AdminLogin />} />
-            {/* зірочка- говорить, що в Admin є вкладені роути */}
             <Route path="/admin/panel/*" element={<Admin />} />
-            {/* <Route path="/admin/panel/posts" element={<Posts />} /> */}
           </Routes>
         </div>
         <ToastContainer autoClose={5000} />

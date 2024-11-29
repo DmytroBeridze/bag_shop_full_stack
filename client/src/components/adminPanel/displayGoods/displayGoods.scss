@@ -1,8 +1,7 @@
 .display-goods {
   width: 65%;
   max-width: 100%;
-  // border: 1px solid red;
-  // max-width: clamp(6.25rem, -7.5rem + 68.75vw, 75rem);
+
   @media (max-width: 1000px) {
     width: 100%;
     max-width: 100%;
@@ -30,7 +29,6 @@
     & td {
       font-size: 14px;
       font-weight: 400;
-      // display: none;
     }
   }
 
@@ -39,7 +37,6 @@
     & td {
       font-size: 12px;
       font-weight: 400;
-      // display: none;
     }
   }
 }
@@ -51,7 +48,6 @@
   &__id {
     overflow-x: auto;
     max-width: 80px;
-    // max-height: 158px;
     @media (max-width: 365px) {
       width: 50px;
     }
@@ -70,8 +66,6 @@
     max-height: 150px;
   }
   &__img-wrapper {
-    // overflow-y: auto;
-    // max-height: 150px;
     @media (max-width: 700px) {
       display: none;
     }
@@ -80,7 +74,6 @@
   &__img-container {
     max-height: 150px;
     overflow-y: auto;
-    // position: relative;
   }
   &__img {
     width: 80px;
@@ -119,14 +112,3 @@
     }
   }
 }
-
-// .active {
-//   transform: scale(3);
-//   position: absolute;
-//   top: 0;
-//   left: 600px;
-//   right: 0;
-//   bottom: 0;
-//   margin: auto;
-//   // z-index: 999;
-// }

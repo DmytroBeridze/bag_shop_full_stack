@@ -19,7 +19,6 @@ const EditeForm = () => {
 
   const [validated, setValidated] = useState(false);
 
-  // const [id, setId] = useState(targetId);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [mainType, setMainType] = useState("");
@@ -48,12 +47,12 @@ const EditeForm = () => {
   };
   // deleted images
   const [deletedPicture, setDeletedPicture] = useState([]);
-  // const [notDeletedPicture, setNotDeletedPicture] = useState([]);
 
   const dispatch = useDispatch();
   const photoInput = useRef(null);
 
   const { adminRequest } = useHttp();
+
   // clear form
   const clearForm = () => {
     setName("");
@@ -97,7 +96,6 @@ const EditeForm = () => {
 
       const formData = new FormData();
       formData.append("_id", targetId);
-      // formData.append("_id", id);
       formData.append("name", name);
       formData.append("description", description);
       formData.append("mainType", mainType);
@@ -112,7 +110,6 @@ const EditeForm = () => {
       newPicture
         ? newPicture.map((elem) => formData.append("newPicture", elem))
         : formData.append("newPicture", null);
-      // append not deleted pictures
       formData.append("notDeletedPicture", JSON.stringify(noDelete()));
 
       dispatch(editGoods(formData));
@@ -156,12 +153,7 @@ const EditeForm = () => {
     <section className="d-flex flex-column">
       <div className=""></div>
       <h2 className="mb-3">Edit goods</h2>
-      <Form
-        noValidate
-        validated={validated}
-        onSubmit={handleSubmit}
-        // className="admin col-4"
-      >
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="d-flex flex-column">
           <Form.Group md="4" controlId="nameGoods" className="mb-4">
             {/* name */}
@@ -235,7 +227,6 @@ const EditeForm = () => {
               value={type}
             >
               <option></option>
-              {/* <option>Choose type</option> */}
               <option value="hiking">Hiking (backpacks)</option>
               <option value="laptop">Laptop (backpacks)</option>
               <option value="scool">Scool (backpacks)</option>
@@ -347,7 +338,6 @@ const EditeForm = () => {
               placeholder="Photo"
               onChange={(e) => {
                 const imgArr = Object.values(e.target.files);
-                // setPicture(imgArr);
                 setNewPicture(imgArr);
               }}
             />
@@ -358,7 +348,6 @@ const EditeForm = () => {
           <Form.Label className="fw-bolder">Enter parameters</Form.Label>
           <Form.Group
             md="4"
-            // controlId="parameters"
             className=" mb-4 d-flex flex-row bd-highlight   justify-content-between  flex-wrap gap-2"
           >
             {/* color */}

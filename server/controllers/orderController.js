@@ -11,7 +11,6 @@ export const createOrder = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500);
-    //   .json({ message: error.message || "Error fetching orders." });
     res.status(500).json({ message: "Sending error." });
   }
 };
@@ -23,8 +22,6 @@ export const getAllOrders = async (req, res) => {
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json(error.massage);
-
-    // res.json({ message: error.message });
   }
 };
 
@@ -34,7 +31,6 @@ export const orderDelete = async (req, res) => {
 
   try {
     const deletedOrder = await OrderService.deleteOrder(id);
-    // console.log(deletedOrder);
     res.status(200).json({ message: `Order ${id} deleted`, deletedOrder });
   } catch (error) {
     res.status(500).json(error.message);

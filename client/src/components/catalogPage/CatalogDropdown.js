@@ -13,16 +13,12 @@ const CatalogDropdown = memo(
       .slice(0, locationPathname.length - 1)
       .join("/")
       .replace(/\/+/g, "/");
-    // .slice(0, locationPathname.length - 1)
-    // .join()
-    // .replaceAll(",", "/");
 
     const handleFilterClick = (link, filterName) => {
       navigate(`/catalog/galery/${link}`, { state: { filter: filterName } });
     };
-    const handleFilterSaleClick = (link, filterName) => {
-      console.log(`${navigateLink}/${link}`, { state: { filter: filterName } });
 
+    const handleFilterSaleClick = (link, filterName) => {
       navigate(`${navigateLink}/${link}`, { state: { filter: filterName } });
     };
 
@@ -110,7 +106,6 @@ const CatalogDropdown = memo(
                 <li key={mainType} className="catalog-dropdown__mainType">
                   <Link
                     to={`${navigateLink}/${mainType}`}
-                    // to={`/catalog/galery/${mainType}`}
                     className={catalogGaleryMainTypeClass(mainType)}
                   >
                     {mainType}
@@ -134,9 +129,6 @@ const CatalogDropdown = memo(
                   onClick={() =>
                     handleFilterSaleClick(productSubtypes.mainType, item)
                   }
-                  // onClick={() =>
-                  //   handleFilterClick(productSubtypes.mainType, item)
-                  // }
                 >
                   {item}
                 </li>
@@ -146,33 +138,6 @@ const CatalogDropdown = memo(
         </>
       );
     }
-
-    // return (
-    //   <ul className="catalog-dropdown">
-    //     {links.map((elem) => {
-    //       const { mainType, type } = elem;
-
-    //       return (
-    //         // -----------mainType
-    //         <li key={mainType} className="catalog-dropdown__mainType">
-    //           <Link to={`/catalog/galery/${mainType}`}>{mainType}</Link>
-
-    //           {/* ---------type */}
-    //           <ul className="catalog-dropdown__type">
-    //             {type.map((item) => (
-    //               <li
-    //                 key={item}
-    //                 onClick={() => handleFilterClick(mainType, item)}
-    //               >
-    //                 {item}
-    //               </li>
-    //             ))}
-    //           </ul>
-    //         </li>
-    //       );
-    //     })}
-    //   </ul>
-    // );
   }
 );
 

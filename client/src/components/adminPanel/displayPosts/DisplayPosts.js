@@ -52,7 +52,6 @@ const DisplayPosts = ({ imageModal, getTargetId }) => {
                   dispatch={dispatch}
                   setModalShow={setModalShow}
                   getTargetId={getTargetId}
-                  // setOneGoodsId={setOneGoodsId}
                 />
               );
             })
@@ -67,11 +66,7 @@ const DisplayPosts = ({ imageModal, getTargetId }) => {
       </Table>
 
       {/* modal */}
-      <ModalPopup
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        // id={oneGoodsId}
-      >
+      <ModalPopup show={modalShow} onHide={() => setModalShow(false)}>
         <EditPost />
       </ModalPopup>
     </section>
@@ -80,7 +75,6 @@ const DisplayPosts = ({ imageModal, getTargetId }) => {
 
 const View = memo(
   ({
-    // photoZoom,
     imageRef,
     cancellPhotoZoom,
     imageModal,
@@ -88,7 +82,6 @@ const View = memo(
     dispatch,
     setModalShow,
     getTargetId,
-    // setOneGoodsId,
     ...args
   }) => {
     const { description, picture, name, createdAt } = args;
@@ -140,7 +133,6 @@ const View = memo(
             <div
               className="table__delete"
               onClick={() => dispatch(deletePost(deleteData))}
-              // onClick={() => dispatch(deleteGoods(formData))}
             >
               <FiTrash2 size={"23px"} />
             </div>
@@ -149,7 +141,6 @@ const View = memo(
               onClick={() => {
                 setModalShow(true);
                 getTargetId(id);
-                // setOneGoodsId(_id);
               }}
             >
               <GrEdit size={"20px"} />

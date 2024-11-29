@@ -71,5 +71,5 @@ const userOrdersSlice = createSlice({
   },
 });
 
-const { reducer, actions } = userOrdersSlice;
+const { reducer } = userOrdersSlice;
 export default reducer;

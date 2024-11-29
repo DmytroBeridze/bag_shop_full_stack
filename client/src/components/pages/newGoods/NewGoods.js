@@ -1,12 +1,12 @@
 import "./newGoods.scss";
 
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 import { fetchAllGoods } from "../../gallery/gallerySlice";
-import { useDispatch, useSelector } from "react-redux";
-import pageUp from "../../../features/PageUp";
 import CatalogGalery from "../../catalogPage/CatalogGalery";
+import pageUp from "../../../features/PageUp";
 
 const NewGoods = () => {
   const dispatch = useDispatch();

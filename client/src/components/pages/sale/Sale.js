@@ -24,15 +24,12 @@ const Sale = () => {
 
   return (
     <div className="sale">
-      {/* <div className="main-container"> */}
-
       <CatalogGalery
         goods={saleItems}
         isloading={isloading}
         status={status}
         title="Sale"
       />
-      {/* </div> */}
     </div>
   );
 };

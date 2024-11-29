@@ -1,4 +1,5 @@
 import "./FeaturedItems.scss";
+
 import feturedBag from "../../../resources/img/home/featured-bag.jpg";
 import feturedBackpack from "../../../resources/img/home/featured-backpack.png";
 import miniBag from "../../../resources/img/home/mini-bag.jpg";
@@ -15,9 +16,8 @@ const FeaturedItems = () => {
   const ref = useRef([]);
   const navigate = useNavigate();
   const size = useResize();
-  // const promoRef = useRef();
 
-  // ---Динамічне зменшення висоти блока
+  // ---Dynamic block height reduction
   useEffect(() => {
     ref.current.forEach((elem) => {
       elem.style.height =
@@ -25,40 +25,17 @@ const FeaturedItems = () => {
           ? `${Math.floor(size[0] * 0.5)}px`
           : `${Math.floor(size[0] * 2)}px`;
     });
-
-    // ref.current.style.height =
-    //   size[0] > 600
-    //     ? `${Math.floor(size[0] * 0.5)}px`
-    //     : `${Math.floor(size[0] * 2)}px`;
-
-    // promoRef.current.style.height =
-    //   size[0] > 600
-    //     ? `${Math.floor(size[0] * 0.5)}px`
-    //     : `${Math.floor(size[0] * 2)}px`;
   }, [size]);
-
-  // !----Це також робочий варіант адаптації висоти,
-  // ! але без застовання кастомного хука
-  // const ajustHeight = () => {
-  //   const windowWidth = window.innerWidth;
-  //   ref.current.style.height = `${windowWidth * 0.5}px`; // 50% от высоты окна
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", ajustHeight);
-  // }, []);
 
   return (
     <>
       {/* featured */}
       <section className="featured-items pt-5">
-        {/* <div className="main-container"> */}
         <h2 className="featured-items__title text-center pb-5">
           Featured Items
         </h2>
         <div
           className="featured-items__arrivals "
-          // ref={ref}
           ref={(elem) => (ref.current[0] = elem)}
         >
           <div className="arrivals__photo ">
@@ -66,7 +43,6 @@ const FeaturedItems = () => {
           </div>
 
           <div className="arrivals__photo position-relative">
-            {/* <div className="arrivals__photo d-flex flex-column justify-content-center align-items-center"> */}
             <div className="arrivals__content">
               <h4 className="arrivals__subtitle">New arrivals</h4>
               <h2 className="arrivals__title">Get an Extra</h2>
@@ -99,13 +75,11 @@ const FeaturedItems = () => {
           <div className="arrivals__photo">
             <img src={feturedBag} alt="feturedBag" />
           </div>
-          {/* </div> */}
         </div>
 
         {/* promo */}
         <div
           className="featured-items__promo mt-5 pt-5 mb-5"
-          // ref={promoRef}
           ref={(elem) => (ref.current[1] = elem)}
         >
           <div className="promo__photo">

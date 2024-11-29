@@ -1,17 +1,14 @@
 .posts {
   position: sticky;
   top: 135px;
-
   max-height: 770px;
   width: 600px;
   max-width: clamp(12.5rem, 7.5rem + 25vw, 37.5rem);
-  //   overflow-y: scroll;
   padding: 0 20px 20px;
 
   @media (max-width: 1000px) {
     max-height: 100%;
     padding: 0 0 20px;
-    // overflow-y: auto;
 
     width: 100%;
     max-width: 100%;

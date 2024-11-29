@@ -28,7 +28,6 @@ const SortComponent = ({
       <select
         className="form-select"
         id="catalog-sort"
-        // value={sortByPrice}
         onChange={(e) => sortGoods(e)}
       >
         {/* price */}

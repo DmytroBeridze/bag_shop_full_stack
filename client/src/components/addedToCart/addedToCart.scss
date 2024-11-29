@@ -20,9 +20,6 @@
   &__photo {
     flex-basis: 35%;
   }
-  &__content {
-    // flex-basis: 40%;
-  }
   & h3 {
     font-size: 18px;
     margin-bottom: 15px;
@@ -42,7 +39,6 @@
       letter-spacing: 0;
       font-family: "Montserrat";
       padding: 10px 20px;
-      // width: fit-content;
     }
   }
 }

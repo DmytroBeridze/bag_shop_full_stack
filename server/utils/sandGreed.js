@@ -5,16 +5,7 @@ dotenv.config();
 const MAIL_PASS = process.env.MAIL_PASS;
 sgMail.setApiKey(MAIL_PASS);
 
-// const msg = {
-//   to: "contentmanager150@gmail.com",
-//   from: "ber_dev17@outlook.com", // Use the email address or domain you verified above
-//   subject: "Sending with Twilio SendGrid is Fun",
-//   text: "and easy to do anywhere, even with Node.js",
-//   html: "<strong>and easy to do anywhere, even with Node.js</strong>",
-// };
-
 const sendMail = async (contact, type) => {
-  // console.log(contact);
   const deserialisedOrder = contact.order && JSON.parse(contact.order);
 
   const tableRows =
@@ -34,7 +25,7 @@ const sendMail = async (contact, type) => {
   const msg =
     type === "order"
       ? {
-          from: " Bag shop <ber_dev17@outlook.com>", // Use the email address or domain you verified above
+          from: " Bag shop <ber_dev17@outlook.com>",
           to: "contentmanager150@gmail.com",
           subject: "User contact",
           html: `
@@ -87,7 +78,7 @@ const sendMail = async (contact, type) => {
             `,
         }
       : {
-          from: " Bag shop <ber_dev17@outlook.com>", // Use the email address or domain you verified above
+          from: " Bag shop <ber_dev17@outlook.com>",
           to: "contentmanager150@gmail.com",
           subject: "User contact",
           html: `<h2> User ${contact.name} sent his contact:</h2>
@@ -98,50 +89,6 @@ const sendMail = async (contact, type) => {
     <li>Message: ${contact.message ? contact.message : "no message"}</li>
     </ul>`,
         };
-
-  // !-------------------
-  // const msg =
-  //   type === "order"
-  //     ? {
-  //         from: " Bag shop <ber_dev17@outlook.com>", // Use the email address or domain you verified above
-  //         to: "contentmanager150@gmail.com",
-  //         subject: "User contact",
-  //         html: `<h2> User ${contact.name} sent his contact:</h2>
-  //   <ul>
-  //   <li>Name: ${contact.name ? contact.name : "no name"}</li>
-  //   <li>LastName: ${contact.lastName ? contact.lastName : "no lastName"}</li>
-  //   <li>Email: ${contact.email ? contact.email : "no email"}</li>
-  //   <li>Phone: ${contact.phone ? contact.phone : "no phone"}</li>
-  //   <li>Message: ${contact.message ? contact.message : "no message"}</li>
-  //   <li>Country: ${contact.country ? contact.country : "no country"}</li>
-  //   <li>Zip: ${contact.zip ? contact.zip : "no zip"}</li>
-  //   <li>City: ${contact.city ? contact.city : "no city"}</li>
-  //   <li>Apartment: ${
-  //     contact.apartment ? contact.apartment : "no apartment"
-  //   }</li>
-  //  </ul>
-
-  //   <h2> makes an order:</h2>
-  //       <ul>
-  //   <li>Total price of all goods: ${
-  //     contact.allGoodsPrice ? contact.allGoodsPrice : "no goods"
-  //   }</li>
-
-  //   </ul>
-  //   `,
-  //       }
-  //     : {
-  //         from: " Bag shop <ber_dev17@outlook.com>", // Use the email address or domain you verified above
-  //         to: "contentmanager150@gmail.com",
-  //         subject: "User contact",
-  //         html: `<h2> User ${contact.name} sent his contact:</h2>
-  //   <ul>
-  //   <li>Name: ${contact.name ? contact.name : "no name"}</li>
-  //   <li>Email: ${contact.email ? contact.email : "no email"}</li>
-  //   <li>Phone: ${contact.phone ? contact.phone : "no phone"}</li>
-  //   <li>Message: ${contact.message ? contact.message : "no message"}</li>
-  //   </ul>`,
-  //       };
 
   try {
     await sgMail.send(msg);

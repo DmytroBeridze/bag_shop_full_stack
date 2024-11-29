@@ -50,7 +50,6 @@ const DisplayGoods = ({ imageModal, getTargetId }) => {
                   dispatch={dispatch}
                   setModalShow={setModalShow}
                   getTargetId={getTargetId}
-                  // setOneGoodsId={setOneGoodsId}
                 />
               );
             })
@@ -65,11 +64,7 @@ const DisplayGoods = ({ imageModal, getTargetId }) => {
       </Table>
 
       {/* modal */}
-      <ModalPopup
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        // id={oneGoodsId}
-      >
+      <ModalPopup show={modalShow} onHide={() => setModalShow(false)}>
         <EditeForm />
       </ModalPopup>
     </section>
@@ -78,7 +73,6 @@ const DisplayGoods = ({ imageModal, getTargetId }) => {
 
 const View = memo(
   ({
-    // photoZoom,
     imageRef,
     cancellPhotoZoom,
     imageModal,
@@ -86,17 +80,10 @@ const View = memo(
     dispatch,
     setModalShow,
     getTargetId,
-    // setOneGoodsId,
     ...args
   }) => {
     const { description, picture, parameters, _id } = args;
-
     const { price } = JSON.parse(parameters);
-
-    // const formData = new FormData();
-    // formData.append("id", _id);
-    // formData.append("picture", JSON.stringify(picture));
-
     const deleteData = {
       id: _id,
       picture,
@@ -139,7 +126,6 @@ const View = memo(
             <div
               className="table__delete"
               onClick={() => dispatch(deleteGoods(deleteData))}
-              // onClick={() => dispatch(deleteGoods(formData))}
             >
               <FiTrash2 size={"23px"} />
             </div>
@@ -148,7 +134,6 @@ const View = memo(
               onClick={() => {
                 setModalShow(true);
                 getTargetId(_id);
-                // setOneGoodsId(_id);
               }}
             >
               <GrEdit size={"20px"} />
