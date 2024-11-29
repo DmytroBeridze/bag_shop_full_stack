@@ -40,7 +40,7 @@
   }
   &__nav {
     display: flex;
-    @media (max-width: 880px) {
+    @media (max-width: 900px) {
       display: none;
     }
     & a {
@@ -81,7 +81,7 @@
   &__burger {
     display: none;
     cursor: pointer;
-    @media (max-width: 880px) {
+    @media (max-width: 900px) {
       display: block;
     }
   }
@@ -100,7 +100,7 @@
   }
 
   & button {
-    @media (max-width: 880px) {
+    @media (max-width: 900px) {
       margin-left: auto;
       margin-right: 20px;
     }

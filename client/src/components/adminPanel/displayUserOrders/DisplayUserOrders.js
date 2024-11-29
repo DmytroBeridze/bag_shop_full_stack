@@ -34,8 +34,6 @@ const DisplayUserOrders = () => {
             return (acc += cur.totalPrice);
           }, 0);
 
-          console.log();
-
           return (
             <div className="display-orders" key={elem._id}>
               <div className="display-orders__contacts">
