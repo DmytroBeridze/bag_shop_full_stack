@@ -9,6 +9,7 @@ import { memo } from "react";
 import Preloader from "../preloader/Preloader";
 
 const PromoProducts = memo(({ elemQuantity = 1 }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const { goods, isloading, status } = useSelector(
     (state) => state.galleryReducer
   );
@@ -49,16 +50,16 @@ const PromoProducts = memo(({ elemQuantity = 1 }) => {
     <div className="promoProducts">
       <h3 className="promoProducts__title">Promo Products</h3>
       {shufftedProducts.map(({ _id, ...params }) => {
-        return <View {...params} id={_id} key={_id} />;
+        return <View {...params} id={_id} key={_id} requestUrl={requestUrl} />;
       })}
     </div>
   ) : null;
 });
 
-const View = ({ id, name, description, parameters, picture }) => {
+const View = ({ id, name, description, parameters, picture, requestUrl }) => {
   const navigate = useNavigate();
   const { price } = JSON.parse(parameters);
-  const img = picture.length ? `http://localhost:3002/${picture[0]}` : noImage;
+  const img = picture.length ? `${requestUrl}/${picture[0]}` : noImage;
 
   return (
     <div className="promoProducts__card">

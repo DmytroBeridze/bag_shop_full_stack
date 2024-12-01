@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import useHttp from "../../hooks/http.hooks";
 
+const requestUrl = process.env.REACT_APP_REQUEST;
+
 const initialState = {
   goods: [],
   isloading: false,
@@ -20,7 +22,7 @@ export const fetchAllGoods = createAsyncThunk(
   "gallery/fetchAllGoods",
   async () => {
     const { adminRequest } = useHttp();
-    const { data } = await adminRequest("http://localhost:3002/api/goods");
+    const { data } = await adminRequest(`${requestUrl}/api/goods`);
     return data;
   }
 );
@@ -31,9 +33,7 @@ export const fetchGoodsById = createAsyncThunk(
   async (goodsId) => {
     if (goodsId) {
       const { adminRequest } = useHttp();
-      const { data } = await adminRequest(
-        `http://localhost:3002/api/goods/${goodsId}`
-      );
+      const { data } = await adminRequest(`${requestUrl}/api/goods/${goodsId}`);
 
       return data;
     }

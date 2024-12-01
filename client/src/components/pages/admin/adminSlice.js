@@ -7,15 +7,14 @@ const initialState = {
   status: null,
 };
 
+const requestUrl = process.env.REACT_APP_REQUEST;
+
 // add goods
 export const addGoods = createAsyncThunk("admin/addGoods", async (body) => {
   const { adminRequest } = useHttp();
-  const { data } = await adminRequest(
-    "http://localhost:3002/api/goods",
-    "post",
-    body,
-    { "Content-type": "multipart/form-data" }
-  );
+  const { data } = await adminRequest(`${requestUrl}/api/goods`, "post", body, {
+    "Content-type": "multipart/form-data",
+  });
 
   return data;
 });
@@ -24,7 +23,7 @@ export const addGoods = createAsyncThunk("admin/addGoods", async (body) => {
 export const getGoods = createAsyncThunk("admin/getGoods", async () => {
   const { adminRequest } = useHttp();
   // TODO----Якщо не деструктурувати респонс, а повертати adminRequest, то помилка "A non-serializeble value was detected in action "
-  const { data } = await adminRequest("http://localhost:3002/api/goods");
+  const { data } = await adminRequest(`${requestUrl}/api/goods`);
   return data;
 });
 
@@ -35,7 +34,7 @@ export const deleteGoods = createAsyncThunk(
     const { id } = body;
     const { adminRequest } = useHttp();
     const { data } = await adminRequest(
-      `http://localhost:3002/api/goods/${id}`,
+      `${requestUrl}/api/goods/${id}`,
       "delete",
       body
     );
@@ -51,7 +50,7 @@ export const editGoods = createAsyncThunk(
 
     const { adminRequest } = useHttp();
     const { data } = await adminRequest(
-      `http://localhost:3002/api/goods/${_id}`,
+      `${requestUrl}/api/goods/${_id}`,
       "put",
       formData,
       { "Content-type": "multipart/form-data" }

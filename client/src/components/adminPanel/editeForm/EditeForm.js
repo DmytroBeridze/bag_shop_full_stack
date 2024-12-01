@@ -14,6 +14,7 @@ import useHttp from "../../../hooks/http.hooks";
 import { AdminContext } from "../adminContext";
 
 const EditeForm = () => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const imageRef = useRef([]);
   const targetId = useContext(AdminContext);
 
@@ -78,10 +79,9 @@ const EditeForm = () => {
   // find not deleted pictures
   const noDelete = () => {
     let res = imageRef.current.filter(
-      (elem) =>
-        !deletedPicture.includes(elem.src.replace("http://localhost:3002/", ""))
+      (elem) => !deletedPicture.includes(elem.src.replace(`${requestUrl}/`, ""))
     );
-    return res.map((elem) => elem.src.replace("http://localhost:3002/", ""));
+    return res.map((elem) => elem.src.replace(`${requestUrl}/`, ""));
   };
 
   // form submit
@@ -120,9 +120,7 @@ const EditeForm = () => {
 
   // get target goods
   const fetchOnePost = async () => {
-    const { data } = await adminRequest(
-      `http://localhost:3002/api/goods/${targetId}`
-    );
+    const { data } = await adminRequest(`${requestUrl}/api/goods/${targetId}`);
 
     const parameters = JSON.parse(data.parameters);
     const { color, height, length, price, weight, width } = parameters;
@@ -302,7 +300,7 @@ const EditeForm = () => {
               picture.map((elem, i) => (
                 <div className="photo-prev__cont" key={i}>
                   <img
-                    src={`http://localhost:3002/${elem} `}
+                    src={`${requestUrl}/${elem} `}
                     alt="img"
                     className="w-100 h-100 rounded object-fit-cover"
                     ref={(elem) => (imageRef.current[i] = elem)}
@@ -314,10 +312,7 @@ const EditeForm = () => {
                     onClick={() => {
                       setDeletedPicture((deletedPicture) => [
                         ...deletedPicture,
-                        imageRef.current[i].src.replace(
-                          "http://localhost:3002/",
-                          ""
-                        ),
+                        imageRef.current[i].src.replace(`${requestUrl}/`, ""),
                       ]);
                       imageRef.current[i].classList.add("deleted");
                     }}

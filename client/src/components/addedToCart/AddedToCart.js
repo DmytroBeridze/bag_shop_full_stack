@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const requestUrl = process.env.REACT_APP_REQUEST;
 
   const closeModals = () => {
     dispatch(productCartOpen(null));
@@ -32,7 +33,7 @@ const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
         <div className="addedToCart__container">
           <div className="addedToCart__photo">
             <img
-              src={`http://localhost:3002/${picture[0]}`}
+              src={`${requestUrl}/${picture[0]}`}
               alt="added"
               className="w-100"
             />

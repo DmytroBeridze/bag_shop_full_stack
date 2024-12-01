@@ -7,7 +7,7 @@ import ModalPopup from "../modal/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { forwardRef, useEffect, useState } from "react";
-import { fetchGoodsById, productCartOpen } from "./gallerySlice";
+import { fetchGoodsById } from "./gallerySlice";
 import QuickView from "../quickWiev/QuickWiev";
 import AddedToCart from "../addedToCart/AddedToCart";
 

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 
 const BlogNavbarDropdown = memo(({ setDropdown }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const { posts } = useSelector((state) => state.postsReducer);
 
   return (
@@ -16,7 +17,7 @@ const BlogNavbarDropdown = memo(({ setDropdown }) => {
           .slice(0, 3)
           .map(({ _id, createdAt, description, name, picture }) => {
             const img = picture.length
-              ? `http://localhost:3002/${picture[0]}`
+              ? `${requestUrl}/${picture[0]}`
               : imgPlaceholder;
             return (
               <li key={_id}>

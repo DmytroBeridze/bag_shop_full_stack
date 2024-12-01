@@ -9,13 +9,15 @@ const initialState = {
   status: null,
 };
 
+const requestUrl = process.env.REACT_APP_REQUEST;
+
 // create order
 export const submitOrder = createAsyncThunk(
   "checkout/submitOrder",
   async (orderData) => {
     const { adminRequest } = useHttp();
     const response = await adminRequest(
-      "http://localhost:3002/api/orders/userOrder",
+      `${requestUrl}/api/orders/userOrder`,
       "post",
       orderData,
       { "Content-type": "multipart/form-data" }
@@ -88,6 +90,5 @@ const checkpoutSlice = createSlice({
   },
 });
 
-const { actions, reducer } = checkpoutSlice;
-export const {} = actions;
+const { reducer } = checkpoutSlice;
 export default reducer;

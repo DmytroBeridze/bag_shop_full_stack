@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import useHttp from "../../../hooks/http.hooks";
 
+const requestUrl = process.env.REACT_APP_REQUEST;
 // ----get all orders
 export const getAllOrders = createAsyncThunk(
   "orders/getAllOrders",
   async () => {
     const { adminRequest } = useHttp();
-    const { data } = await adminRequest(
-      "http://localhost:3002/api/orders/userOrder"
-    );
+    const { data } = await adminRequest(`${requestUrl}/api/orders/userOrder`);
     return data;
   }
 );
@@ -19,7 +18,7 @@ export const deleteOrder = createAsyncThunk(
   async (id) => {
     const { adminRequest } = useHttp();
     const { data } = await adminRequest(
-      `http://localhost:3002/api/orders/userOrder/${id}`,
+      `${requestUrl}/api/orders/userOrder/${id}`,
       "delete",
       { id }
     );

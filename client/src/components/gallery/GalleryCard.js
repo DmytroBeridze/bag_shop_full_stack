@@ -10,6 +10,7 @@ import SaleLabel from "../saleLabel/SaleLabel";
 import NewLabel from "../newLabel/NewLabel";
 
 const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const [changePhoto, setChangePhoto] = useState(false);
 
   const {
@@ -33,7 +34,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
       <div className="gallery-card__image">
         {picture ? (
           <img
-            src={`http://localhost:3002/${
+            src={`${requestUrl}/${
               !changePhoto || !picture[2] ? picture[0] : picture[2]
             }`}
             alt="card-image"

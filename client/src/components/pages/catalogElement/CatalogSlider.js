@@ -10,6 +10,8 @@ import { useState } from "react";
 import SaleLabel from "../../saleLabel/SaleLabel";
 
 const CatalogSlider = ({ name, picture, sale }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -33,7 +35,7 @@ const CatalogSlider = ({ name, picture, sale }) => {
             <SwiperSlide key={index}>
               <img
                 loading="lazy"
-                src={`http://localhost:3002/${image}`}
+                src={`${requestUrl}/${image}`}
                 alt={name.slice(0, 10)}
                 style={{
                   width: "100%",
@@ -56,7 +58,7 @@ const CatalogSlider = ({ name, picture, sale }) => {
         {picture.map((image, index) => (
           <SwiperSlide key={index}>
             <img
-              src={`http://localhost:3002/${image}`}
+              src={`${requestUrl}/${image}`}
               alt={name.slice(0, 10)}
               style={{
                 width: "100%",

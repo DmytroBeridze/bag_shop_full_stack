@@ -49,6 +49,7 @@ function App() {
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/sale/:mainType" element={<Sale />} />
+
             <Route path="/catalog/:id" element={<CatalogElement />} />
             <Route
               path="/catalog/galery/:mainType"

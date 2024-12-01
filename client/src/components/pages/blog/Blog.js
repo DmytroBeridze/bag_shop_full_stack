@@ -2,7 +2,7 @@ import "./blog.scss";
 
 import imgPlaceholder from "../../../resources/img/blog/blog-img-placeholder.jpg";
 
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Moment from "react-moment";
@@ -20,6 +20,7 @@ import GalleryNavigation from "../../galleryNavigation/GalleryNavigation";
 import CustomScrollToTop from "../../../features/CustomScrollToTop";
 
 const Blog = () => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const postRef = useRef([]);
@@ -44,7 +45,7 @@ const Blog = () => {
   const sortedByDateArr = [...posts].sort((a, b) => {
     const date1 = new Date(a.createdAt);
     const date2 = new Date(b.createdAt);
-    return dataSort == 1 ? date2 - date1 : date1 - date2;
+    return dataSort === 1 ? date2 - date1 : date1 - date2;
   });
 
   //--- quantity per page array
@@ -165,7 +166,7 @@ const Blog = () => {
                     ? description.slice(0, 200) + "..."
                     : description;
                 const imageUrl = picture.length
-                  ? `http://localhost:3002/${picture[0]}`
+                  ? `${requestUrl}/${picture[0]}`
                   : imgPlaceholder;
                 return (
                   <View

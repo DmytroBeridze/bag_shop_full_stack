@@ -23,6 +23,7 @@ import { getAllPosts } from "../../adminPanel/addPostsForm/postSlice";
 
 const CatalogElement = () => {
   const { id } = useParams();
+
   const dispatch = useDispatch();
   const { oneProduct, oneProductisloading, oneProductStatus, quantity } =
     useSelector((state) => state.galleryReducer);

@@ -17,6 +17,7 @@ import { deletePost, getAllPosts } from "../addPostsForm/postSlice";
 import EditPost from "../editPost/EditPost";
 
 const DisplayPosts = ({ imageModal, getTargetId }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const { posts, postStatus } = useSelector((state) => state.postsReducer);
 
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ const DisplayPosts = ({ imageModal, getTargetId }) => {
                   dispatch={dispatch}
                   setModalShow={setModalShow}
                   getTargetId={getTargetId}
+                  requestUrl={requestUrl}
                 />
               );
             })
@@ -82,6 +84,7 @@ const View = memo(
     dispatch,
     setModalShow,
     getTargetId,
+    requestUrl,
     ...args
   }) => {
     const { description, picture, name, createdAt } = args;
@@ -114,7 +117,7 @@ const View = memo(
                 return (
                   <div className="table__img" key={elem}>
                     <img
-                      src={`http://localhost:3002/${elem}`}
+                      src={`${requestUrl}/${elem}`}
                       alt={name}
                       className="w-100 h-100 object-fit-cover rounded"
                       onClick={(e) => imageModal(e.target)}

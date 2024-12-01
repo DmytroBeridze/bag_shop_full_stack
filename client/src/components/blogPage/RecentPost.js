@@ -7,13 +7,14 @@ import Moment from "react-moment";
 import pageUp from "../../features/PageUp";
 
 const RecentPost = ({ recentPosts }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   return recentPosts.length ? (
     <ul>
       {recentPosts.map((elem) => {
         const { _id, createdAt, name, picture } = elem;
 
         const imgUrl = picture.length
-          ? `http://localhost:3002/${picture[0]}`
+          ? `${requestUrl}/${picture[0]}`
           : imgPlaceholder;
         return (
           <li key={_id}>

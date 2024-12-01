@@ -7,12 +7,13 @@ const initialState = {
   postStatus: null,
   isloading: false,
 };
+const requestUrl = process.env.REACT_APP_REQUEST;
 
 // create
 export const addPosts = createAsyncThunk("posts/addPosts", async (body) => {
   const { adminRequest } = useHttp();
   const { data } = await adminRequest(
-    "http://localhost:3002/api/blog/posts",
+    `${requestUrl}/api/blog/posts`,
     "post",
     body,
     { "Content-type": "multipart/form-data" }
@@ -23,7 +24,7 @@ export const addPosts = createAsyncThunk("posts/addPosts", async (body) => {
 // getAll
 export const getAllPosts = createAsyncThunk("posts/getAllPosts", async () => {
   const { adminRequest } = useHttp();
-  const { data } = await adminRequest("http://localhost:3002/api/blog/posts");
+  const { data } = await adminRequest(`${requestUrl}/api/blog/posts`);
   return data;
 });
 
@@ -32,9 +33,7 @@ export const getPostsById = createAsyncThunk(
   "posts/getPostsById",
   async (id) => {
     const { adminRequest } = useHttp();
-    const { data } = await adminRequest(
-      `http://localhost:3002/api/blog/posts/${id}`
-    );
+    const { data } = await adminRequest(`${requestUrl}/api/blog/posts/${id}`);
     return data;
   }
 );
@@ -45,7 +44,7 @@ export const deletePost = createAsyncThunk("posts/deletePost", async (body) => {
 
   const { adminRequest } = useHttp();
   const { data } = await adminRequest(
-    `http://localhost:3002/api/blog/posts/${id}`,
+    `${requestUrl}/api/blog/posts/${id}`,
     "delete",
     body
   );
@@ -59,7 +58,7 @@ export const editPost = createAsyncThunk("posts/editPost", async (formData) => {
   const { _id } = Object.fromEntries(formData);
 
   const { data } = await adminRequest(
-    `http://localhost:3002/api/blog/posts/${_id}`,
+    `${requestUrl}/api/blog/posts/${_id}`,
     "put",
     formData,
     { "Content-type": "multipart/form-data" }
@@ -193,5 +192,5 @@ const postsSlice = createSlice({
   },
 });
 
-const { actions, reducer } = postsSlice;
+const { reducer } = postsSlice;
 export default reducer;

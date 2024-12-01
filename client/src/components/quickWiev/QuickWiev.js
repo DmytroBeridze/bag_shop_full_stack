@@ -12,6 +12,8 @@ import setToLocalStorage from "../../features/setToLocalStorage";
 import Counter from "../counter/Counter";
 
 const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [valueCounter, setValueCounter] = useState(1);
 
@@ -33,7 +35,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
             <div className="quickPreview__preview p-3 mb-1">
               <img
                 className="w-100 "
-                src={`http://localhost:3002/${picture[activeIndex]}`}
+                src={`${requestUrl}/${picture[activeIndex]}`}
                 alt="quickPreview"
               />
             </div>
@@ -50,7 +52,7 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
                   <img
                     style={{ opacity: i === activeIndex ? "1" : "0.5" }}
                     className="w-100 p-1"
-                    src={`http://localhost:3002/${elem}`}
+                    src={`${requestUrl}/${elem}`}
                     alt="quickPreview"
                   />
                 </SwiperSlide>

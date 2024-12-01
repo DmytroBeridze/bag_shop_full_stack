@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const SaleNavbarDropdown = memo(({ setDropdown }) => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const { goods } = useSelector((state) => state.galleryReducer);
   const saleGoods = goods.filter((elem) => elem.sale === "true");
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const SaleNavbarDropdown = memo(({ setDropdown }) => {
             const { price } = JSON.parse(parameters);
 
             const img = picture.length
-              ? `http://localhost:3002/${picture[0]}`
+              ? `${requestUrl}/${picture[0]}`
               : imgPlaceholder;
             return (
               <li key={_id}>

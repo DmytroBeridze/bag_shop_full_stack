@@ -4,13 +4,14 @@ import ImageError from "../error/imageError/ImageError";
 import { NavLink } from "react-router-dom";
 
 const CollectionCard = ({ id, ...params }) => {
-  const { mainType, picture, dataLength, sale } = params;
+  const requestUrl = process.env.REACT_APP_REQUEST;
+  const { mainType, picture, dataLength } = params;
 
   return (
     <div className="collection-card">
       <div className="collection-card__image">
         {picture ? (
-          <img src={`http://localhost:3002/${picture[0]}`} alt="card-image" />
+          <img src={`${requestUrl}/${picture[0]}`} alt="card-image" />
         ) : (
           <ImageError />
         )}

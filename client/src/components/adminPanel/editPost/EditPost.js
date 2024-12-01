@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { editPost } from "../addPostsForm/postSlice";
 
 const EditPost = () => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const imageRef = useRef([]);
 
   const targetId = useContext(AdminContext);
@@ -39,10 +40,9 @@ const EditPost = () => {
   // find not deleted pictures
   const noDelete = () => {
     let res = imageRef.current.filter(
-      (elem) =>
-        !deletedPicture.includes(elem.src.replace("http://localhost:3002/", ""))
+      (elem) => !deletedPicture.includes(elem.src.replace(`${requestUrl}/`, ""))
     );
-    return res.map((elem) => elem.src.replace("http://localhost:3002/", ""));
+    return res.map((elem) => elem.src.replace(`${requestUrl}/`, ""));
   };
 
   // form submit
@@ -77,7 +77,7 @@ const EditPost = () => {
   // get target goods
   const fetchOnePost = async () => {
     const { data } = await adminRequest(
-      `http://localhost:3002/api/blog/posts/${targetId}`
+      `${requestUrl}/api/blog/posts/${targetId}`
     );
 
     setName(data.name);
@@ -139,7 +139,7 @@ const EditPost = () => {
               picture.map((elem, i) => (
                 <div className="photo-prev__cont" key={i}>
                   <img
-                    src={`http://localhost:3002/${elem} `}
+                    src={`${requestUrl}/${elem} `}
                     alt="img"
                     className="w-100 h-100 rounded object-fit-cover"
                     ref={(elem) => (imageRef.current[i] = elem)}
@@ -151,10 +151,7 @@ const EditPost = () => {
                     onClick={() => {
                       setDeletedPicture((deletedPicture) => [
                         ...deletedPicture,
-                        imageRef.current[i].src.replace(
-                          "http://localhost:3002/",
-                          ""
-                        ),
+                        imageRef.current[i].src.replace(`${requestUrl}/`, ""),
                       ]);
                       imageRef.current[i].classList.add("deleted");
                     }}

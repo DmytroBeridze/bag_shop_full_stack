@@ -1,6 +1,6 @@
 import "./sale.scss";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllGoods } from "../../gallery/gallerySlice";

@@ -16,6 +16,7 @@ import RecentPost from "../../blogPage/RecentPost";
 import PromoProducts from "../../promoProducts/PromoProducts";
 
 const Post = () => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const dispatch = useDispatch();
   const ref = useRef();
 
@@ -80,7 +81,7 @@ const Post = () => {
   const subtitle = description.split(".")[0];
   const desc = description.split(".").slice(1).join("");
   const imageUrl = picture.length
-    ? `http://localhost:3002/${picture[0]}`
+    ? `${requestUrl}/${picture[0]}`
     : imgPlaceholder;
 
   const goToPost = (direction) => {

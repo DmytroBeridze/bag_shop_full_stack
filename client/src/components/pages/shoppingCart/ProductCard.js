@@ -9,6 +9,8 @@ import pageUp from "../../../features/PageUp";
 
 const ProductCard = memo(
   ({ smallResize, middleResize, product, deleteElement }) => {
+    const requestUrl = process.env.REACT_APP_REQUEST;
+
     const dispatch = useDispatch();
     const { name, mainType, picture, counter, parameters, _id } = product;
     const { color, weight, price } = JSON.parse(parameters);
@@ -50,10 +52,7 @@ const ProductCard = memo(
             {/* -----picture */}
             <td className="table__product-cell ps-0" colSpan="5">
               <div className="table__card-picture">
-                <img
-                  src={`http://localhost:3002/${picture[0]}`}
-                  alt="product"
-                />
+                <img src={`${requestUrl}/${picture[0]}`} alt="product" />
               </div>
             </td>
           </tr>
@@ -65,10 +64,7 @@ const ProductCard = memo(
           {!smallResize && (
             <td className="table__product-cell ps-0">
               <div className="table__card-picture">
-                <img
-                  src={`http://localhost:3002/${picture[0]}`}
-                  alt="product"
-                />
+                <img src={`${requestUrl}/${picture[0]}`} alt="product" />
               </div>
             </td>
           )}

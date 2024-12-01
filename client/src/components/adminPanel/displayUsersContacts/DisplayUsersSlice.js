@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import useHttp from "../../../hooks/http.hooks";
 
+const requestUrl = process.env.REACT_APP_REQUEST;
+
 const initialState = {
   userContacts: [],
   isloading: false,
@@ -14,7 +16,7 @@ const getUsersContacts = createAsyncThunk(
     const { adminRequest } = useHttp();
 
     const { data } = await adminRequest(
-      "http://localhost:3002/api/contacts/userContact"
+      `${requestUrl}/api/contacts/userContact`
     );
     return data;
   }
@@ -26,7 +28,7 @@ const deleteContact = createAsyncThunk(
   async (id) => {
     const { adminRequest } = useHttp();
     const { data } = await adminRequest(
-      `http://localhost:3002/api/contacts/userContact/${id}`,
+      `${requestUrl}/api/contacts/userContact/${id}`,
       "delete",
       { id }
     );

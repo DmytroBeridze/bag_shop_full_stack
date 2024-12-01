@@ -7,13 +7,15 @@ const initialState = {
   contactStatus: null,
 };
 
+const requestUrl = process.env.REACT_APP_REQUEST;
+
 // --post
 export const sendContacts = createAsyncThunk(
   "contacts/sendContacts",
   async (body) => {
     const { adminRequest } = useHttp();
     const response = await adminRequest(
-      "http://localhost:3002/api/contacts/userContact",
+      `${requestUrl}/api/contacts/userContact`,
       "post",
       body,
       {

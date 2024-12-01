@@ -8,11 +8,13 @@ const initialState = {
   status: null,
 };
 
+const requestUrl = process.env.REACT_APP_REQUEST;
+
 // login
 export const loginFetch = createAsyncThunk("auth/loginFetch", async (value) => {
   const { adminRequest } = useHttp();
   const { data } = await adminRequest(
-    "http://localhost:3002/api/auth/admin/login",
+    `${requestUrl}/api/auth/admin/login`,
     "post",
     value
   );
@@ -24,10 +26,7 @@ export const loginFetch = createAsyncThunk("auth/loginFetch", async (value) => {
 export const getMe = createAsyncThunk("auth/getMe", async () => {
   const { adminRequest } = useHttp();
 
-  const { data } = await adminRequest(
-    "http://localhost:3002/api/auth/admin/me",
-    "get"
-  );
+  const { data } = await adminRequest(`${requestUrl}/api/auth/admin/me`, "get");
   return data;
 });
 

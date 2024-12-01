@@ -3,6 +3,7 @@ import "./preview.scss";
 import { useSelector } from "react-redux";
 
 const Preview = () => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const { products, allGoodsPrice } = useSelector(
     (state) => state.shoppingCartReducer
   );
@@ -11,7 +12,7 @@ const Preview = () => {
     <div className="checkout__preview">
       {/* details block */}
       {products.map((product) => (
-        <View product={product} key={product._id} />
+        <View product={product} key={product._id} requestUrl={requestUrl} />
       ))}
 
       <div
@@ -33,7 +34,7 @@ const Preview = () => {
   );
 };
 
-const View = ({ product }) => {
+const View = ({ product, requestUrl }) => {
   const { name, totalPrice, mainType, parameters, picture, counter } = product;
   const { price, color, weight } = JSON.parse(parameters);
   return (
@@ -42,7 +43,7 @@ const View = ({ product }) => {
       <div className="d-flex align-items-center justify-content-between gap-2">
         <div className="d-flex align-items-center">
           <div className="checkout__product-img">
-            <img src={`http://localhost:3002/${picture[0]}`} alt="img" />
+            <img src={`${requestUrl}/${picture[0]}`} alt="img" />
 
             <div className="checkout__product-quanity">{counter}</div>
           </div>

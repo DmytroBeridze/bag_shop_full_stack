@@ -8,6 +8,7 @@ import Button from "../../buttons/Buttons";
 import Preloader from "../../preloader/Preloader";
 
 const LatestFromBlog = () => {
+  const requestUrl = process.env.REACT_APP_REQUEST;
   const navigate = useNavigate();
   const { posts, isloading, postStatus } = useSelector(
     (state) => state.postsReducer
@@ -52,7 +53,7 @@ const LatestFromBlog = () => {
 
             <div className="latestFromBlog__photo-content">
               <img
-                src={`http://localhost:3002/${picture}`}
+                src={`${requestUrl}/${picture}`}
                 alt="latestFromBlog__photo-content"
               />
             </div>
