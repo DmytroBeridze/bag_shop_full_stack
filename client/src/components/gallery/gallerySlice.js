@@ -62,7 +62,7 @@ const gallerySlice = createSlice({
   extraReducers: (builder) => {
     // get all googs
     builder
-      .addCase(fetchAllGoods.pending, (state, action) => {
+      .addCase(fetchAllGoods.pending, (state) => {
         state.isloading = true;
         state.status = null;
       })

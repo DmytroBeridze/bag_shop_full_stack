@@ -1,13 +1,13 @@
 import "./Gallery.scss";
-import Preloader from "../preloader/Preloader";
 
+import Preloader from "../preloader/Preloader";
 import GalleryCard from "./GalleryCard";
 import ModalPopup from "../modal/Modal";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { forwardRef, useEffect, useState } from "react";
-import { fetchGoodsById } from "./gallerySlice";
+import { clearOneProductState, fetchGoodsById } from "./gallerySlice";
 import QuickView from "../quickWiev/QuickWiev";
 import AddedToCart from "../addedToCart/AddedToCart";
 
@@ -15,9 +15,14 @@ const Gallery = forwardRef(
   ({ goodsArray, columns = 4, seeMore = false }, ref) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isloading, status, oneProduct, quantity, elemId } = useSelector(
-      (state) => state.galleryReducer
-    );
+    const {
+      isloading,
+      oneProductisloading,
+      status,
+      oneProduct,
+      quantity,
+      elemId,
+    } = useSelector((state) => state.galleryReducer);
 
     // ------quantity columns
     const galleryStyle = {
@@ -36,6 +41,7 @@ const Gallery = forwardRef(
 
     // ------show modal FromGalleryCard
     const productCartOpenFromGalleryCard = (id) => {
+      dispatch(clearOneProductState());
       setAddedCart(id);
     };
 
@@ -48,7 +54,10 @@ const Gallery = forwardRef(
     }, [elemId]);
 
     useEffect(() => {
-      goodsId && dispatch(fetchGoodsById(goodsId));
+      if (goodsId) {
+        dispatch(clearOneProductState());
+        dispatch(fetchGoodsById(goodsId));
+      }
     }, [goodsId]);
 
     const productCartClose = () => {
@@ -124,7 +133,7 @@ const Gallery = forwardRef(
           btnstyle="btn-secondary"
         >
           <QuickView
-            oneProduct={oneProduct}
+            oneProduct={oneProductisloading ? null : oneProduct}
             productCartOpen={productCartOpenFromQuickView}
             handleClose={handleClose}
           />
@@ -137,7 +146,7 @@ const Gallery = forwardRef(
           btnstyle="btn-secondary"
         >
           <AddedToCart
-            oneProduct={oneProduct}
+            oneProduct={oneProductisloading ? null : oneProduct}
             id={addedCart}
             quantity={quontity}
           />

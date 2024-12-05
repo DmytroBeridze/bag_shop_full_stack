@@ -10,6 +10,7 @@ import { Navigation } from "swiper/modules";
 import { useState } from "react";
 import setToLocalStorage from "../../features/setToLocalStorage";
 import Counter from "../counter/Counter";
+import Preloader from "../preloader/Preloader";
 
 const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
   const requestUrl = process.env.REACT_APP_REQUEST;
@@ -23,6 +24,14 @@ const QuickView = ({ oneProduct, productCartOpen, handleClose }) => {
     productCartOpen(valueCounter);
     setToLocalStorage("goods", { ...oneProduct, counter: valueCounter });
   };
+
+  if (!oneProduct) {
+    return (
+      <div style={{ paddingTop: "50px" }}>
+        <Preloader />
+      </div>
+    );
+  }
 
   if (oneProduct) {
     const { name, type, parameters, picture } = oneProduct;

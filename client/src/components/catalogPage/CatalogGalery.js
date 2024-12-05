@@ -28,6 +28,7 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
   const [transition, setTransition] = useState(false);
 
   const { mainType } = useParams();
+
   const filter = location.state?.filter;
 
   const [quantity, setQuantity] = useState(6);
@@ -83,14 +84,15 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
     if (galleryElement) {
       const { top } = galleryElement.getBoundingClientRect();
       const offset = 200;
-      console.log(window.scrollY + top);
 
+      const scrollTarget = Math.max(0, window.scrollY + top - offset);
       window.scrollTo({
-        top: window.scrollY + top - offset,
+        top: scrollTarget,
         behavior: "smooth",
       });
     }
   };
+
   // ---------next page
   const nextPage = () => {
     if (lastIndex < products.length) {
@@ -100,8 +102,6 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
       setTimeout(() => {
         setFirstIndex(+lastIndex);
         setLastIndex(Math.min(+lastIndex + quantity, products.length));
-        scrollGalleryIntoView();
-
         setTransition(false);
       }, 500);
     }
@@ -116,12 +116,14 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
       setTimeout(() => {
         setLastIndex(firstIndex);
         setFirstIndex(Math.max(firstIndex - quantity, 0));
-        scrollGalleryIntoView();
-
         setTransition(false);
       }, 500);
     }
   };
+
+  useEffect(() => {
+    scrollGalleryIntoView();
+  }, [firstIndex, lastIndex]);
 
   useEffect(() => {
     setLastIndex(quantity);
@@ -144,7 +146,7 @@ const CatalogGalery = ({ goods, isloading, status, title }) => {
         setCollectionsName(`${mainType[0].toUpperCase()}${mainType.slice(1)} `);
         setProducts(filteredProducts());
         setTransition(false);
-      }, 500);
+      }, 200);
     }
   }, [goods, mainType, sortProducts]);
 

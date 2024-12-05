@@ -36,7 +36,7 @@ const Post = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllPosts());
+    // dispatch(getAllPosts());
     pageUp();
   }, [dispatch]);
 

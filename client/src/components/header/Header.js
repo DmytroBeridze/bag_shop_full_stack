@@ -8,7 +8,7 @@ import { CgClose } from "react-icons/cg";
 
 import { useSelector } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
@@ -22,6 +22,7 @@ const Header = () => {
   const [modalToggle, setModalToggle] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { productsQuantity } = useSelector(
     (state) => state.shoppingCartReducer
@@ -150,9 +151,11 @@ const Header = () => {
                   <NavLink
                     to="/sale/backpacks"
                     className="d-flex gap-1 align-items-center"
-                    style={({ isActive }) => ({
-                      color: isActive ? "#bb7311" : "#ffffff",
-                    })}
+                    style={{
+                      color: location.pathname.startsWith("/sale")
+                        ? "#bb7311"
+                        : "#ffffff",
+                    }}
                     onClick={() => setDropdown(false)}
                   >
                     <h4>SALE</h4>

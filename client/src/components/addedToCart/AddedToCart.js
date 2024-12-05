@@ -2,6 +2,7 @@ import "./addedToCart.scss";
 
 import Button from "../buttons/Buttons";
 import {
+  clearOneProductState,
   fetchGoodsById,
   productCartOpen,
   productCartOpenFromGalleryCard,
@@ -10,6 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Preloader from "../preloader/Preloader";
 
 const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
   const dispatch = useDispatch();
@@ -24,6 +26,14 @@ const AddedToCart = ({ oneProduct, quantity = 1, id }) => {
   useEffect(() => {
     id && dispatch(fetchGoodsById(id));
   }, []);
+
+  if (!oneProduct) {
+    return (
+      <div style={{ paddingTop: "50px" }}>
+        <Preloader />
+      </div>
+    );
+  }
 
   if (oneProduct) {
     const { name, picture } = oneProduct;

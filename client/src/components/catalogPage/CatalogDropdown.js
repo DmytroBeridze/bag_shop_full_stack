@@ -14,7 +14,8 @@ const CatalogDropdown = memo(
       .join("/")
       .replace(/\/+/g, "/");
 
-    const handleFilterClick = (link, filterName) => {
+    const handleFilterClick = (link, filterName, e) => {
+      e.preventDefault();
       navigate(`/catalog/galery/${link}`, { state: { filter: filterName } });
     };
 
@@ -59,24 +60,26 @@ const CatalogDropdown = memo(
         <ul className="catalog-dropdown">
           {links.map((elem) => {
             const { mainType, type } = elem;
-
             return (
               // -----------mainType
               <li key={mainType} className="catalog-dropdown__mainType">
                 <Link
                   to={`/catalog/galery/${mainType}`}
                   className="catalog-dropdown__link"
-                  onClick={setDropdown}
+                  onClick={() => setDropdown && setDropdown(false)}
+                  // onClick={setDropdown}
                 >
                   {mainType}
                 </Link>
-
                 {/* ---------type */}
                 <ul className="catalog-dropdown__type">
                   {type.map((item) => (
                     <li
                       key={item}
-                      onClick={() => handleFilterClick(mainType, item)}
+                      onClick={(e) => {
+                        handleFilterClick(mainType, item, e);
+                        setDropdown && setDropdown(false);
+                      }}
                     >
                       <a href="">{item}</a>
                     </li>

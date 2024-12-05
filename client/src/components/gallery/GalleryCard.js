@@ -1,6 +1,6 @@
 import "./galleryCard.scss";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import Button from "../buttons/Buttons";
@@ -33,6 +33,22 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
     >
       <div className="gallery-card__image">
         {picture ? (
+          <>
+            <img
+              src={`${requestUrl}/${picture[2] || picture[0]}`}
+              alt="card-image"
+              style={!changePhoto ? { display: "none" } : { display: "block" }}
+            />
+            <img
+              src={`${requestUrl}/${picture[0]}`}
+              alt="card-image"
+              style={changePhoto ? { display: "none" } : { display: "block" }}
+            />
+          </>
+        ) : (
+          <ImageError />
+        )}
+        {/* {picture ? (
           <img
             src={`${requestUrl}/${
               !changePhoto || !picture[2] ? picture[0] : picture[2]
@@ -41,7 +57,7 @@ const GalleryCard = ({ id, handleModal, productCartOpen, ...params }) => {
           />
         ) : (
           <ImageError />
-        )}
+        )} */}
 
         {/* ---menu-selection */}
         <div className="menu-selection">
